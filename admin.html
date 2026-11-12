@@ -1360,9 +1360,9 @@ html.mg-lock{overflow:hidden}
 .mg-row .nm small{color:var(--muted);direction:ltr;display:block;text-align:right;word-break:break-all}
 .mg-btns{display:flex;gap:8px;flex-wrap:wrap}
 .mg-btns .btn{padding:8px 14px;font-size:13.5px}
-.mg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.mg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
 .mg-card{border-radius:18px;overflow:hidden;padding:0}
-.mg-card .cv{aspect-ratio:4/3;background:rgba(0,0,0,.2);display:grid;place-items:center;color:var(--muted);font-size:13px}
+.mg-card .cv{aspect-ratio:1/1;background:rgba(0,0,0,.2);display:grid;place-items:center;color:var(--muted);font-size:13px}
 .mg-card .cv img{width:100%;height:100%;object-fit:cover}
 .mg-card .bd{padding:10px 12px 12px}
 .mg-card .bd b{display:block;font-family:'Cairo',sans-serif;margin-bottom:8px}
@@ -1377,9 +1377,28 @@ html.mg-lock{overflow:hidden}
 .mg-two{display:grid;grid-template-columns:1fr;gap:0 14px}
 @media(min-width:700px){.mg-two{grid-template-columns:1fr 1fr}}
 .mg-cov{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.mg-cov img{width:110px;aspect-ratio:4/3;object-fit:cover;border-radius:12px}
+.mg-cov img{width:110px;aspect-ratio:1/1;object-fit:cover;border-radius:12px}
 .mg-prog{position:fixed;inset:0;z-index:1600;display:none;place-items:center;background:rgba(8,4,6,.6);color:#fff;font-family:'Cairo',sans-serif;font-size:18px}
 .mg-prog.on{display:grid}
+
+.mg-r1{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.mg-r1 .btn{padding:9px 6px;font-size:13.5px;justify-content:center;width:100%}
+.mg-r2{display:flex;align-items:center;gap:8px}
+.mg-r2 .sp{flex:1}
+.mg-ib{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--glass-2);display:grid;place-items:center;font-size:13px;color:var(--text);cursor:pointer;flex:none}
+.mg-ib:hover{border-color:var(--gold)}
+.mg-ib.del{color:#c0392b;border-color:rgba(192,57,43,.4)}
+.mg-ib .ic{width:18px;height:18px}
+.mg-chips{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 18px}
+.mg-chip{display:flex;align-items:center;gap:8px;padding:8px 8px 8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass-2);font-family:'Cairo',sans-serif}
+/* أزرار الخدمات في صور الأعمال */
+#svcCard{display:none!important}
+.mg-acts{display:flex;align-items:center;gap:8px}
+.mg-acts .btn{flex:1}
+.m-add{border:2px dashed var(--line)!important;background:transparent!important;cursor:pointer}
+.m-add .m-thumb{display:grid;place-items:center;font-size:44px;color:var(--gold);background:rgba(0,0,0,.06)}
+.mg-mini{position:fixed;inset:0;z-index:1700;display:grid;place-items:center;padding:16px;background:rgba(8,4,6,.6)}
+.mg-mini>div{width:min(420px,100%);padding:22px;border-radius:22px}
 </style>
 </head>
 <body class="admin-page">
@@ -1484,7 +1503,7 @@ html.mg-lock{overflow:hidden}
 'use strict';
 var $=function(s,r){return(r||document).querySelector(s)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return'&#'+c.charCodeAt(0)+';'})};
-var db=null,S={folders:[],projects:[],f:null},E=null,busy=false;
+var db=null,S={folders:[],projects:[],f:null,gov:['الإسكندرية']},E=null,busy=false;
 var fab=document.createElement('button');fab.type='button';fab.className='btn btn-gold mg-fab';fab.hidden=true;
 fab.innerHTML='<svg class="ic"><use href="#i-layers"/></svg>المجلدات والمشاريع';
 var ov=document.createElement('div');ov.className='mg';ov.setAttribute('role','dialog');ov.setAttribute('aria-label','المجلدات والمشاريع');
@@ -1524,7 +1543,8 @@ function enc(img,max,q0,lim){
     r={data:d,w:cw,h:ch};if(d.length<=lim||max<500)return r;max=Math.round(max*.8);
   }
 }
-function thumbOf(src){return new Promise(function(ok){var i=new Image();i.onload=function(){ok(enc(i,520,.72,60000).data)};i.onerror=function(){ok('')};i.src=src})}
+function sq(img,size,q0,lim){var w=img.naturalWidth||img.width,h=img.naturalHeight||img.height,s=Math.min(w,h),c=document.createElement('canvas');c.width=c.height=size;c.getContext('2d').drawImage(img,(w-s)/2,(h-s)/2,s,s,0,0,size,size);var q=q0,d;do{d=c.toDataURL('image/webp',q);if(d.indexOf('data:image/webp')!==0)d=c.toDataURL('image/jpeg',q);q-=.08}while(d.length>lim&&q>.3);return d}
+function thumbOf(src){return new Promise(function(ok){var i=new Image();i.onload=function(){ok(sq(i,480,.72,60000))};i.onerror=function(){ok('')};i.src=src})}
 
 /* ---------- البيانات ---------- */
 function loadFolders(){return D().collection('folders').get().then(function(s){S.folders=docs(s).sort(byOrd)})}
@@ -1543,17 +1563,14 @@ function shell(title,back,body){
 }
 function vFolders(){
   S.f=null;
-  shell('المجلدات','close','<div class="mg-top"><h2>مجلدات الأعمال</h2><button class="btn btn-gold" data-a="newF"><svg class="ic"><use href="#i-plus"/></svg>إضافة مجلد</button></div>'+
+  shell('المجلدات','close','<div class="mg-top"><h2>مجلدات الأعمال</h2><div class="mg-btns"><button class="btn btn-glass" data-a="gov">محافظات الكاشير</button><button class="btn btn-gold" data-a="newF"><svg class="ic"><use href="#i-plus"/></svg>إضافة مجلد</button></div></div>'+
   (S.folders.length?S.folders.map(function(f,i){return'<div class="mg-row glass"><div class="nm"><b>'+esc(f.name)+'</b><small>?f='+esc(f.slug)+'</small><small style="direction:rtl">'+(f.count||0)+' مشروع</small></div><div class="mg-btns">'+
-    '<button class="btn btn-gold" data-a="openF" data-i="'+i+'">فتح</button><button class="btn btn-glass" data-a="editF" data-i="'+i+'">تعديل</button><button class="btn btn-ghost" data-a="copyF" data-i="'+i+'">نسخ الرابط</button>'+
-    '<button class="btn btn-ghost" data-a="upF" data-i="'+i+'" title="للأعلى">▲</button><button class="btn btn-ghost" data-a="dnF" data-i="'+i+'" title="للأسفل">▼</button><button class="btn btn-danger" data-a="delF" data-i="'+i+'">حذف</button></div></div>'}).join(''):'<p class="mg-note">لا توجد مجلدات بعد. اضغط «إضافة مجلد» للبدء.</p>'));
+    '<button class="btn btn-gold" data-a="openF" data-i="'+i+'">فتح</button><button class="btn btn-glass" data-a="editF" data-i="'+i+'">تعديل</button><button class="btn btn-glass" data-a="copyF" data-i="'+i+'">نسخ الرابط</button><button class="mg-ib" data-a="upF" data-i="'+i+'" title="للأعلى">&#9650;</button><button class="mg-ib" data-a="dnF" data-i="'+i+'" title="للأسفل">&#9660;</button><button class="mg-ib del" data-a="delF" data-i="'+i+'" title="حذف"><svg class="ic"><use href="#i-trash"/></svg></button></div></div>'}).join(''):'<p class="mg-note">لا توجد مجلدات بعد. اضغط «إضافة مجلد» للبدء.</p>'));
 }
 function vFolder(){
   var f=S.f;
   shell(f.name,'folders','<div class="mg-top"><h2>'+esc(f.name)+'</h2><button class="btn btn-gold" data-a="newP"><svg class="ic"><use href="#i-plus"/></svg>إضافة مشروع</button></div>'+
-  (S.projects.length?'<div class="mg-grid">'+S.projects.map(function(p,i){return'<div class="mg-card glass"><div class="cv">'+(p.cover?'<img src="'+esc(p.cover)+'" alt="">':'بدون صورة')+'</div><div class="bd"><b>'+esc(p.name)+'</b><div class="mg-btns">'+
-    '<button class="btn btn-gold" data-a="editP" data-i="'+i+'">تعديل</button><button class="btn btn-ghost" data-a="copyP" data-i="'+i+'">الرابط</button>'+
-    '<button class="btn btn-ghost" data-a="upP" data-i="'+i+'" title="تقديم">◀</button><button class="btn btn-ghost" data-a="dnP" data-i="'+i+'" title="تأخير">▶</button><button class="btn btn-danger" data-a="delP" data-i="'+i+'">حذف</button></div></div></div>'}).join('')+'</div>':'<p class="mg-note">لا توجد مشاريع في هذا المجلد. اضغط «إضافة مشروع».</p>'));
+  (S.projects.length?'<div class="mg-grid">'+S.projects.map(function(p,i){return'<div class="mg-card glass"><div class="cv">'+(p.cover?'<img src="'+esc(p.cover)+'" alt="">':'بدون صورة')+'</div><div class="bd"><b>'+esc(p.name)+'</b><div class="mg-r1"><button class="btn btn-gold" data-a="editP" data-i="'+i+'">تعديل</button><button class="btn btn-glass" data-a="copyP" data-i="'+i+'">الرابط</button></div><div class="mg-r2"><button class="mg-ib" data-a="upP" data-i="'+i+'" title="تقديم">&#9654;</button><button class="mg-ib" data-a="dnP" data-i="'+i+'" title="تأخير">&#9664;</button><span class="sp"></span><button class="mg-ib del" data-a="delP" data-i="'+i+'" title="حذف"><svg class="ic"><use href="#i-trash"/></svg></button></div></div></div>'}).join('')+'</div>':'<p class="mg-note">لا توجد مشاريع في هذا المجلد. اضغط «إضافة مشروع».</p>'));
 }
 function vFolderForm(f){
   E={kind:'folder',id:f?f.id:null,touched:!!f};
@@ -1578,7 +1595,7 @@ function vProjForm(){
   var n=$('#mgPn'),s=$('#mgPs');n.addEventListener('input',function(){E.name=n.value;if(!E.touched){s.value=slugify(n.value);E.slug=s.value}});s.addEventListener('input',function(){E.touched=true;E.slug=s.value});
   $('#mgPd').addEventListener('input',function(e){E.desc=e.target.value});$('#mgPl').addEventListener('input',function(e){E.link=e.target.value});
   $('#mgPf').addEventListener('change',function(e){addFiles(e.target.files)});
-  $('#mgPc').addEventListener('change',function(e){var f=e.target.files[0];if(!f)return;wait(true,'جاري تجهيز الغلاف...');loadImg(f).then(function(i){E.custom=enc(i,520,.72,60000).data;wait(false);vProjForm()}).catch(fail)});
+  $('#mgPc').addEventListener('change',function(e){var f=e.target.files[0];if(!f)return;wait(true,'جاري تجهيز الغلاف...');loadImg(f).then(function(i){E.custom=sq(i,480,.72,60000);wait(false);vProjForm()}).catch(fail)});
 }
 function addFiles(files){
   var a=Array.prototype.slice.call(files||[]);if(!a.length)return;
@@ -1588,6 +1605,13 @@ function addFiles(files){
     loadImg(a[i]).then(function(im){var r=enc(im,1600,.82,780000);E.imgs.push({key:'n'+Date.now()+'_'+i,id:null,data:r.data,w:r.w,h:r.h})}).catch(function(){toast('تعذّر قراءة إحدى الصور',true)}).then(function(){i++;nx()});
   })();
 }
+
+
+function vGov(){
+  shell('محافظات نظام الكاشير','folders','<div class="glass" style="padding:20px;border-radius:22px"><p class="mg-note" style="margin-top:0">المحافظات التي تخدمها بنفسك. تظهر للعميل في نموذج طلب نظام الكاشير.</p><div class="mg-chips">'+S.gov.map(function(g,i){return'<span class="mg-chip">'+esc(g)+'<button class="mg-ib del" data-a="govDel" data-i="'+i+'" title="حذف"><svg class="ic"><use href="#i-trash"/></svg></button></span>'}).join('')+'</div><div class="mg-two"><div class="field"><label>إضافة محافظة</label><input id="mgGn" maxlength="40" placeholder="مثال: البحيرة"></div></div><div class="mg-btns"><button class="btn btn-gold" data-a="govAdd">إضافة</button></div></div>');
+}
+function saveGov(){wait(true,'جاري الحفظ...');return D().doc('settings/gov').set({list:S.gov},{merge:true}).then(function(){wait(false);toast('تم الحفظ');vGov()}).catch(fail)}
+function loadGov(){return D().doc('settings/gov').get().then(function(s){var l=s.exists&&s.data().list;if(l&&l.length)S.gov=l.map(String)}).catch(function(){})}
 
 /* ---------- الحفظ ---------- */
 function saveFolder(){
@@ -1632,12 +1656,15 @@ function saveProj(){
 }
 
 /* ---------- الأحداث ---------- */
-fab.addEventListener('click',function(){ov.classList.add('on');document.documentElement.classList.add('mg-lock');wait(true,'جاري التحميل...');loadFolders().then(function(){wait(false);vFolders()}).catch(fail)});
+fab.addEventListener('click',function(){ov.classList.add('on');document.documentElement.classList.add('mg-lock');wait(true,'جاري التحميل...');Promise.all([loadFolders(),loadGov()]).then(function(){wait(false);vFolders()}).catch(fail)});
 function closeAll(){ov.classList.remove('on');document.documentElement.classList.remove('mg-lock')}
 ov.addEventListener('click',function(e){
   var b=e.target.closest('[data-a]');if(!b||busy)return;var a=b.getAttribute('data-a'),i=+b.getAttribute('data-i'),f=S.folders[i],p=S.projects[i];
   if(a==='close')return closeAll();
   if(a==='back'){var k=ov.dataset.back;if(k==='folder'&&S.f)vFolder();else if(k==='folders'||k==='folder')vFolders();else closeAll();return}
+  if(a==='gov')return vGov();
+  if(a==='govAdd'){var gv=$('#mgGn').value.trim();if(!gv)return;if(S.gov.indexOf(gv)<0)S.gov.push(gv);return saveGov()}
+  if(a==='govDel'){if(S.gov.length<2)return toast('اترك محافظة واحدة على الأقل',true);S.gov.splice(i,1);return saveGov()}
   if(a==='newF')return vFolderForm(null);
   if(a==='editF')return vFolderForm(f);
   if(a==='copyF')return copy(link(f.slug));
@@ -1659,6 +1686,46 @@ ov.addEventListener('click',function(e){
   if(a==='covDel'){E.custom='';return keep()}
 });
 function keep(){E.name=$('#mgPn').value;E.slug=$('#mgPs').value;E.desc=$('#mgPd').value;E.link=$('#mgPl').value;vProjForm()}
+
+/* ---------- صور الأعمال: زر حذف بجانب كل خدمة وبطاقة «إضافة خدمة» ---------- */
+var gm=null,tmr=null;
+function enhance(){
+  var g=gm;if(!g)return;
+  [].forEach.call(g.querySelectorAll('.m-card'),function(c){
+    var b=c.querySelector('button[data-edit^="svc-"]');if(!b||c.querySelector('.mg-acts'))return;
+    var id=b.getAttribute('data-edit').slice(4),w=document.createElement('div');w.className='mg-acts';
+    b.parentNode.insertBefore(w,b);w.appendChild(b);
+    var t=document.createElement('button');t.type='button';t.className='icon-btn';t.setAttribute('data-mgdel',id);t.setAttribute('aria-label','حذف الخدمة');t.innerHTML='<svg class="ic"><use href="#i-trash"/></svg>';w.appendChild(t);
+  });
+  if(!g.querySelector('.m-add')){
+    var a=document.createElement('div');a.className='m-card glass m-add';
+    a.innerHTML='<div class="m-thumb" style="aspect-ratio:16/10">+</div><b style="font-size:14px;font-family:Cairo;line-height:1.5">خدمة جديدة</b><div class="mg-acts"><button class="btn btn-gold btn-sm" type="button" data-mgadd="1">إضافة خدمة</button>'+(document.getElementById('svcRestore')?'<button class="btn btn-ghost btn-sm" type="button" data-mgrestore="1">استعادة المحذوف</button>':'')+'</div>';
+    g.appendChild(a);
+  }
+}
+(function find(){
+  var g=document.getElementById('mediaGrid');
+  if(g){gm=g;enhance();new MutationObserver(function(){clearTimeout(tmr);tmr=setTimeout(enhance,50)}).observe(g,{childList:true});return}
+  setTimeout(find,700);
+})();
+function addDlg(){
+  var opts=$('#svcIcon')?$('#svcIcon').innerHTML:'<option value="star">نجمة</option>';
+  var d=document.createElement('div');d.className='mg-mini';
+  d.innerHTML='<div class="glass"><h3 style="margin-bottom:14px">إضافة خدمة جديدة</h3><div class="field"><label>اسم الخدمة</label><input id="mgSn" maxlength="90"></div><div class="field"><label>الأيقونة</label><select id="mgSi" class="in">'+opts+'</select></div><div class="mg-btns"><button class="btn btn-gold" data-x="ok">إضافة</button><button class="btn btn-ghost" data-x="no">إلغاء</button></div></div>';
+  document.body.appendChild(d);$('#mgSn',d).focus();
+  d.addEventListener('click',function(e){
+    var x=e.target.closest('[data-x]');if(e.target===d||(x&&x.getAttribute('data-x')==='no'))return d.remove();
+    if(x&&x.getAttribute('data-x')==='ok'){var n=$('#mgSn',d).value.trim();if(!n)return toast('اكتب اسم الخدمة',true);
+      var nm=$('#svcName'),ic=$('#svcIcon'),ad=$('#svcAdd');if(!nm||!ad){d.remove();return toast('تعذّر الإضافة',true)}
+      nm.value=n;if(ic)ic.value=$('#mgSi',d).value;nm.dispatchEvent(new Event('input',{bubbles:true}));d.remove();ad.click()}
+  });
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest&&e.target.closest('[data-mgdel],[data-mgadd],[data-mgrestore]');if(!t)return;
+  if(t.hasAttribute('data-mgdel')){var b=document.querySelector('#svcList [data-svcdel="'+t.getAttribute('data-mgdel')+'"]');if(b)b.click();else toast('تعذّر العثور على الخدمة',true)}
+  else if(t.hasAttribute('data-mgadd'))addDlg();
+  else{var r=$('#svcRestore');if(r)r.click()}
+});
 })();
 </script>
 </body>
