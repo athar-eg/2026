@@ -1,9 +1,27 @@
 /* أثر ATHAR — Service Worker */
-const VERSION='athar-v1.8.1';
+const VERSION='athar-v1.9.0';
 const SHELL = [
   './', './index.html', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png', './icons/favicon-48.png',
-  './assets/athar-logo.png'
+  './assets/athar-logo.png',
+  './assets/asset-0008d09fed.webp',
+  './assets/asset-1d65ddb9de.webp',
+  './assets/asset-20ea43d4f7.webp',
+  './assets/asset-23ae83cdde.webp',
+  './assets/asset-24ff4601b7.webp',
+  './assets/asset-36dd38d24c.webp',
+  './assets/asset-3ff90e9dfd.webp',
+  './assets/asset-4340b7db63.webp',
+  './assets/asset-4701dae1f4.webp',
+  './assets/asset-4913af0ae7.webp',
+  './assets/asset-9b2486d0e9.jpg',
+  './assets/asset-a97aefc3d5.webp',
+  './assets/asset-c81056cfc9.webp',
+  './assets/asset-c8c334cb4c.webp',
+  './assets/asset-cf41282973.webp',
+  './assets/asset-da10168e34.webp',
+  './assets/asset-eff58b0ef2.png',
+  './assets/asset-feeed311cb.webp'
 ];
 /* خدمات Firebase والمصادقة لا تُخزَّن أبداً */
 const BYPASS_HOSTS = ['firestore.googleapis.com', 'identitytoolkit.googleapis.com', 'securetoken.googleapis.com', 'firebaseinstallations.googleapis.com', 'www.googleapis.com', 'apis.google.com', 'accounts.google.com', 'firebase.googleapis.com'];
