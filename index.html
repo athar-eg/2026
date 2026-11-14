@@ -1076,41 +1076,43 @@ html{scrollbar-width:thin;scrollbar-color:rgba(141,44,69,.75) transparent}
 /* ===== مجلدات الأعمال والمشاريع (athar-works) ===== */
 #works{overflow:hidden}
 #works:not([hidden]) .sec-head{animation:wkIn .8s var(--ease) both}
-.fv-wrap{position:relative;margin-top:26px;padding:50px 0 26px;overflow:hidden}
-.fv-wrap::before,.fv-wrap::after{content:'';position:absolute;top:0;bottom:0;width:8%;z-index:2;pointer-events:none}
-.fv-wrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
-.fv-wrap::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
-.fv-wrap.static::before,.fv-wrap.static::after{display:none}
-.fv-track{display:flex;width:max-content;direction:ltr;will-change:transform;animation:fvMove var(--fvd,40s) linear infinite}
-.fv-wrap:hover .fv-track,.fv-wrap.hold .fv-track{animation-play-state:paused}
-.fv-set{display:flex;gap:44px;padding-right:44px}
-.fv-wrap.static .fv-track{animation:none;width:100%;justify-content:center}
-.fv-wrap.static .fv-set{flex-wrap:wrap;justify-content:center;padding-right:0;row-gap:40px}
-@keyframes fvMove{to{transform:translateX(-50%)}}
-.fv{position:relative;display:block;flex:none;width:clamp(220px,62vw,288px);direction:rtl;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent;perspective:1000px}
-.fv-box{position:relative;display:block;width:100%;aspect-ratio:1/.86;transform:translateY(var(--ty,0)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s var(--spring);transform-style:preserve-3d}
-.fv:hover .fv-box,.fv:focus-visible .fv-box{--ty:-8px}
-.fv-back{position:absolute;left:0;right:0;top:11%;bottom:0;border-radius:12px 24px 24px 24px;background:linear-gradient(165deg,#7d2139,#4f1022 65%,#3a0c19);box-shadow:0 20px 34px -14px rgba(40,6,16,.55),inset 0 1px 0 rgba(255,255,255,.1)}
-.fv-back::before{content:'';position:absolute;top:-11%;inset-inline-start:0;width:42%;height:12%;background:#6e1c33;border-radius:14px 14px 0 0;clip-path:polygon(0 0,80% 0,100% 100%,0 100%)}
-.fv-cv{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none}
-.fv-c{position:absolute;top:25%;aspect-ratio:1;margin:0;border-radius:11px;overflow:hidden;background:#2a0f17;border:2px solid rgba(255,255,255,.6);box-shadow:0 8px 16px rgba(0,0,0,.32);transition:transform .7s var(--spring);transition-delay:var(--d,0ms)}
-.fv-c img{width:100%;height:100%;object-fit:cover;display:block}
-.k3 .fv-c{width:29%}.k3 .i0{left:5%}.k3 .i1{left:35.5%}.k3 .i2{left:66%}
-.k2 .fv-c{width:37%}.k2 .i0{left:10%}.k2 .i1{left:53%}
-.k1 .fv-c{width:44%;left:28%}
-.fv:hover .fv-c,.fv:focus-visible .fv-c{transform:translateY(-10%)}
-.fv:hover .fv-c.i0,.fv:focus-visible .fv-c.i0{transform:translateY(-10%) rotate(-3deg)}
-.fv:hover .fv-c.i2,.fv:focus-visible .fv-c.i2{transform:translateY(-10%) rotate(3deg)}
-.fv-front{position:absolute;left:0;right:0;top:50%;bottom:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:12px 12px 24px 24px;background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,0) 40%),linear-gradient(175deg,#9a2b47,#681b30 60%,#46111f);border:1px solid rgba(221,162,84,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 -8px 20px rgba(0,0,0,.2);transform-origin:50% 100%;transition:transform .8s var(--spring);overflow:hidden}
-.fv-front::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 38%,rgba(255,236,190,.26) 50%,transparent 62%);transform:translateX(130%);transition:transform 1.1s var(--ease)}
-.fv:hover .fv-front,.fv:focus-visible .fv-front{transform:rotateX(-12deg)}
-.fv:hover .fv-front::after{transform:translateX(-130%)}
-.fv-logo{width:48%;height:58%;background:var(--logo-mark-cream) center/contain no-repeat;filter:drop-shadow(0 3px 8px rgba(0,0,0,.35));transition:transform .8s var(--spring)}
-.fv:hover .fv-logo{transform:scale(1.07)}
-.fv-ln{width:34%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#DDA254,transparent);margin-bottom:10px}
-.fv-cap{display:block;margin-top:20px}
-.fv-cap b{display:block;font-family:'Cairo',sans-serif;font-size:17px;font-weight:700;line-height:1.5;color:var(--text);white-space:normal}
-.fv-cap small{display:inline-block;margin-top:7px;padding:3px 13px;border-radius:999px;background:var(--glass-2);border:1px solid var(--glass-border);color:var(--text-2);font-size:12.5px}
+/* ===== أثر الحبر: أقسام الأعمال كبصمات على خط حبر متحرك ===== */
+.ink{position:relative;margin-top:14px;padding:30px 0 34px}
+.ink-path{position:absolute;left:0;top:50%;width:100%;height:210px;transform:translateY(-58%);pointer-events:none}
+.ink-path path{fill:none;stroke-linecap:round}
+.ip-base{stroke:rgba(221,162,84,.4);stroke-width:1.4}
+.ip-flow{stroke:url(#inkG);stroke-width:5;stroke-dasharray:130 870;animation:ipFlow 9s linear infinite}
+@keyframes ipFlow{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
+.ink-row{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:30px 36px;padding:0 14px}
+.st{position:relative;display:block;width:clamp(190px,46vw,220px);padding-top:104px;text-align:center;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.st-orb{position:relative;display:block;width:168px;height:168px;margin:0 auto;animation:stFloat 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-1.4s)}
+@keyframes stFloat{50%{transform:translateY(-8px)}}
+.st-orb>*{position:absolute}
+.st-bl{left:50%;top:50%;width:320px;height:320px;margin:-160px 0 0 -160px;background:radial-gradient(circle,rgba(125,33,57,.42),rgba(125,33,57,.16) 52%,transparent 72%);border-radius:48% 52% 55% 45%/50% 45% 55% 50%;transform:scale(0);opacity:0;transition:transform 1s var(--spring),opacity .6s;z-index:0}
+.st.on .st-bl{transform:scale(1);opacity:1;animation:inkMorph 7s ease-in-out infinite}
+@keyframes inkMorph{50%{border-radius:55% 45% 42% 58%/46% 56% 44% 54%}}
+.st-rg{border-radius:50%;z-index:1}
+.st-rg.a{inset:-11px;border:1.5px dashed rgba(221,162,84,.75);animation:stSpin 28s linear infinite}
+.st-rg.b{inset:6px;border:1.5px solid rgba(155,43,71,.6);animation:stRipple 3.6s ease-out infinite}
+.st-rg.c{animation-delay:1.8s}
+@keyframes stSpin{to{transform:rotate(360deg)}}
+@keyframes stRipple{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.34);opacity:0}}
+.st-ds{inset:-20px;border-radius:50%;z-index:1;animation:stSpin 20s linear infinite reverse}
+.st-ds i{position:absolute;width:9px;height:9px;margin:-4.5px;background:#DDA254;transform:rotate(45deg);box-shadow:0 0 10px rgba(221,162,84,.85)}
+.st-ds i:nth-child(1){left:50%;top:0}.st-ds i:nth-child(2){left:93%;top:75%}.st-ds i:nth-child(3){left:7%;top:75%}
+.st-core{inset:14px;z-index:3;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 32% 24%,#b43c5a,#771e37 52%,#44101f);border:1px solid rgba(221,162,84,.55);box-shadow:inset 0 2px 0 rgba(255,255,255,.22),0 16px 30px -10px rgba(60,10,26,.65);transition:transform .8s var(--spring)}
+.st.on .st-core,.st:hover .st-core{transform:scale(1.07)}
+.st-logo{width:54%;height:60%;background:var(--logo-mark-cream) center/contain no-repeat;filter:drop-shadow(0 3px 7px rgba(0,0,0,.35))}
+.st-cv{inset:0;z-index:2;pointer-events:none}
+.st-c{left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:14px;overflow:hidden;border:2px solid rgba(255,255,255,.8);box-shadow:0 10px 22px rgba(40,6,16,.4);opacity:0;transform:translate(0,0) scale(.2) rotate(0);transition:transform .85s var(--spring),opacity .4s;transition-delay:calc(var(--k)*70ms)}
+.st-c img{width:100%;height:100%;object-fit:cover;display:block}
+.st.on .st-c{opacity:1;transform:translate(var(--x),var(--y)) scale(1) rotate(var(--r));animation:stBob 3.8s ease-in-out infinite;animation-delay:calc(var(--k)*-.9s)}
+@keyframes stBob{50%{translate:0 -6px}}
+.st-cap{display:block;margin-top:26px;position:relative;z-index:2}
+.st-cap b{display:block;font-family:'Cairo',sans-serif;font-size:17px;font-weight:700;line-height:1.5;color:var(--text);white-space:normal;transition:color .4s}
+.st-cap small{display:inline-block;margin-top:7px;padding:3px 13px;border-radius:999px;background:var(--glass-2);border:1px solid var(--glass-border);color:var(--text-2);font-size:12.5px}
+.st.on .st-cap b{color:var(--gold)}
+.ink:not(.live) *{animation-play-state:paused!important}
 
 /* صفحة المجلد والمشروع */
 html.wk-lock{overflow:hidden}
@@ -1152,7 +1154,7 @@ html.wk-lock{overflow:hidden}
 #wk-lb .nx{top:50%;left:12px;transform:translateY(-50%)}
 #wk-lb .ct{position:absolute;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:#fff;opacity:.8;font-size:14px}
 .wk-toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom,0px));left:0;right:0;margin:auto;width:max-content;max-width:90vw;z-index:1100;padding:11px 22px;border-radius:999px;background:var(--glass-strong);border:1px solid var(--glass-border);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:var(--shadow);animation:wkIn .35s var(--ease)}
-@media(prefers-reduced-motion:reduce){.fv-track{animation:none!important}.fv-wrap{overflow-x:auto}}
+@media(prefers-reduced-motion:reduce){.ink *{animation:none!important}}
 
 /* بيانات نظام الكاشير في نموذج الطلب */
 #csx{border:1px solid var(--glass-border);background:var(--glass);border-radius:18px;padding:14px 14px 2px;margin-bottom:14px;animation:wkIn .4s var(--ease)}
@@ -1413,12 +1415,15 @@ html.wk-lock{overflow:hidden}
   </div>
 </section>
 
-<!-- ===== مجلدات الأعمال (athar-works) ===== -->
+<!-- ===== أثر الحبر: أقسام الأعمال (athar-works) ===== -->
 <section id="works" hidden aria-label="أعمالنا">
   <div class="container">
-    <div class="sec-head"><span class="eyebrow">أعمالنا</span><h2>مجلدات <span class="gold-text">أعمالنا</span></h2><p>تصفّح أقسام أعمالنا، واضغط على أي مجلد لتكتشف المشاريع التي بداخله.</p></div>
+    <div class="sec-head"><span class="eyebrow">أعمالنا</span><h2>بصمات <span class="gold-text">أثر</span></h2><p>كل بصمة قسم من أعمالنا. مرّر عليها لترى لمحة من المشاريع، واضغط لتدخل القسم.</p></div>
   </div>
-  <div class="fv-wrap"><div class="fv-track"></div></div>
+  <div class="ink">
+    <svg class="ink-path" viewBox="0 0 1200 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="inkG" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7d2139"/><stop offset=".6" stop-color="#b43c5a"/><stop offset="1" stop-color="#DDA254"/></linearGradient></defs><path id="inkP" class="ip-base" pathLength="1000" d="M-20,112 C120,8 250,214 410,112 S670,8 810,112 S1070,214 1220,100"/><path class="ip-flow" pathLength="1000" d="M-20,112 C120,8 250,214 410,112 S670,8 810,112 S1070,214 1220,100"/><g><animateMotion dur="15s" repeatCount="indefinite"><mpath href="#inkP"/></animateMotion><rect x="-5" y="-5" width="10" height="10" fill="#DDA254" transform="rotate(45)"/></g></svg>
+    <div class="ink-row"></div>
+  </div>
 </section>
 
 <section id="portfolio">
@@ -1727,7 +1732,6 @@ var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){r
 var safe=function(u){u=String(u||'').trim();if(!u)return'';if(!/^https?:\/\//i.test(u))u='https://'+u;try{var x=new URL(u);return(x.protocol==='http:'||x.protocol==='https:')?x.href:''}catch(e){return''}};
 var base0=document.title,F=null,PC={},db=null,rp=null,tk=0,cur={f:null,p:null},lb={a:[],i:0,el:null};
 var ARW='<svg class="ic" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg>';
-var wrap=$('.fv-wrap',sec),track=$('.fv-track',sec);
 
 /* ---------- البيانات ---------- */
 function dbp(){return rp||(rp=new Promise(function(ok,no){var n=0,t=setInterval(function(){n++;
@@ -1748,34 +1752,33 @@ function copy(u){var ok=function(){toast('تم نسخ الرابط')};
   function fb(){var i=document.createElement('input');i.value=u;document.body.appendChild(i);i.select();try{document.execCommand('copy');ok()}catch(e){}i.remove()}}
 function share(){var u=location.href;if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else copy(u)}
 
-/* ---------- واجهة المجلدات في الصفحة الرئيسية ---------- */
-function fv(f){
-  var pv=(f.prev||[]).slice(0,3),n=pv.length,k=n===3?'k3':n===2?'k2':'k1';
-  var c=pv.map(function(s,i){return'<span class="fv-c i'+i+'" style="--d:'+(i*60)+'ms"><img src="'+esc(s)+'" alt="" loading="lazy" decoding="async"></span>'}).join('');
-  return'<a class="fv" href="'+esc(url(f.slug))+'" data-f="'+esc(f.slug)+'" aria-label="'+esc(f.name)+'"><span class="fv-box"><span class="fv-back"></span><span class="fv-cv '+(n?k:'')+'">'+c+'</span><span class="fv-front"><i class="fv-logo"></i><i class="fv-ln"></i></span></span><span class="fv-cap"><b>'+esc(f.name)+'</b><small>'+cnt(f.count)+'</small></span></a>';
+/* ---------- أثر الحبر: الأقسام كبصمات على خط حبر متحرك، والأعمال تنبثق من الحبر ---------- */
+var ink=$('.ink',sec),row=$('.ink-row',sec),stn=[],live=false,hov=false,idx=-1,cyc=null;
+var calm=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches);
+var POS=[[-100,-112,-9],[0,-140,0],[100,-112,9]];
+function st(f,i){
+  var pv=(f.prev||[]).slice(0,3),pp=pv.length===1?[1]:pv.length===2?[0,2]:[0,1,2];
+  var c=pv.map(function(s,k){var p=POS[pp[k]];return'<span class="st-c" style="--k:'+k+';--x:'+p[0]+'px;--y:'+p[1]+'px;--r:'+p[2]+'deg"><img src="'+esc(s)+'" alt="" loading="lazy" decoding="async"></span>'}).join('');
+  return'<a class="st" style="--i:'+i+'" href="'+esc(url(f.slug))+'" data-f="'+esc(f.slug)+'" aria-label="'+esc(f.name)+'"><span class="st-orb"><i class="st-bl"></i><i class="st-rg a"></i><i class="st-rg b"></i><i class="st-rg b c"></i><span class="st-ds"><i></i><i></i><i></i></span><span class="st-cv">'+c+'</span><span class="st-core"><i class="st-logo"></i></span></span><span class="st-cap"><b>'+esc(f.name)+'</b><small>'+cnt(f.count)+'</small></span></a>';
 }
-var lastW=0;
 function build(){
   if(!F||!F.length){sec.hidden=true;return}
-  sec.hidden=false;
-  var set='<div class="fv-set">'+F.map(fv).join('')+'</div>';
-  wrap.classList.remove('static');track.style.removeProperty('--fvd');track.innerHTML=set;
-  var w=track.firstElementChild.scrollWidth;lastW=wrap.clientWidth;
-  if(w<=lastW+2){wrap.classList.add('static')}
-  else{track.innerHTML=set+set.replace(/<a /g,'<a tabindex="-1" aria-hidden="true" ');track.style.setProperty('--fvd',Math.max(20,Math.round(w/55))+'s')}
+  sec.hidden=false;row.innerHTML=F.map(st).join('');stn=[].slice.call(row.children);idx=-1;
 }
-var rz;addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if(F&&Math.abs(wrap.clientWidth-lastW)>40)build()},250)});
-var hd;wrap.addEventListener('touchstart',function(){clearTimeout(hd);wrap.classList.add('hold')},{passive:true});
-['touchend','touchcancel'].forEach(function(e){wrap.addEventListener(e,function(){hd=setTimeout(function(){wrap.classList.remove('hold')},1400)},{passive:true})});
-
-if(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
-  var raf=0,cur2=null,px=0,py=0;
-  wrap.addEventListener('pointermove',function(e){var a=e.target.closest&&e.target.closest('.fv');if(cur2&&cur2!==a)rst(cur2);cur2=a;if(!a)return;var r=a.getBoundingClientRect();px=(e.clientX-r.left)/r.width-.5;py=(e.clientY-r.top)/r.height-.5;if(!raf)raf=requestAnimationFrame(function(){raf=0;if(cur2){var b=cur2.firstChild;b.style.setProperty('--ry',(px*9).toFixed(2)+'deg');b.style.setProperty('--rx',(-py*7).toFixed(2)+'deg')}})});
-  wrap.addEventListener('pointerleave',function(){if(cur2)rst(cur2);cur2=null});
-  function rst(a){var b=a.firstChild;b.style.setProperty('--ry','0deg');b.style.setProperty('--rx','0deg')}
+function act(el){stn.forEach(function(s){s.classList.toggle('on',s===el)})}
+function tick(){if(hov||!live||!stn.length||pg.classList.contains('on'))return;idx=(idx+1)%stn.length;act(stn[idx])}
+function run(on){
+  live=on;ink.classList.toggle('live',on);
+  var sv=$('.ink-path',sec);try{on?sv.unpauseAnimations():sv.pauseAnimations()}catch(e){}
+  if(on&&!calm){if(!cyc){cyc=setInterval(tick,3800);setTimeout(tick,600)}}else{clearInterval(cyc);cyc=null}
 }
+if('IntersectionObserver' in window)new IntersectionObserver(function(es){run(es[0].isIntersecting)},{rootMargin:'120px'}).observe(sec);else run(true);
+sec.addEventListener('pointerover',function(e){var s=e.target.closest&&e.target.closest('.st');if(s){hov=true;act(s)}});
+sec.addEventListener('pointerout',function(e){var s=e.target.closest&&e.target.closest('.st');if(s&&!s.contains(e.relatedTarget))hov=false});
+sec.addEventListener('focusin',function(e){var s=e.target.closest&&e.target.closest('.st');if(s){hov=true;act(s)}});
+sec.addEventListener('focusout',function(){hov=false});
 sec.addEventListener('click',function(e){
-  var a=e.target.closest&&e.target.closest('a.fv');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;
+  var a=e.target.closest&&e.target.closest('a.st');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;
   e.preventDefault();go(a.getAttribute('data-f'));
 });
 
