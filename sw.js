@@ -1,5 +1,5 @@
 /* أثر ATHAR — Service Worker */
-const VERSION='athar-v2.1.1';
+const VERSION='athar-v2.1.2';
 const SHELL = [
   './', './index.html', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png', './icons/favicon-48.png',
@@ -8,7 +8,7 @@ const SHELL = [
 /* خدمات Firebase والمصادقة لا تُخزَّن أبداً */
 const BYPASS_HOSTS = ['firestore.googleapis.com', 'identitytoolkit.googleapis.com', 'securetoken.googleapis.com', 'firebaseinstallations.googleapis.com', 'www.googleapis.com', 'apis.google.com', 'accounts.google.com', 'firebase.googleapis.com'];
 /* مصادر ثابتة يُسمح بتخزينها (خطوط ومكتبات) */
-const CACHE_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'www.gstatic.com', 'cdnjs.cloudflare.com'];
+const CACHE_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
