@@ -1,5 +1,5 @@
 /* أثر ATHAR — Service Worker */
-const VERSION='athar-v2.0.2';
+const VERSION='athar-v2.1.1';
 const SHELL = [
   './', './index.html', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png', './icons/favicon-48.png',
@@ -28,20 +28,28 @@ self.addEventListener('activate', (event) => {
 
 const okToCache = (res) => res && (res.ok || res.type === 'opaque');
 
+const isIdx = (p) => p.endsWith('/') || p.endsWith('/index.html');
+const OFFLINE = '<!doctype html><meta charset="utf-8"><title>أثر</title><body style="font-family:sans-serif;background:#0d080a;color:#f4ece6;display:grid;place-items:center;height:100vh;margin:0"><p>أنت غير متصل بالإنترنت. افتح الصفحة مرة واحدة بالإنترنت ثم ستعمل بدونه.</p>';
+
 async function networkFirstPage(request) {
   const cache = await caches.open(VERSION);
+  const url = new URL(request.url);
+  const key = url.origin + url.pathname;
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 5000);
     const res = await fetch(request, { signal: ctrl.signal, cache: 'no-cache' });
     clearTimeout(timer);
-    if (res && res.ok) cache.put('./index.html', res.clone());
+    if (res && res.ok) {
+      cache.put(key, res.clone());
+      if (isIdx(url.pathname)) cache.put('./index.html', res.clone());
+    }
     return res;
   } catch (e) {
-    return (await cache.match(request, { ignoreSearch: true })) ||
-           (await cache.match('./index.html')) ||
-           (await cache.match('./')) ||
-           new Response('<!doctype html><meta charset="utf-8"><title>أثر</title><body style="font-family:sans-serif;background:#0d080a;color:#f4ece6;display:grid;place-items:center;height:100vh;margin:0"><p>أنت غير متصل بالإنترنت. أعد المحاولة عند عودة الاتصال.</p>', { headers: { 'Content-Type': 'text/html; charset=utf-8' }, status: 503 });
+    return (await cache.match(key)) ||
+           (await cache.match(request, { ignoreSearch: true })) ||
+           (isIdx(url.pathname) ? ((await cache.match('./index.html')) || (await cache.match('./'))) : null) ||
+           new Response(OFFLINE, { headers: { 'Content-Type': 'text/html; charset=utf-8' }, status: 503 });
   }
 }
 
