@@ -1743,7 +1743,7 @@ function convertOld(){
         });
       })},Promise.resolve());
     })
-    .then(function(){m(st.found?('تم. حُوّلت '+st.conv+' صورة من '+st.found+' ووفّرنا حوالي '+Math.round(st.saved/1024)+' كيلوبايت. صور WebP الموجودة أصلاً تُركت كما هي.'):'لا توجد صور PNG أو JPG قديمة، كل الصور بالفعل بصيغة خفيفة.');bar(100);b.textContent='تم';toast('انتهى تحويل الصور')})
+    .then(function(){m(st.found?('تم. حُوّلت '+st.conv+' صورة من '+st.found+' ووفّرنا حوالي '+Math.round(st.saved/1024)+' كيلوبايت. صور WebP الموجودة أصلاً تُركت كما هي.'):'لا توجد صور PNG أو JPG قديمة، كل الصور بالفعل بصيغة خفيفة.');bar(100);run=false;b.disabled=false;b.dataset.k='no';b.textContent='تم';toast('انتهى تحويل الصور')})
     .catch(function(e){console.error(e);m('حدث خطأ أثناء التحويل، حاول مرة أخرى.');run=false;b.disabled=false});
   });
 }
