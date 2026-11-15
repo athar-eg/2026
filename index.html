@@ -1076,43 +1076,43 @@ html{scrollbar-width:thin;scrollbar-color:rgba(141,44,69,.75) transparent}
 /* ===== مجلدات الأعمال والمشاريع (athar-works) ===== */
 #works{overflow:hidden}
 #works:not([hidden]) .sec-head{animation:wkIn .8s var(--ease) both}
-/* ===== أثر الحبر: أقسام الأعمال كبصمات على خط حبر متحرك ===== */
-.ink{position:relative;margin-top:14px;padding:30px 0 34px}
-.ink-path{position:absolute;left:0;top:50%;width:100%;height:210px;transform:translateY(-58%);pointer-events:none}
-.ink-path path{fill:none;stroke-linecap:round}
-.ip-base{stroke:rgba(221,162,84,.4);stroke-width:1.4}
-.ip-flow{stroke:url(#inkG);stroke-width:5;stroke-dasharray:130 870;animation:ipFlow 9s linear infinite}
-@keyframes ipFlow{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
-.ink-row{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:30px 36px;padding:0 14px}
-.st{position:relative;display:block;width:clamp(190px,46vw,220px);padding-top:104px;text-align:center;-webkit-tap-highlight-color:transparent;cursor:pointer}
-.st-orb{position:relative;display:block;width:168px;height:168px;margin:0 auto;animation:stFloat 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-1.4s)}
-@keyframes stFloat{50%{transform:translateY(-8px)}}
-.st-orb>*{position:absolute}
-.st-bl{left:50%;top:50%;width:320px;height:320px;margin:-160px 0 0 -160px;background:radial-gradient(circle,rgba(125,33,57,.42),rgba(125,33,57,.16) 52%,transparent 72%);border-radius:48% 52% 55% 45%/50% 45% 55% 50%;transform:scale(0);opacity:0;transition:transform 1s var(--spring),opacity .6s;z-index:0}
-.st.on .st-bl{transform:scale(1);opacity:1;animation:inkMorph 7s ease-in-out infinite}
-@keyframes inkMorph{50%{border-radius:55% 45% 42% 58%/46% 56% 44% 54%}}
-.st-rg{border-radius:50%;z-index:1}
-.st-rg.a{inset:-11px;border:1.5px dashed rgba(221,162,84,.75);animation:stSpin 28s linear infinite}
-.st-rg.b{inset:6px;border:1.5px solid rgba(155,43,71,.6);animation:stRipple 3.6s ease-out infinite}
-.st-rg.c{animation-delay:1.8s}
-@keyframes stSpin{to{transform:rotate(360deg)}}
-@keyframes stRipple{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.34);opacity:0}}
-.st-ds{inset:-20px;border-radius:50%;z-index:1;animation:stSpin 20s linear infinite reverse}
-.st-ds i{position:absolute;width:9px;height:9px;margin:-4.5px;background:#DDA254;transform:rotate(45deg);box-shadow:0 0 10px rgba(221,162,84,.85)}
-.st-ds i:nth-child(1){left:50%;top:0}.st-ds i:nth-child(2){left:93%;top:75%}.st-ds i:nth-child(3){left:7%;top:75%}
-.st-core{inset:14px;z-index:3;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 32% 24%,#b43c5a,#771e37 52%,#44101f);border:1px solid rgba(221,162,84,.55);box-shadow:inset 0 2px 0 rgba(255,255,255,.22),0 16px 30px -10px rgba(60,10,26,.65);transition:transform .8s var(--spring)}
-.st.on .st-core,.st:hover .st-core{transform:scale(1.07)}
-.st-logo{width:54%;height:60%;background:var(--logo-mark-cream) center/contain no-repeat;filter:drop-shadow(0 3px 7px rgba(0,0,0,.35))}
-.st-cv{inset:0;z-index:2;pointer-events:none}
-.st-c{left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:14px;overflow:hidden;border:2px solid rgba(255,255,255,.8);box-shadow:0 10px 22px rgba(40,6,16,.4);opacity:0;transform:translate(0,0) scale(.2) rotate(0);transition:transform .85s var(--spring),opacity .4s;transition-delay:calc(var(--k)*70ms)}
-.st-c img{width:100%;height:100%;object-fit:cover;display:block}
-.st.on .st-c{opacity:1;transform:translate(var(--x),var(--y)) scale(1) rotate(var(--r));animation:stBob 3.8s ease-in-out infinite;animation-delay:calc(var(--k)*-.9s)}
-@keyframes stBob{50%{translate:0 -6px}}
-.st-cap{display:block;margin-top:26px;position:relative;z-index:2}
-.st-cap b{display:block;font-family:'Cairo',sans-serif;font-size:17px;font-weight:700;line-height:1.5;color:var(--text);white-space:normal;transition:color .4s}
-.st-cap small{display:inline-block;margin-top:7px;padding:3px 13px;border-radius:999px;background:var(--glass-2);border:1px solid var(--glass-border);color:var(--text-2);font-size:12.5px}
-.st.on .st-cap b{color:var(--gold)}
-.ink:not(.live) *{animation-play-state:paused!important}
+/* ===== مجلدات أعمالنا: ملفات زجاجية بحافة ضوئية دوّارة ودرج ينزلق (بادئة afd لتفادي تعارض الأسماء) ===== */
+.afd-wrap{position:relative;margin-top:16px;padding:30px 0 28px}
+.afd-wrap::before{content:'';position:absolute;left:50%;top:34%;width:min(980px,94%);height:300px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(125,33,57,.17),transparent 68%);pointer-events:none}
+.afd-row{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:44px 42px;padding:0 14px}
+.afd{display:block;width:clamp(222px,64vw,292px);text-align:center;cursor:pointer;direction:rtl;-webkit-tap-highlight-color:transparent;animation:afdIn .9s var(--ease) both;animation-delay:calc(var(--i,0)*100ms)}
+@keyframes afdIn{from{opacity:0;transform:translateY(34px) scale(.95)}}
+.afd-card{position:relative;display:block;width:100%;aspect-ratio:1/.9;margin-top:18px;transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s var(--spring);animation:afdFloat 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-1.6s)}
+@keyframes afdFloat{50%{translate:0 -7px}}
+.afd-sh{position:absolute;left:10%;right:10%;bottom:-20px;height:22px;border-radius:50%;background:radial-gradient(ellipse,rgba(40,6,16,.5),transparent 70%);filter:blur(7px);animation:afdSh 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-1.6s)}
+@keyframes afdSh{50%{transform:scale(.86);opacity:.7}}
+.afd-edge{position:absolute;inset:0;border-radius:28px;overflow:hidden;box-shadow:0 22px 40px -18px rgba(60,10,26,.55)}
+.afd-edge::before{content:'';position:absolute;inset:-70%;background:conic-gradient(from 0deg,#DDA254 0deg,#9b2a46 70deg,rgba(125,33,57,.15) 130deg,#DDA254 200deg,#9b2a46 270deg,rgba(125,33,57,.15) 330deg,#DDA254 360deg);animation:afdSpin 8s linear infinite}
+@keyframes afdSpin{to{transform:rotate(360deg)}}
+.afd-in{position:absolute;inset:2px;border-radius:26px;overflow:hidden;background:linear-gradient(165deg,#5f1729,#3a0c18 70%,#2b0912)}
+.afd-in::before{content:'';position:absolute;left:-10%;right:-10%;top:-10%;height:55%;background:radial-gradient(ellipse at 50% 100%,rgba(221,162,84,.28),transparent 70%);opacity:.5;transition:opacity .6s var(--ease)}
+.afd.on .afd-in::before{opacity:1}
+.afd-tab{position:absolute;z-index:4;top:-17px;right:28px;min-width:74px;height:30px;padding:0 16px;display:grid;place-items:center;border-radius:14px 14px 0 0;background:linear-gradient(180deg,#e8bd78,#c98f3f);color:#3a0c18;font:700 13px/1 'Cairo',sans-serif;letter-spacing:.06em;box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 -2px 8px rgba(0,0,0,.12);transition:transform .6s var(--spring)}
+.afd.on .afd-tab{transform:translateY(-4px)}
+.afd-cv{position:absolute;inset:0}
+.afd-c{position:absolute;top:15%;width:37%;aspect-ratio:1;border-radius:14px;overflow:hidden;border:2px solid rgba(255,255,255,.85);box-shadow:0 10px 20px rgba(0,0,0,.4);background:#2a0f17;transform:translateY(34%) rotate(var(--r,0deg));transition:transform .85s var(--spring);transition-delay:calc(var(--k)*60ms)}
+.afd-c img{width:100%;height:100%;object-fit:cover;display:block}
+.k3 .afd-c:nth-child(1){left:5%;--r:-7deg}.k3 .afd-c:nth-child(2){left:31.5%;z-index:2}.k3 .afd-c:nth-child(3){left:58%;--r:7deg}
+.k2 .afd-c{width:40%}.k2 .afd-c:nth-child(1){left:9%;--r:-5deg}.k2 .afd-c:nth-child(2){left:51%;--r:5deg}
+.k1 .afd-c{width:46%;left:27%}
+.afd.on .afd-c{transform:translateY(-6%) rotate(var(--r,0deg))}
+.afd-lid{position:absolute;left:0;right:0;top:41%;bottom:0;z-index:3;border-radius:22px 22px 26px 26px;background:linear-gradient(158deg,rgba(255,255,255,.2),rgba(255,255,255,0) 42%),linear-gradient(176deg,#a42d4b,#6d1c33 55%,#4a1222);border-top:1px solid rgba(221,162,84,.6);box-shadow:0 -10px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.3);display:grid;place-items:center;overflow:hidden;transform-origin:50% 100%;transition:transform .9s var(--spring)}
+.afd.on .afd-lid{transform:translateY(15%) rotateX(-4deg)}
+.afd-lid::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(221,162,84,.09) 0 1px,transparent 1px 15px),repeating-linear-gradient(-45deg,rgba(221,162,84,.09) 0 1px,transparent 1px 15px);-webkit-mask-image:radial-gradient(ellipse at 50% 60%,#000 20%,transparent 78%);mask-image:radial-gradient(ellipse at 50% 60%,#000 20%,transparent 78%)}
+.afd-lid::after{content:'';position:absolute;top:-20%;bottom:-20%;left:0;width:38%;background:linear-gradient(100deg,transparent,rgba(255,236,190,.34),transparent);transform:translateX(-160%) skewX(-18deg);animation:afdSheen 6.5s ease-in-out infinite;animation-delay:calc(var(--i,0)*-1.9s)}
+@keyframes afdSheen{0%,55%{transform:translateX(-160%) skewX(-18deg)}100%{transform:translateX(420%) skewX(-18deg)}}
+.afd-logo{position:relative;width:46%;height:62%;background:var(--logo-mark-cream) center/contain no-repeat;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4));transition:transform .9s var(--spring)}
+.afd.on .afd-logo{transform:scale(1.08)}
+.afd-cap{display:block;margin-top:30px}
+.afd-cap b{display:block;font-family:'Cairo',sans-serif;font-size:17.5px;font-weight:700;line-height:1.5;color:var(--text);white-space:normal;transition:color .4s}
+.afd.on .afd-cap b{color:var(--gold)}
+.afd-cap small{display:inline-block;margin-top:8px;padding:3px 14px;border-radius:999px;background:var(--glass-2);border:1px solid var(--glass-border);color:var(--text-2);font-size:12.5px}
+.afd-row:not(.live) *{animation-play-state:paused!important}
 
 /* صفحة المجلد والمشروع */
 html.wk-lock{overflow:hidden}
@@ -1154,7 +1154,7 @@ html.wk-lock{overflow:hidden}
 #wk-lb .nx{top:50%;left:12px;transform:translateY(-50%)}
 #wk-lb .ct{position:absolute;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:#fff;opacity:.8;font-size:14px}
 .wk-toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom,0px));left:0;right:0;margin:auto;width:max-content;max-width:90vw;z-index:1100;padding:11px 22px;border-radius:999px;background:var(--glass-strong);border:1px solid var(--glass-border);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:var(--shadow);animation:wkIn .35s var(--ease)}
-@media(prefers-reduced-motion:reduce){.ink *{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.afd-row *,.afd{animation:none!important}}
 
 /* بيانات نظام الكاشير في نموذج الطلب */
 #csx{border:1px solid var(--glass-border);background:var(--glass);border-radius:18px;padding:14px 14px 2px;margin-bottom:14px;animation:wkIn .4s var(--ease)}
@@ -1162,6 +1162,10 @@ html.wk-lock{overflow:hidden}
 .csx-t{font-family:'Cairo',sans-serif;font-weight:700;margin-bottom:4px}
 .csx-n{color:var(--text-2);font-size:13.5px;margin:0 0 12px}
 .csx-e{color:#c0392b;font-size:13.5px;margin:0 0 12px}
+
+/* بنرات بمقاسات مختلفة: كل بنر بنسبته الطبيعية (عرض كامل للعريض، وارتفاع محدود للطويل) ومتوسّط رأسياً */
+#banners .cf-item{top:50%;left:50%;margin-left:0;translate:-50% -50%;width:min(var(--cfw),calc(min(78vh,620px) * var(--r,1.7778)))}
+#banners .bn img{width:100%;height:auto;aspect-ratio:auto;object-fit:cover;display:block}
 </style>
 </head>
 <body data-muted="0">
@@ -1415,15 +1419,12 @@ html.wk-lock{overflow:hidden}
   </div>
 </section>
 
-<!-- ===== أثر الحبر: أقسام الأعمال (athar-works) ===== -->
-<section id="works" hidden aria-label="أعمالنا">
+<!-- ===== مجلدات أعمالنا (athar-works) ===== -->
+<section id="works" hidden aria-label="مجلدات أعمالنا">
   <div class="container">
-    <div class="sec-head"><span class="eyebrow">أعمالنا</span><h2>بصمات <span class="gold-text">أثر</span></h2><p>كل بصمة قسم من أعمالنا. مرّر عليها لترى لمحة من المشاريع، واضغط لتدخل القسم.</p></div>
+    <div class="sec-head"><span class="eyebrow">أعمالنا</span><h2>مجلدات <span class="gold-text">أعمالنا</span></h2><p>اختر المجلد لتتصفح مشاريعه. مرّر عليه لترى لمحة مما بداخله.</p></div>
   </div>
-  <div class="ink">
-    <svg class="ink-path" viewBox="0 0 1200 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="inkG" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7d2139"/><stop offset=".6" stop-color="#b43c5a"/><stop offset="1" stop-color="#DDA254"/></linearGradient></defs><path id="inkP" class="ip-base" pathLength="1000" d="M-20,112 C120,8 250,214 410,112 S670,8 810,112 S1070,214 1220,100"/><path class="ip-flow" pathLength="1000" d="M-20,112 C120,8 250,214 410,112 S670,8 810,112 S1070,214 1220,100"/><g><animateMotion dur="15s" repeatCount="indefinite"><mpath href="#inkP"/></animateMotion><rect x="-5" y="-5" width="10" height="10" fill="#DDA254" transform="rotate(45)"/></g></svg>
-    <div class="ink-row"></div>
-  </div>
+  <div class="afd-wrap"><div class="afd-row"></div></div>
 </section>
 
 <section id="portfolio">
@@ -1752,33 +1753,37 @@ function copy(u){var ok=function(){toast('تم نسخ الرابط')};
   function fb(){var i=document.createElement('input');i.value=u;document.body.appendChild(i);i.select();try{document.execCommand('copy');ok()}catch(e){}i.remove()}}
 function share(){var u=location.href;if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else copy(u)}
 
-/* ---------- أثر الحبر: الأقسام كبصمات على خط حبر متحرك، والأعمال تنبثق من الحبر ---------- */
-var ink=$('.ink',sec),row=$('.ink-row',sec),stn=[],live=false,hov=false,idx=-1,cyc=null;
+/* ---------- مجلدات أعمالنا: ملفات زجاجية، درج ينزلق عند المرور أو تلقائياً ---------- */
+var row=$('.afd-row',sec),stn=[],live=false,hov=false,idx=-1,cyc=null;
 var calm=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches);
-var POS=[[-100,-112,-9],[0,-140,0],[100,-112,9]];
-function st(f,i){
-  var pv=(f.prev||[]).slice(0,3),pp=pv.length===1?[1]:pv.length===2?[0,2]:[0,1,2];
-  var c=pv.map(function(s,k){var p=POS[pp[k]];return'<span class="st-c" style="--k:'+k+';--x:'+p[0]+'px;--y:'+p[1]+'px;--r:'+p[2]+'deg"><img src="'+esc(s)+'" alt="" loading="lazy" decoding="async"></span>'}).join('');
-  return'<a class="st" style="--i:'+i+'" href="'+esc(url(f.slug))+'" data-f="'+esc(f.slug)+'" aria-label="'+esc(f.name)+'"><span class="st-orb"><i class="st-bl"></i><i class="st-rg a"></i><i class="st-rg b"></i><i class="st-rg b c"></i><span class="st-ds"><i></i><i></i><i></i></span><span class="st-cv">'+c+'</span><span class="st-core"><i class="st-logo"></i></span></span><span class="st-cap"><b>'+esc(f.name)+'</b><small>'+cnt(f.count)+'</small></span></a>';
+var fine=!!(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches);
+function pad(n){return(n<10?'0':'')+n}
+function afd(f,i){
+  var pv=(f.prev||[]).slice(0,3),n=pv.length;
+  var c=pv.map(function(s,k){return'<span class="afd-c" style="--k:'+k+'"><img src="'+esc(s)+'" alt="" loading="lazy" decoding="async"></span>'}).join('');
+  return'<a class="afd" style="--i:'+i+'" href="'+esc(url(f.slug))+'" data-f="'+esc(f.slug)+'" aria-label="'+esc(f.name)+'"><span class="afd-card"><i class="afd-sh"></i><span class="afd-edge"></span><span class="afd-tab">'+pad(i+1)+'</span><span class="afd-in"><span class="afd-cv k'+(n||1)+'">'+c+'</span><span class="afd-lid"><i class="afd-logo"></i></span></span></span><span class="afd-cap"><b>'+esc(f.name)+'</b><small>'+cnt(f.count)+'</small></span></a>';
 }
 function build(){
   if(!F||!F.length){sec.hidden=true;return}
-  sec.hidden=false;row.innerHTML=F.map(st).join('');stn=[].slice.call(row.children);idx=-1;
+  sec.hidden=false;row.innerHTML=F.map(afd).join('');stn=[].slice.call(row.children);idx=-1;
 }
 function act(el){stn.forEach(function(s){s.classList.toggle('on',s===el)})}
 function tick(){if(hov||!live||!stn.length||pg.classList.contains('on'))return;idx=(idx+1)%stn.length;act(stn[idx])}
 function run(on){
-  live=on;ink.classList.toggle('live',on);
-  var sv=$('.ink-path',sec);try{on?sv.unpauseAnimations():sv.pauseAnimations()}catch(e){}
-  if(on&&!calm){if(!cyc){cyc=setInterval(tick,3800);setTimeout(tick,600)}}else{clearInterval(cyc);cyc=null}
+  live=on;row.classList.toggle('live',on);
+  if(on&&!calm){if(!cyc){cyc=setInterval(tick,4200);setTimeout(tick,900)}}else{clearInterval(cyc);cyc=null}
 }
 if('IntersectionObserver' in window)new IntersectionObserver(function(es){run(es[0].isIntersecting)},{rootMargin:'120px'}).observe(sec);else run(true);
-sec.addEventListener('pointerover',function(e){var s=e.target.closest&&e.target.closest('.st');if(s){hov=true;act(s)}});
-sec.addEventListener('pointerout',function(e){var s=e.target.closest&&e.target.closest('.st');if(s&&!s.contains(e.relatedTarget))hov=false});
-sec.addEventListener('focusin',function(e){var s=e.target.closest&&e.target.closest('.st');if(s){hov=true;act(s)}});
+sec.addEventListener('pointerover',function(e){var s=e.target.closest&&e.target.closest('.afd');if(s){hov=true;act(s)}});
+sec.addEventListener('pointerout',function(e){var s=e.target.closest&&e.target.closest('.afd');if(s&&!s.contains(e.relatedTarget)){hov=false;var c=s.firstChild;c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});
+sec.addEventListener('focusin',function(e){var s=e.target.closest&&e.target.closest('.afd');if(s){hov=true;act(s)}});
 sec.addEventListener('focusout',function(){hov=false});
+if(fine&&!calm){var raf=0,px=0,py=0,cur2=null;
+  sec.addEventListener('pointermove',function(e){var s=e.target.closest&&e.target.closest('.afd');cur2=s;if(!s)return;var r=s.firstChild.getBoundingClientRect();px=(e.clientX-r.left)/r.width-.5;py=(e.clientY-r.top)/r.height-.5;
+    if(!raf)raf=requestAnimationFrame(function(){raf=0;if(cur2){var c=cur2.firstChild;c.style.setProperty('--ry',(px*9).toFixed(2)+'deg');c.style.setProperty('--rx',(-py*7).toFixed(2)+'deg')}})});
+}
 sec.addEventListener('click',function(e){
-  var a=e.target.closest&&e.target.closest('a.st');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;
+  var a=e.target.closest&&e.target.closest('a.afd');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;
   e.preventDefault();go(a.getAttribute('data-f'));
 });
 
@@ -1878,6 +1883,15 @@ document.addEventListener('keydown',function(e){
     var px='[كاشير] المحافظة: '+g('csxGov').value+' | البراند: '+b+' | العنوان: '+a+(n?' | المطلوب: '+n:'')+(m?' | الخريطة: '+m:'')+'\n';
     ta.dataset.px=px;ta.value=(px+cur).slice(0,800);
   },true);
+})();
+
+/* ---------- البنرات: لكل بنر مقاسه حسب صورته، ثم إعادة قياس السلايدر ---------- */
+(function(){
+  var cf=document.getElementById('bnCf');if(!cf)return;var t=0;
+  function fix(i){var b=i&&i.closest&&i.closest('.bn');if(b&&i.naturalWidth&&i.naturalHeight)b.style.setProperty('--r',(i.naturalWidth/i.naturalHeight).toFixed(4))}
+  function all(){[].forEach.call(cf.querySelectorAll('.bn img'),fix);clearTimeout(t);t=setTimeout(function(){window.dispatchEvent(new Event('resize'))},80)}
+  cf.addEventListener('load',function(e){if(e.target&&e.target.tagName==='IMG'){fix(e.target);clearTimeout(t);t=setTimeout(function(){window.dispatchEvent(new Event('resize'))},80)}},true);
+  setTimeout(all,700);setTimeout(all,1800);setTimeout(all,4000);
 })();
 
 /* ---------- تشغيل ---------- */
