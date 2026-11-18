@@ -1675,21 +1675,22 @@ window.__athBoot=function(run){
 
 
 /* ---------- كل صورة تُرفع تتحول تلقائياً إلى WebP (مع الحفاظ على الشفافية) ---------- */
-window.__athToWebp=function(file,max){
-  max=max||1200;
+window.__athToWebp=function(file,max,lim){
+  max=max||1200;lim=lim||850000;
   return new Promise(function(ok,no){
     var fr=new FileReader();fr.onerror=no;
     fr.onload=function(){
       var src=fr.result,im=new Image();im.onerror=no;
       im.onload=function(){
         var w=im.naturalWidth||im.width,h=im.naturalHeight||im.height;
-        if(file.type==='image/webp'&&src.length<=850000&&Math.max(w,h)<=max)return ok(src);
+        if(file.type==='image/webp'&&src.length<=lim&&Math.max(w,h)<=max)return ok(src);
         var k=Math.min(1,max/Math.max(w,h)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));
         var x=c.getContext('2d'),q=.86,d=c.toDataURL('image/webp',q),isW=d.indexOf('data:image/webp')===0;
         if(!isW){x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height)}
         x.drawImage(im,0,0,c.width,c.height);
         var t=isW?'image/webp':'image/jpeg';d=c.toDataURL(t,q);
-        while(d.length>850000&&q>.4){q-=.08;d=c.toDataURL(t,q)}
+        while(d.length>lim&&q>.4){q-=.08;d=c.toDataURL(t,q)}
+        while(d.length>lim&&c.width>700){c.width=Math.round(c.width*.85);c.height=Math.round(c.height*.85);x=c.getContext('2d');if(!isW){x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height)}x.drawImage(im,0,0,c.width,c.height);d=c.toDataURL(t,.7)}
         ok(d);
       };
       im.src=src;
@@ -1698,15 +1699,16 @@ window.__athToWebp=function(file,max){
   });
 };
 /* تحويل صورة مخزّنة (data URL) إلى WebP: يرجع الأصغر دائماً */
-function recode(u){
+function recode(u,opt){
+  opt=opt||{};
   return new Promise(function(ok){
     var im=new Image();im.onerror=function(){ok(u)};
     im.onload=function(){
       try{
-        var w=im.naturalWidth,h=im.naturalHeight,k=Math.min(1,1600/Math.max(w,h)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));
+        var w=im.naturalWidth,h=im.naturalHeight,k=Math.min(1,(opt.max||1600)/Math.max(w,h)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));
         c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-        var q=.84,d=c.toDataURL('image/webp',q);if(d.indexOf('data:image/webp')!==0)return ok(u);
-        while(d.length>850000&&q>.4){q-=.08;d=c.toDataURL('image/webp',q)}
+        var lim=opt.lim||850000,q=opt.q||.84,d=c.toDataURL('image/webp',q);if(d.indexOf('data:image/webp')!==0)return ok(u);
+        while(d.length>lim&&q>.4){q-=.08;d=c.toDataURL('image/webp',q)}
         ok(d.length<u.length*.92?d:u);
       }catch(e){ok(u)}
     };
@@ -1714,16 +1716,16 @@ function recode(u){
   });
 }
 var OLD=/^data:image\/(png|jpe?g|gif|bmp);base64,/i;
-function walk(v,st,depth){
-  if(typeof v==='string'){if(OLD.test(v)){st.found++;return recode(v).then(function(n){if(n!==v){st.saved+=v.length-n.length;st.conv++;return n}return v})}return Promise.resolve(v)}
+function walk(v,st,depth,col){
+  if(typeof v==='string'){if(col==='banners'&&v.length>400000&&/^data:image\/webp;base64,/.test(v)){st.found++;return recode(v,{max:1400,lim:300000,q:.78}).then(function(n){if(n!==v){st.saved+=v.length-n.length;st.conv++;return n}return v})}if(OLD.test(v)){st.found++;return recode(v).then(function(n){if(n!==v){st.saved+=v.length-n.length;st.conv++;return n}return v})}return Promise.resolve(v)}
   if(depth>3||!v||typeof v!=='object'||(v.toDate&&v.seconds!=null))return Promise.resolve(v);
-  if(Array.isArray(v)){return Promise.all(v.map(function(x){return walk(x,st,depth+1)}))}
+  if(Array.isArray(v)){return Promise.all(v.map(function(x){return walk(x,st,depth+1,col)}))}
   var keys=Object.keys(v),o={};
-  return keys.reduce(function(p,k){return p.then(function(){return walk(v[k],st,depth+1).then(function(n){o[k]=n})})},Promise.resolve()).then(function(){return o});
+  return keys.reduce(function(p,k){return p.then(function(){return walk(v[k],st,depth+1,col).then(function(n){o[k]=n})})},Promise.resolve()).then(function(){return o});
 }
 function convertOld(){
   var d=document.createElement('div');d.className='mg-mini';d.style.zIndex=2000;
-  d.innerHTML='<div class="glass mg-ask"><h3>تحويل الصور القديمة إلى WebP</h3><p id="cvM">سيتم فحص صور الموقع المحفوظة (الخدمات والبنرات والأعمال والإعدادات) وتحويل أي صورة PNG أو JPG إلى WebP لتخف الصفحة. لا تغلق الصفحة أثناء التحويل.</p><div class="cv-bar"><i id="cvB"></i></div><div class="mg-btns"><button class="btn btn-gold" data-k="go">ابدأ التحويل</button><button class="btn btn-ghost" data-k="no">إغلاق</button></div></div>';
+  d.innerHTML='<div class="glass mg-ask"><h3>تحويل الصور القديمة إلى WebP</h3><p id="cvM">سيتم فحص صور الموقع المحفوظة (الخدمات والبنرات والأعمال والإعدادات) وتحويل أي صورة PNG أو JPG إلى WebP، وتصغير البنرات الكبيرة جداً لتفتح الصفحة أسرع. لا تغلق الصفحة أثناء التحويل.</p><div class="cv-bar"><i id="cvB"></i></div><div class="mg-btns"><button class="btn btn-gold" data-k="go">ابدأ التحويل</button><button class="btn btn-ghost" data-k="no">إغلاق</button></div></div>';
   document.body.appendChild(d);
   var run=false,m=function(t){d.querySelector('#cvM').textContent=t},bar=function(p){d.querySelector('#cvB').style.width=p+'%'};
   d.addEventListener('click',function(e){
@@ -1731,12 +1733,12 @@ function convertOld(){
     if(!b||b.dataset.k!=='go'||run)return;run=true;b.disabled=true;
     var db=D(),st={found:0,conv:0,saved:0},jobs=[];
     m('جاري قراءة الصور المحفوظة...');
-    Promise.all([['media'],['banners'],['portfolio']].map(function(c){return db.collection(c[0]).get().then(function(s){s.forEach(function(x){jobs.push({ref:x.ref,data:x.data()})})}).catch(function(){})}))
+    Promise.all([['media'],['banners'],['portfolio']].map(function(c){return db.collection(c[0]).get().then(function(s){s.forEach(function(x){jobs.push({ref:x.ref,data:x.data(),col:c[0]})})}).catch(function(){})}))
     .then(function(){return db.doc('settings/site').get().then(function(s){if(s.exists)jobs.push({ref:s.ref,data:s.data()})}).catch(function(){})})
     .then(function(){
       var n=jobs.length,i=0;
       return jobs.reduce(function(p,job){return p.then(function(){
-        return walk(job.data,st,0).then(function(nv){
+        return walk(job.data,st,0,job.col).then(function(nv){
           var ch={};Object.keys(nv).forEach(function(k){if(JSON.stringify(nv[k])!==JSON.stringify(job.data[k]))ch[k]=nv[k]});
           i++;m('جاري التحويل '+i+' / '+n+' — حُوّلت '+st.conv+' صورة');bar(Math.round(i/n*100));
           if(Object.keys(ch).length)return job.ref.update(ch).catch(function(){st.conv--});
@@ -1797,7 +1799,7 @@ async function bnUpload(files){
   for(var i=0;i<files.length;i++){
     var f=files[i];if(!/^image\//.test(f.type)){bad++;continue}
     say('جارٍ رفع البنر '+(i+1)+' من '+files.length+'...');
-    try{var d=await window.__athToWebp(f,1600);await D().collection('banners').add({img:d,visible:true,device:dev,createdAt:firebase.firestore.FieldValue.serverTimestamp()});ok++}catch(x){console.error(x);bad++}
+    try{var d=await window.__athToWebp(f,1400,300000);await D().collection('banners').add({img:d,visible:true,device:dev,createdAt:firebase.firestore.FieldValue.serverTimestamp()});ok++}catch(x){console.error(x);bad++}
   }
   say(ok?('تم رفع '+ok+' بنر'+(bad?' وتعذر رفع '+bad:'')+'.'):'تعذر رفع البنرات. جرّب صوراً أصغر أو تحقق من الصلاحيات.',ok?'ok':'err');
   toast(ok?'تم رفع '+ok+' بنر':'تعذر رفع البنرات',!ok);
