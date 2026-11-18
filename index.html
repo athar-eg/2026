@@ -1077,11 +1077,19 @@ html{scrollbar-width:thin;scrollbar-color:rgba(141,44,69,.75) transparent}
 #works{overflow:hidden;padding-bottom:44px}
 #works:not([hidden]) .sec-head{animation:wkIn .8s var(--ease) both}
 /* ===== مجلدات أعمالنا: ملفات زجاجية بحافة ضوئية دوّارة ودرج ينزلق (بادئة afd لتفادي تعارض الأسماء) ===== */
-.afd-wrap{position:relative;margin-top:16px;padding:30px 0 28px}
-.afd-wrap::before{content:'';position:absolute;left:50%;top:34%;width:min(980px,94%);height:300px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(125,33,57,.17),transparent 68%);pointer-events:none}
-.afd-row{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:44px 42px;padding:0 14px}
-.afd{display:block;width:clamp(222px,64vw,292px);text-align:center;cursor:pointer;direction:rtl;-webkit-tap-highlight-color:transparent;animation:afdIn .9s var(--ease) both;animation-delay:calc(var(--i,0)*100ms)}
-@keyframes afdIn{from{opacity:0;transform:translateY(34px) scale(.95)}}
+.afd-wrap{position:relative;margin-top:14px;padding:18px 0 22px;overflow:hidden}
+.afd-wrap::before{content:'';position:absolute;left:50%;top:30%;width:min(980px,94%);height:300px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(125,33,57,.17),transparent 68%);pointer-events:none}
+.afd-stage{--cw:clamp(232px,66vw,296px);--stp:calc(var(--cw) * .84);position:relative;height:calc(var(--cw) * .9 + 196px);max-width:1180px;margin:0 auto;perspective:1400px;touch-action:pan-y;outline:none;animation:afdIn .9s var(--ease) both}
+@keyframes afdIn{from{opacity:0;transform:translateY(30px)}}
+.afd{position:absolute;left:50%;top:26px;width:var(--cw);margin-left:calc(var(--cw) / -2);display:block;text-align:center;cursor:pointer;direction:rtl;-webkit-tap-highlight-color:transparent;transform:translateX(calc(var(--d,0) * var(--stp) * -1)) translateZ(calc(var(--ad,0) * -150px)) rotateY(calc(var(--d,0) * 30deg)) scale(calc(1 - var(--ad,0) * .09));opacity:calc(1 - var(--ad,0) * .3);transition:transform .9s var(--spring),opacity .6s;will-change:transform}
+.afd[data-hide]{opacity:0;pointer-events:none;visibility:hidden}
+.afd.ph{cursor:pointer}
+.afd-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:4px;position:relative;z-index:2}
+.afd-nav[hidden]{display:none}
+.afd-b .ic{width:18px;height:18px}
+.afd-dots{display:flex;gap:7px;align-items:center}
+.afd-dots i{width:8px;height:8px;border-radius:99px;background:var(--glass-border);cursor:pointer;transition:width .4s var(--spring),background .3s}
+.afd-dots i.on{width:26px;background:var(--gold)}
 .afd-card{position:relative;display:block;width:100%;aspect-ratio:1/.9;margin-top:18px;transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s var(--spring);animation:afdFloat 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-1.6s)}
 @keyframes afdFloat{50%{translate:0 -7px}}
 .afd-sh{position:absolute;left:10%;right:10%;bottom:-20px;height:22px;border-radius:50%;background:radial-gradient(ellipse,rgba(40,6,16,.5),transparent 70%);filter:blur(7px);animation:afdSh 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-1.6s)}
@@ -1112,7 +1120,7 @@ html{scrollbar-width:thin;scrollbar-color:rgba(141,44,69,.75) transparent}
 .afd-cap b{display:block;font-family:'Cairo',sans-serif;font-size:17.5px;font-weight:700;line-height:1.5;color:var(--text);white-space:normal;transition:color .4s}
 .afd.on .afd-cap b{color:var(--gold)}
 .afd-cap small{display:inline-block;margin-top:8px;padding:3px 14px;border-radius:999px;background:var(--glass-2);border:1px solid var(--glass-border);color:var(--text-2);font-size:12.5px}
-.afd-row:not(.live) *{animation-play-state:paused!important}
+.afd-stage:not(.live) *{animation-play-state:paused!important}
 
 /* صفحة المجلد والمشروع */
 html.wk-lock{overflow:hidden}
@@ -1154,7 +1162,7 @@ html.wk-lock{overflow:hidden}
 #wk-lb .nx{top:50%;left:12px;transform:translateY(-50%)}
 #wk-lb .ct{position:absolute;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:#fff;opacity:.8;font-size:14px}
 .wk-toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom,0px));left:0;right:0;margin:auto;width:max-content;max-width:90vw;z-index:1100;padding:11px 22px;border-radius:999px;background:var(--glass-strong);border:1px solid var(--glass-border);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:var(--shadow);animation:wkIn .35s var(--ease)}
-@media(prefers-reduced-motion:reduce){.afd-row *,.afd{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.afd-stage *,.afd-stage{animation:none!important}}
 
 /* بيانات نظام الكاشير في نموذج الطلب */
 #csx{border:1px solid var(--glass-border);background:var(--glass);border-radius:18px;padding:14px 14px 2px;margin-bottom:14px;animation:wkIn .4s var(--ease)}
@@ -1173,7 +1181,7 @@ html.wk-lock{overflow:hidden}
 .afd-c.ph-c::after{content:'';position:absolute;inset:0;background:var(--logo-mark-cream) center/46% no-repeat;opacity:.55}
 
 /* السلايدر يظهر بعد استقرار البنرات (والمهلة الاحتياطية بالـ CSS تضمن ظهوره دائماً) */
-#bnCf{opacity:0;transition:opacity .5s var(--ease);animation:bnSafe .01s 3.2s forwards}
+#bnCf{opacity:0;transition:opacity .4s var(--ease);animation:bnSafe .01s 2.6s forwards}
 #bnCf.ready{opacity:1;animation:none}
 @keyframes bnSafe{to{opacity:1}}
 </style>
@@ -1434,7 +1442,7 @@ html.wk-lock{overflow:hidden}
   <div class="container">
     <div class="sec-head"><span class="eyebrow">أعمالنا</span><h2>مجلدات <span class="gold-text">أعمالنا</span></h2><p>اختر المجلد لتتصفح مشاريعه. مرّر عليه لترى لمحة مما بداخله.</p></div>
   </div>
-  <div class="afd-wrap"><div class="afd-row"></div></div>
+  <div class="afd-wrap"><div class="afd-stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="مجلدات أعمالنا"></div><div class="afd-nav" hidden><button type="button" class="icon-btn afd-b" data-d="-1" aria-label="السابق"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button><span class="afd-dots"></span><button type="button" class="icon-btn afd-b" data-d="1" aria-label="التالي"><svg class="ic"><use href="#i-arrow"/></svg></button></div></div>
 </div>
 
 
@@ -1763,45 +1771,50 @@ function copy(u){var ok=function(){toast('تم نسخ الرابط')};
   function fb(){var i=document.createElement('input');i.value=u;document.body.appendChild(i);i.select();try{document.execCommand('copy');ok()}catch(e){}i.remove()}}
 function share(){var u=location.href;if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else copy(u)}
 
-/* ---------- مجلدات أعمالنا: ملفات زجاجية، درج ينزلق عند المرور أو تلقائياً ---------- */
-var row=$('.afd-row',sec),stn=[],live=false,hov=false,idx=-1,cyc=null;
+/* ---------- مجلدات أعمالنا: سلايدر ثلاثي الأبعاد يتقلّب مثل التقييمات، والمجلد الأوسط يفتح لوحده ---------- */
+var stage=$('.afd-stage',sec),dots=$('.afd-dots',sec),nav=$('.afd-nav',sec),stn=[],n=0,cur=0,live=false,hov=false,drag=null,moved=false,last=0,rl=0;
 var calm=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches);
-var fine=!!(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches);
-function pad(n){return(n<10?'0':'')+n}
+function rsz(force){var h=document.documentElement.scrollHeight;if(force||Math.abs(h-(rsz.h||0))>2){rsz.h=h;window.dispatchEvent(new Event('resize'))}}
 var PH=[{name:'تصميم المواقع والمتاجر وأنظمة الكاشير'},{name:'الهوية البصرية والشعارات'},{name:'الموشن جرافيك والتسويق'}];
+function pad(k){return(k<10?'0':'')+k}
 function afd(f,i,ph){
-  var pv=ph?[1,2,3]:(f.prev||[]).slice(0,3),n=pv.length;
+  var pv=ph?[1,2,3]:(f.prev||[]).slice(0,3),m=pv.length;
   var c=pv.map(function(s,k){return ph?'<span class="afd-c ph-c" style="--k:'+k+'"></span>':'<span class="afd-c" style="--k:'+k+'"><img src="'+esc(s)+'" alt="" loading="lazy" decoding="async"></span>'}).join('');
-  var inner='<span class="afd-card"><i class="afd-sh"></i><span class="afd-edge"></span><span class="afd-tab">'+pad(i+1)+'</span><span class="afd-in"><span class="afd-cv k'+(n||1)+'">'+c+'</span><span class="afd-lid"><i class="afd-logo"></i></span></span></span><span class="afd-cap"><b>'+esc(f.name)+'</b><small>'+(ph?'قريباً':cnt(f.count))+'</small></span>';
-  return ph?'<span class="afd ph" style="--i:'+i+'" role="img" aria-label="'+esc(f.name)+' — قريباً">'+inner+'</span>':'<a class="afd" style="--i:'+i+'" href="'+esc(url(f.slug))+'" data-f="'+esc(f.slug)+'" aria-label="'+esc(f.name)+'">'+inner+'</a>';
+  var inner='<span class="afd-card"><i class="afd-sh"></i><span class="afd-edge"></span><span class="afd-tab">'+pad(i+1)+'</span><span class="afd-in"><span class="afd-cv k'+(m||1)+'">'+c+'</span><span class="afd-lid"><i class="afd-logo"></i></span></span></span><span class="afd-cap"><b>'+esc(f.name)+'</b><small>'+(ph?'قريباً':cnt(f.count))+'</small></span>';
+  return ph?'<span class="afd ph" data-i="'+i+'" role="group" aria-label="'+esc(f.name)+' — قريباً">'+inner+'</span>':'<a class="afd" data-i="'+i+'" href="'+esc(url(f.slug))+'" data-f="'+esc(f.slug)+'" aria-label="'+esc(f.name)+'">'+inner+'</a>';
 }
-var rl=0;function relayout(){clearTimeout(rl);rl=setTimeout(function(){window.dispatchEvent(new Event('resize'))},120)}
+function off(i){var d=i-cur;if(n>=3){var h=Math.floor(n/2);d=((i-cur+n+h)%n)-h}return d}
+function lay(){
+  stn.forEach(function(s,i){var d=off(i),a=Math.abs(d);s.style.setProperty('--d',d);s.style.setProperty('--ad',a);s.style.zIndex=100-Math.round(a*10);s.classList.toggle('on',d===0);if(a>2)s.setAttribute('data-hide','1');else s.removeAttribute('data-hide');s.tabIndex=d===0?0:-1});
+  [].forEach.call(dots.children,function(x,i){x.classList.toggle('on',i===cur)});
+}
+function to(i){if(!n)return;cur=Math.max(0,Math.min(n-1,i));lay();last=Date.now()}
+function slide(dl){if(n<2)return;if(n<3)to(cur+dl);else{cur=(cur+dl+n)%n;lay();last=Date.now()}}
+function relayout(){clearTimeout(rl);rl=setTimeout(function(){rsz(false)},150)}
 function build(){
   sec.hidden=false;
-  row.innerHTML=(F&&F.length)?F.map(function(f,i){return afd(f,i,false)}).join(''):PH.map(function(f,i){return afd(f,i,true)}).join('');
-  stn=[].slice.call(row.children);idx=-1;
+  var L=(F&&F.length)?F.map(function(f,i){return afd(f,i,false)}):PH.map(function(f,i){return afd(f,i,true)});
+  stage.innerHTML=L.join('');stn=[].slice.call(stage.children);n=stn.length;cur=0;
+  dots.innerHTML=stn.map(function(_,i){return'<i data-i="'+i+'"></i>'}).join('');nav.hidden=n<2;lay();
   /* الأقسام تحتها تتحرك لأسفل بعد ظهور المجلدات، فنُعلم التنقل السفلي ليعيد حساب مواضعها */
-  relayout();setTimeout(relayout,900);setTimeout(relayout,2500);
-  [].forEach.call(row.querySelectorAll('img'),function(im){if(!im.complete)im.addEventListener('load',relayout)});
+  relayout();setTimeout(relayout,1200);
 }
-function act(el){stn.forEach(function(s){s.classList.toggle('on',s===el)})}
-function tick(){if(hov||!live||!stn.length||pg.classList.contains('on'))return;idx=(idx+1)%stn.length;act(stn[idx])}
-function run(on){
-  live=on;row.classList.toggle('live',on);
-  if(on&&!calm){if(!cyc){cyc=setInterval(tick,4200);setTimeout(tick,900)}}else{clearInterval(cyc);cyc=null}
-}
+function run(on){live=on;stage.classList.toggle('live',on)}
 if('IntersectionObserver' in window)new IntersectionObserver(function(es){run(es[0].isIntersecting)},{rootMargin:'120px'}).observe(sec);else run(true);
-sec.addEventListener('pointerover',function(e){var s=e.target.closest&&e.target.closest('.afd');if(s){hov=true;act(s)}});
-sec.addEventListener('pointerout',function(e){var s=e.target.closest&&e.target.closest('.afd');if(s&&!s.contains(e.relatedTarget)){hov=false;var c=s.firstChild;c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});
-sec.addEventListener('focusin',function(e){var s=e.target.closest&&e.target.closest('.afd');if(s){hov=true;act(s)}});
-sec.addEventListener('focusout',function(){hov=false});
-if(fine&&!calm){var raf=0,px=0,py=0,cur2=null;
-  sec.addEventListener('pointermove',function(e){var s=e.target.closest&&e.target.closest('.afd');cur2=s;if(!s)return;var r=s.firstChild.getBoundingClientRect();px=(e.clientX-r.left)/r.width-.5;py=(e.clientY-r.top)/r.height-.5;
-    if(!raf)raf=requestAnimationFrame(function(){raf=0;if(cur2){var c=cur2.firstChild;c.style.setProperty('--ry',(px*9).toFixed(2)+'deg');c.style.setProperty('--rx',(-py*7).toFixed(2)+'deg')}})});
-}
-sec.addEventListener('click',function(e){
-  var a=e.target.closest&&e.target.closest('a.afd');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;
-  e.preventDefault();go(a.getAttribute('data-f'));
+setInterval(function(){if(!live||hov||drag||calm||n<2||pg.classList.contains('on')||Date.now()-last<3200)return;if(n<3)to(cur===n-1?0:cur+1);else slide(1)},4300);
+stage.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')hov=true});
+stage.addEventListener('pointerleave',function(){hov=false;last=Date.now()});
+stage.addEventListener('pointerdown',function(e){drag={x:e.clientX};moved=false});
+stage.addEventListener('pointermove',function(e){if(drag&&Math.abs(e.clientX-drag.x)>10)moved=true});
+['pointerup','pointercancel'].forEach(function(ev){stage.addEventListener(ev,function(e){if(!drag)return;var dx=e.clientX-drag.x;drag=null;if(Math.abs(dx)>45)slide(dx>0?1:-1)})});
+stage.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){e.preventDefault();slide(1)}else if(e.key==='ArrowRight'){e.preventDefault();slide(-1)}});
+nav.addEventListener('click',function(e){var b=e.target.closest('.afd-b'),d=e.target.closest('.afd-dots i');if(b)slide(+b.getAttribute('data-d'));else if(d)to(+d.getAttribute('data-i'))});
+stage.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('.afd');if(!a)return;
+  var i=+a.getAttribute('data-i');
+  if(moved){e.preventDefault();moved=false;return}
+  if(i!==cur){e.preventDefault();to(i);return}
+  if(a.tagName==='A'&&!(e.ctrlKey||e.metaKey||e.shiftKey||e.button)){e.preventDefault();go(a.getAttribute('data-f'))}
 });
 
 /* ---------- الصفحات ---------- */
@@ -1902,28 +1915,32 @@ document.addEventListener('keydown',function(e){
   },true);
 })();
 
-/* ---------- البنرات: لكل بنر مقاسه، وتظهر مرة واحدة بعد استقرارها (بدون وميض القديمة ثم الجديدة) ---------- */
+/* ---------- البنرات: لكل بنر مقاسه، وتظهر بسرعة بعد أول صورة، وإعادة الرسم تكون بتلاشي ناعم بدل الوميض ---------- */
 (function(){
   var cf=document.getElementById('bnCf');if(!cf)return;
-  var t=0,done=false,t0=Date.now(),lm=Date.now();
+  var t=0,done=false,t0=Date.now(),lm=Date.now(),dip=0;
   function fix(i){var b=i&&i.closest&&i.closest('.bn');if(b&&i.naturalWidth&&i.naturalHeight)b.style.setProperty('--r',(i.naturalWidth/i.naturalHeight).toFixed(4))}
-  function settle(){[].forEach.call(cf.querySelectorAll('.bn img'),function(i){i.decoding='async';fix(i)});window.dispatchEvent(new Event('resize'))}
-  function reveal(){if(done)return;done=true;cf.classList.add('ready')}
+  function settle(){var ch=false;[].forEach.call(cf.querySelectorAll('.bn img'),function(i){var b=i.closest('.bn'),o=b&&b.style.getPropertyValue('--r');if(i.decoding!=='async')i.decoding='async';fix(i);if(b&&b.style.getPropertyValue('--r')!==o)ch=true});if(ch)rsz(true)}
+  function firstOk(){var i=cf.querySelector('.bn img');return !!(i&&i.complete&&i.naturalWidth)}
+  function reveal(){done=true;clearTimeout(dip);cf.classList.add('ready')}
   function check(){
     clearTimeout(t);
     t=setTimeout(function(){
-      var im=[].slice.call(cf.querySelectorAll('.bn img')),ok=im.length&&im.every(function(i){return i.complete&&i.naturalWidth});
-      if(done){settle();return}
-      if(ok){
-        settle();
-        /* نكشف السلايدر بعد وصول بيانات البنرات من Firebase (استدعاء ثانٍ للقائمة) أو بعد مهلة قصيرة */
-        var c=window.__athBnCalls||0;if(c>=2||(c>=1&&Date.now()-lm>900))setTimeout(reveal,150);else t=setTimeout(check,150);
-      }else if(Date.now()-t0>2400){settle();reveal()}else t=setTimeout(check,150);
-    },120);
+      if(done){if(!cf.classList.contains('ready')&&firstOk()){settle();cf.classList.add('ready')}else settle();return}
+      if(firstOk()){
+        settle();var c=window.__athBnCalls||0;
+        if(c>=2||(c>=1&&Date.now()-lm>350))setTimeout(reveal,80);else t=setTimeout(check,100);
+      }else if(Date.now()-t0>1500){settle();reveal()}else t=setTimeout(check,100);
+    },80);
   }
-  new MutationObserver(function(){lm=Date.now();check()}).observe(cf,{childList:true,subtree:true});
+  new MutationObserver(function(ms){
+    lm=Date.now();
+    if(done){var added=ms.some(function(m){return[].some.call(m.addedNodes,function(n){return n.nodeType===1&&n.classList&&n.classList.contains('bn')})});
+      if(added){cf.classList.remove('ready');clearTimeout(dip);dip=setTimeout(function(){settle();cf.classList.add('ready')},900)}}
+    check();
+  }).observe(cf,{childList:true,subtree:true});
   cf.addEventListener('load',function(e){if(e.target&&e.target.tagName==='IMG'){fix(e.target);check()}},true);
-  check();setTimeout(function(){settle();reveal()},2800);
+  check();setTimeout(function(){settle();reveal()},2000);
 })();
 
 /* ---------- بنرات الهاتف تظهر في الهاتف فقط وبنرات اللابتوب في اللابتوب فقط ---------- */
@@ -1935,6 +1952,17 @@ document.addEventListener('keydown',function(e){
     return list.filter(function(b){var d=by[b.id]||'all';return d==='all'||(d==='mobile'&&m)||(d==='desktop'&&!m)});
   };
   if(mq){var ch=function(){if(window.__athBnRe)window.__athBnRe()};mq.addEventListener?mq.addEventListener('change',ch):mq.addListener(ch)}
+})();
+
+/* ---------- إصلاح التنقل السفلي: قسم مخفي (مثل التطبيق أو التقييمات) لا يجب أن يُحسب كأنه تجاوزه التمرير ---------- */
+(function(){
+  var ids={banners:1,home:1,about:1,services:1,portfolio:1,payments:1,reviews:1,contact:1,app:1},o=Element.prototype.getBoundingClientRect;
+  Element.prototype.getBoundingClientRect=function(){
+    var r=o.call(this);
+    if(ids[this.id]===1&&r.width===0&&r.height===0&&this.offsetParent===null&&getComputedStyle(this).display==='none')
+      return{top:1e9,bottom:1e9,left:0,right:0,width:0,height:0,x:0,y:1e9,toJSON:function(){return this}};
+    return r;
+  };
 })();
 
 /* ---------- تشغيل ---------- */
