@@ -3383,14 +3383,14 @@ function match(x){
   return false;
 }
 function renderList(){
-  var p=$('#p-clients');if(!p)return;
+  var p=$('#clientsRoot');if(!p)return;
   if(!S.loaded){p.innerHTML='<div class="card glass"><p class="note">جارٍ تحميل حسابات العملاء…</p></div>';return}
   var L=S.list.filter(match).sort(function(a,b){return b.rem-a.rem||String(a.name).localeCompare(String(b.name),'ar')});
   var tot={EGP:0,SAR:0};S.list.forEach(function(x){CK.forEach(function(k){var a=x.sum[k];if(a)tot[k]+=Math.max(0,a.c-a.p)})});
   var keep=$('#clQ');var kv=keep?keep.value:S.q,focus=document.activeElement===keep;
   var totTxt=CK.filter(function(k){return tot[k]>0}).map(function(k){return fmt(tot[k])+' '+CUR[k]}).join(' + ')||'0';
   p.innerHTML='<div class="kpis"><div class="kpi glass"><small>عدد العملاء</small><b>'+S.list.length+'</b></div><div class="kpi glass"><small>بانتظار الربط</small><b>'+S.list.filter(function(x){return x.kind==='manual'}).length+'</b></div><div class="kpi glass"><small>إجمالي المتبقي لدى العملاء</small><b style="direction:ltr">'+totTxt+'</b></div></div>'+
-  '<div class="cl-bar"><div class="search"><svg class="ic"><use href="#i-search"/></svg><input class="in" id="clQ" placeholder="ابحث بالاسم أو الهاتف أو البريد أو رقم العميل (ID)" value="'+esc(kv)+'"></div><button class="btn btn-gold" id="clNew" type="button"><svg class="ic"><use href="#i-plus"/></svg>إضافة حساب يدوي</button><button class="btn btn-glass btn-sm" id="clImp" type="button">نقل المبيعات اليدوية للحسابات</button></div>'+
+  '<div class="cl-bar"><div class="search"><svg class="ic"><use href="#i-search"/></svg><input class="in" id="clQ" placeholder="ابحث بالاسم أو الهاتف أو البريد أو رقم العميل (ID)" value="'+esc(kv)+'"></div><button class="btn btn-gold" id="clNew" type="button"><svg class="ic"><use href="#i-plus"/></svg>إضافة حساب يدوي</button><button class="btn btn-glass btn-sm" id="clOld" type="button">القائمة القديمة (تعديل/حذف المسجلين)</button></div>'+
   '<div class="cl-seg">'+FILT.map(function(f){return'<button type="button" data-f="'+f[0]+'" class="'+(S.f===f[0]?'on':'')+'">'+f[1]+'</button>'}).join('')+'</div>'+
   (L.length?L.map(function(x){
     var warn=x.kind==='manual'?'<span class="cl-warn">بانتظار الربط بالحساب الفعلي</span>':'';
@@ -3401,10 +3401,10 @@ function renderList(){
 document.addEventListener('input',function(e){if(e.target&&e.target.id==='clQ'){S.q=e.target.value;renderList()}});
 document.addEventListener('click',function(e){
   var t=e.target;if(!t.closest)return;
-  var fb=t.closest('#p-clients .cl-seg [data-f]');if(fb){S.f=fb.dataset.f;renderList();return}
+  var fb=t.closest('#clientsRoot .cl-seg [data-f]');if(fb){S.f=fb.dataset.f;renderList();return}
   if(t.closest('#clNew')){return newManual()}
-  if(t.closest('#clImp')){return importManual()}
-  var r=t.closest('#p-clients .cl-row');if(r){location.hash='client='+encodeURIComponent(r.dataset.id)}
+  if(t.closest('#clOld')){var o=$('#oldUsers');if(o)o.style.display=o.style.display==='none'?'':'none';return}
+  var r=t.closest('#clientsRoot .cl-row');if(r){location.hash='client='+encodeURIComponent(r.dataset.id)}
 });
 
 /* ---------- إضافة حساب يدوي ---------- */
@@ -3425,23 +3425,26 @@ function newManual(){
   });
 }
 
-/* ---------- نقل المبيعات اليدوية (من الإحصائيات) إلى حسابات عملاء ---------- */
-function importManual(){
-  if(!S.man.length){toast('لا توجد مبيعات يدوية في الإحصائيات');return}
-  confirmBox('نقل المبيعات اليدوية','سيتم إنشاء حساب يدوي لكل اسم في مبيعات الإحصائيات (المبلغ يُسجَّل حساباً ومسدداً بنفس التاريخ). لن يُحذف شيء من الإحصائيات. استخدمه مرة واحدة فقط.').then(function(ok){
-    if(!ok)return;
-    var groups={};S.man.forEach(function(m){var n=(m.note||'').trim()||'عميل بدون اسم';(groups[n]=groups[n]||[]).push(m)});
-    var cid=S.clients.reduce(function(m,c){return Math.max(m,+c.cid||0)},1000),ops=[],names=Object.keys(groups);
-    names.forEach(function(n){
-      cid++;var ref=D().collection('clients').doc(),base={name:n,phone:'',email:'',note:'منقول من المبيعات اليدوية',cid:cid,manual:true,createdAt:FV().serverTimestamp(),createdBy:me(),ch_EGP:0,pd_EGP:0,ch_SAR:0,pd_SAR:0,fromManualSales:true};
-      groups[n].forEach(function(m){var k=m.currency||'EGP',a=+m.amount||0;base['ch_'+k]+=a;base['pd_'+k]+=a});
-      ops.push(function(b){b.set(ref,base)});
-      groups[n].forEach(function(m){var k=m.currency||'EGP',a=+m.amount||0,dt=m.date||m.createdAt||firebase.firestore.Timestamp.fromDate(new Date());
-        ops.push(function(b){b.set(ref.collection('tx').doc(),{type:'charge',amount:a,currency:k,note:'',date:dt,createdAt:FV().serverTimestamp(),by:me()})});
-        ops.push(function(b){b.set(ref.collection('tx').doc(),{type:'payment',kind:'pay',amount:a,currency:k,note:'',date:dt,createdAt:FV().serverTimestamp(),by:me()})})});
-    });
-    runOps(ops).then(function(){toast('تم إنشاء '+names.length+' حساب');return load(true)}).then(renderList).catch(function(e){console.error(e);toast('تعذر النقل',true)});
+/* ---------- نقل المبيعات اليدوية (من الإحصائيات) تلقائياً إلى حسابات العملاء ---------- */
+function autoImport(){
+  if(S.importing||!S.man.length)return Promise.resolve(false);
+  var done={};S.clients.forEach(function(c){(c.srcIds||[]).forEach(function(i){done[i]=1})});
+  var pend=S.man.filter(function(m){return !done[m.id]});if(!pend.length)return Promise.resolve(false);
+  S.importing=true;
+  var groups={};pend.forEach(function(m){var n=(m.note||'').trim()||'عميل بدون اسم';(groups[n]=groups[n]||[]).push(m)});
+  var cid=S.clients.reduce(function(m,c){return Math.max(m,+c.cid||0)},1000),ops=[],names=Object.keys(groups);
+  names.forEach(function(n){
+    var ex=S.clients.filter(function(c){return c.fromManualSales&&c.name===n})[0],ref=ex?D().collection('clients').doc(ex.id):D().collection('clients').doc();
+    var inc={EGP:[0,0],SAR:[0,0]},ids=[];
+    groups[n].forEach(function(m){var k=m.currency||'EGP',a=+m.amount||0;inc[k]=inc[k]||[0,0];inc[k][0]+=a;inc[k][1]+=a;ids.push(m.id)});
+    if(ex){var up={srcIds:FV().arrayUnion.apply(FV(),ids)};CK.forEach(function(k){if(inc[k]&&inc[k][0]){up['ch_'+k]=FV().increment(inc[k][0]);up['pd_'+k]=FV().increment(inc[k][1])}});ops.push(function(b){b.update(ref,up)})}
+    else{cid++;var base={name:n,phone:'',email:'',note:'منقول من المبيعات اليدوية',cid:cid,manual:true,createdAt:FV().serverTimestamp(),createdBy:me(),ch_EGP:0,pd_EGP:0,ch_SAR:0,pd_SAR:0,fromManualSales:true,srcIds:ids};
+      CK.forEach(function(k){if(inc[k]){base['ch_'+k]=inc[k][0];base['pd_'+k]=inc[k][1]}});ops.push(function(b){b.set(ref,base)})}
+    groups[n].forEach(function(m){var k=m.currency||'EGP',a=+m.amount||0,dt=m.date||m.createdAt||firebase.firestore.Timestamp.fromDate(new Date());
+      ops.push(function(b){b.set(ref.collection('tx').doc(),{type:'charge',amount:a,currency:k,note:'',date:dt,createdAt:FV().serverTimestamp(),by:me(),srcId:m.id})});
+      ops.push(function(b){b.set(ref.collection('tx').doc(),{type:'payment',kind:'pay',amount:a,currency:k,note:'',date:dt,createdAt:FV().serverTimestamp(),by:me(),srcId:m.id})})});
   });
+  return runOps(ops).then(function(){S.importing=false;toast('تم نقل '+pend.length+' عملية من الإحصائيات إلى حسابات العملاء');return true},function(e){S.importing=false;console.error(e);return false});
 }
 function runOps(ops){var p=Promise.resolve();for(var i=0;i<ops.length;i+=400)(function(a){p=p.then(function(){var b=D().batch();a.forEach(function(f){f(b)});return b.commit()})})(ops.slice(i,i+400));return p}
 
@@ -3575,18 +3578,20 @@ document.addEventListener('change',function(e){
 });
 document.addEventListener('focusin',function(e){if(e.target&&e.target.id==='ivPick'){if(S.loaded)fillPicker();else load().then(fillPicker).catch(function(){})}});
 
-/* ---------- حقن التبويب واللوحة ---------- */
+/* ---------- الدمج داخل تبويب «العملاء المسجلون» ---------- */
 function inject(){
-  var users=$('#adTabs [data-p="users"]'),lead=$('#p-leads');
-  if(!users||!lead)return false;
-  if($('#p-clients'))return true;
-  var tab=document.createElement('button');tab.className='tab';tab.setAttribute('data-p','clients');tab.innerHTML='<svg class="ic"><use href="#i-wallet"/></svg>حسابات العملاء';
-  users.after(tab);
-  var pn=document.createElement('div');pn.className='panel';pn.id='p-clients';lead.parentNode.appendChild(pn);
-  tab.addEventListener('click',function(){
-    [].forEach.call(document.querySelectorAll('#adTabs .tab'),function(t){t.classList.toggle('active',t===tab)});
-    [].forEach.call(lead.parentNode.children,function(p){if(p.classList&&p.classList.contains('panel'))p.classList.toggle('active',p===pn)});
-    renderList();load().then(renderList).catch(function(e){var p=$('#p-clients');if(p)p.innerHTML='<div class="card glass"><p class="note" style="color:#c2415f">تعذر تحميل البيانات: '+esc(e&&e.code==='permission-denied'?'ليس لديك صلاحية':'حدث خطأ')+'</p></div>'})});
+  var pu=$('#p-users'),tab=$('#adTabs [data-p="users"]');
+  if(!pu||!tab)return false;
+  if($('#clientsRoot'))return true;
+  var old=document.createElement('div');old.id='oldUsers';old.style.display='none';
+  while(pu.firstChild)old.appendChild(pu.firstChild);
+  var root=document.createElement('div');root.id='clientsRoot';pu.appendChild(root);pu.appendChild(old);
+  var go=function(){
+    renderList();
+    load().then(function(){return autoImport()}).then(function(did){if(did)return load(true)}).then(renderList).catch(function(e){var p=$('#clientsRoot');if(p)p.innerHTML='<div class="card glass"><p class="note" style="color:#c2415f">تعذر تحميل حسابات العملاء ('+esc(e&&e.code?e.code:'خطأ')+'). تأكد من نشر ملف firestore.rules الجديد.</p></div>'});
+  };
+  tab.addEventListener('click',go);
+  if(tab.classList.contains('active'))go();
   if(/^#client=/.test(location.hash)){var chk=setInterval(function(){var a=window.firebase&&firebase.auth&&firebase.auth().currentUser;if(a){clearInterval(chk);route()}},500);setTimeout(function(){clearInterval(chk)},20000)}
   return true;
 }
