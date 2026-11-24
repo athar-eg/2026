@@ -3232,6 +3232,7 @@ function render(host,M){
   var rem=ks.reduce(function(s,k){return s+Math.max(0,tot[k].c-tot[k].p)},0);
   var run={};M.sort(function(a,b){return a.date-b.date}).forEach(function(m){run[m.cur]=(run[m.cur]||0)+(m.type==='charge'?m.amount:-m.amount);m.bal=run[m.cur]});
   var b=document.createElement('div');b.className='fin-box';b.id='finBox';
+  if(!M.length){b.innerHTML='<h4>حسابي المالي</h4><p style="opacity:.7;margin:0">لا توجد حسابات أو فواتير على حسابك حتى الآن.</p>';var o0=document.getElementById('finBox');if(o0)o0.remove();host.appendChild(b);return}
   b.innerHTML='<h4>حسابي المالي</h4><div class="fin-s"><div><small>إجمالي الحساب</small><b>'+all(function(t){return t.c})+'</b></div><div class="ok"><small>المسدد</small><b>'+all(function(t){return t.p})+'</b></div><div class="pen"><small>المتبقي</small><b>'+(rem<=0.0001?'0':all(function(t){return Math.max(0,t.c-t.p)}))+'</b></div></div>'+(rem<=0.0001?'<p class="fin-ok">تم سداد الحساب بالكامل ✓</p>':'')+
    M.slice().reverse().map(function(m){return'<div class="fin-m"><span>'+dstr(m.date)+'</span><span style="flex:1">'+(m.type==='charge'?'حساب جديد':(m.kind==='dep'?'عربون':'سداد'))+(m.note?' — '+String(m.note).replace(/[<>&]/g,''):'')+'</span><b class="'+(m.type==='charge'?'u':'d')+'">'+(m.type==='charge'?'+':'−')+fmt(m.amount)+' '+(CUR[m.cur]||m.cur)+'</b></div>'}).join('');
   var old=document.getElementById('finBox');if(old)old.remove();host.appendChild(b);
@@ -3243,14 +3244,14 @@ function load(host){
     var M=[];r[0].docs.forEach(function(d){var t=d.data();M.push({date:ts(t.date||t.createdAt),type:t.type,amount:+t.amount||0,cur:t.currency||'EGP',note:t.note||'',kind:t.kind})});
     r[1].docs.forEach(function(d){var i=d.data();if((i.state||'active')!=='active')return;var k=i.currency||'EGP',dt=ts(i.issuedAt||i.createdAt);
       M.push({date:dt,type:'charge',amount:+i.total||0,cur:k,note:'رقم '+(i.number||'')});if((+i.collected||0)>0)M.push({date:new Date(dt.getTime()+1000),type:'payment',amount:+i.collected||0,cur:k,note:'رقم '+(i.number||''),kind:i.status==='paid'?'pay':'dep'})});
-    last=Date.now();if(M.length){lastM=M.slice();render(host,M)}
-  }).catch(function(){last=Date.now()}).then(function(){busy=false});
+    last=Date.now();lastM=M.slice();render(host,M)
+  }).catch(function(){last=Date.now();var b=document.createElement('div');b.className='fin-box';b.id='finBox';b.innerHTML='<h4>حسابي المالي</h4><p style="opacity:.7;margin:0">تعذر تحميل حسابك المالي الآن.</p>';var o=document.getElementById('finBox');if(o)o.remove();host.appendChild(b)}).then(function(){busy=false});
 }
-(function w(n){
-  var h=document.getElementById('accBody');if(!h){if(n<80)setTimeout(function(){w(n+1)},250);return}
-  new MutationObserver(function(){if(h.children.length&&!document.getElementById('finBox'))load(h)}).observe(h,{childList:true});
-  document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#accBtn'))setTimeout(function(){if(h.children.length&&!document.getElementById('finBox')){last=0;load(h)}},400)});
-})(0);
+setInterval(function(){
+  var h=document.getElementById('accBody'),m=document.getElementById('accModal');
+  if(!h||!m||!h.children.length||m.offsetParent===null&&getComputedStyle(m).display==='none')return;
+  if(!document.getElementById('finBox'))load(h);
+},700);
 })();
 
 </script>
