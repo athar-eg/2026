@@ -3220,21 +3220,21 @@ if(new URLSearchParams(location.search).get('f'))route();
 (function(){
 'use strict';
 var CUR={EGP:'ج.م',SAR:'ر.س'};
-var st=document.createElement('style');st.textContent='.fin-box{margin:14px 0 4px;padding:14px 16px;border-radius:20px;border:1px solid var(--line,rgba(127,127,127,.25));background:rgba(var(--gold-rgb,221,162,84),.08);text-align:right}.fin-box h4{font-family:Cairo;margin:0 0 10px}.fin-s{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.fin-s div{padding:8px;border-radius:14px;background:rgba(127,127,127,.1);text-align:center}.fin-s small{display:block;font-size:11.5px;opacity:.75}.fin-s b{font-family:Cairo;font-size:15px;direction:rtl;display:block}.fin-s .ok b{color:#1c9a5e}.fin-s .pen b{color:#c2415f}.fin-m{display:flex;gap:8px;justify-content:space-between;align-items:center;padding:7px 0;border-top:1px solid rgba(127,127,127,.2);font-size:13px}.fin-m span:first-child{opacity:.7;flex:0 0 84px}.fin-m b{font-family:Cairo;direction:rtl}.fin-m .u{color:#c2415f}.fin-m .d{color:#1c9a5e}.fin-ok{color:#1c9a5e;font-weight:700;font-size:13px;margin:0 0 8px}';
+var st=document.createElement('style');st.textContent='.fin-box{margin:14px 0 4px;padding:14px 16px;border-radius:20px;border:1px solid var(--line,rgba(127,127,127,.25));background:rgba(var(--gold-rgb,221,162,84),.08);text-align:right}.fin-box h4{font-family:Cairo;margin:0 0 10px}.fin-s{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}.fin-s div{padding:8px;border-radius:14px;background:rgba(127,127,127,.1);text-align:center}.fin-s small{display:block;font-size:11.5px;opacity:.75}.fin-s b{font-family:Cairo;font-size:15px;direction:rtl;display:block}.fin-s .ok b{color:#1c9a5e}.fin-s .pen b{color:#c2415f}.fin-m{display:flex;gap:8px;justify-content:space-between;align-items:center;padding:7px 0;border-top:1px solid rgba(127,127,127,.2);font-size:13px}.fin-m span:first-child{opacity:.7;flex:0 0 84px}.fin-m b{font-family:Cairo;direction:rtl}.fin-m .u{color:#c2415f}.fin-m .d{color:#1c9a5e}.fin-ok{color:#1c9a5e;font-weight:700;font-size:13px;margin:0 0 8px}';
 document.head.appendChild(st);
 function fmt(n){return(Math.round((+n||0)*100)/100).toLocaleString('en-US',{maximumFractionDigits:2})}
 function ts(v){if(!v)return new Date(0);if(v.toDate)return v.toDate();if(v.seconds)return new Date(v.seconds*1000);return new Date(v)}
 function dstr(d){try{return d.toLocaleDateString('ar-EG-u-nu-latn',{day:'numeric',month:'short',year:'numeric'})}catch(e){return''}}
 var busy=false,last=0,lastM=null;
 function render(host,M){
-  var tot={};M.forEach(function(m){var t=tot[m.cur]||(tot[m.cur]={c:0,p:0});if(m.type==='charge')t.c+=m.amount;else t.p+=m.amount});
+  var tot={};M.forEach(function(m){var t=tot[m.cur]||(tot[m.cur]={c:0,p:0});if(m.type==='charge')t.c+=m.amount;else if(m.type==='discount')t.c-=m.amount;else t.p+=m.amount});
   var ks=Object.keys(tot),all=function(f){return ks.map(function(k){return fmt(f(tot[k]))+' '+(CUR[k]||k)}).join(' + ')};
   var rem=ks.reduce(function(s,k){return s+Math.max(0,tot[k].c-tot[k].p)},0);
-  var run={};M.sort(function(a,b){return a.date-b.date}).forEach(function(m){run[m.cur]=(run[m.cur]||0)+(m.type==='charge'?m.amount:-m.amount);m.bal=run[m.cur]});
+  var run={};M.sort(function(a,b){return a.date-b.date}).forEach(function(m){run[m.cur]=(run[m.cur]||0)+(m.type==='charge'?m.amount:-m.amount);m.bal=run[m.cur]});var cr=ks.filter(function(k){return tot[k].p-tot[k].c>0.0001}).map(function(k){return fmt(tot[k].p-tot[k].c)+' '+(CUR[k]||k)}).join(' + ');
   var b=document.createElement('div');b.className='fin-box';b.id='finBox';
   if(!M.length){b.innerHTML='<h4>حسابي المالي</h4><p style="opacity:.7;margin:0">لا توجد حسابات أو فواتير على حسابك حتى الآن.</p>';var o0=document.getElementById('finBox');if(o0)o0.remove();host.appendChild(b);return}
-  b.innerHTML='<h4>حسابي المالي</h4><div class="fin-s"><div><small>إجمالي الحساب</small><b>'+all(function(t){return t.c})+'</b></div><div class="ok"><small>المسدد</small><b>'+all(function(t){return t.p})+'</b></div><div class="pen"><small>المتبقي</small><b>'+(rem<=0.0001?'0':all(function(t){return Math.max(0,t.c-t.p)}))+'</b></div></div>'+(rem<=0.0001?'<p class="fin-ok">تم سداد الحساب بالكامل ✓</p>':'')+
-   M.slice().reverse().map(function(m){return'<div class="fin-m"><span>'+dstr(m.date)+'</span><span style="flex:1">'+(m.type==='charge'?'حساب جديد':(m.kind==='dep'?'عربون':'سداد'))+(m.note?' — '+String(m.note).replace(/[<>&]/g,''):'')+'</span><b class="'+(m.type==='charge'?'u':'d')+'">'+(m.type==='charge'?'+':'−')+fmt(m.amount)+' '+(CUR[m.cur]||m.cur)+'</b></div>'}).join('');
+  b.innerHTML='<h4>حسابي المالي</h4><div class="fin-s"><div><small>إجمالي تعاملك مع أثر</small><b>'+all(function(t){return t.c})+'</b></div>'+(cr?'<div class="ok"><small>رصيد لك لدى أثر</small><b>'+cr+'</b></div>':'<div class="pen"><small>المتبقي عليك</small><b>'+(rem<=0.0001?'0':all(function(t){return Math.max(0,t.c-t.p)}))+'</b></div>')+'</div>'+(rem<=0.0001?'<p class="fin-ok">تم سداد الحساب بالكامل ✓</p>':'')+
+   M.slice().reverse().map(function(m){return'<div class="fin-m"><span>'+dstr(m.date)+'</span><span style="flex:1">'+(m.type==='charge'?'حساب جديد':m.type==='discount'?'خصم':(m.kind==='dep'?'عربون':'سداد'))+(m.note?' — '+String(m.note).replace(/[<>&]/g,''):'')+'</span><b class="'+(m.type==='charge'?'u':'d')+'">'+(m.type==='charge'?'+':'−')+fmt(m.amount)+' '+(CUR[m.cur]||m.cur)+'</b></div>'}).join('');
   var old=document.getElementById('finBox');if(old)old.remove();host.appendChild(b);
 }
 function load(host){
@@ -3243,7 +3243,7 @@ function load(host){
   Promise.all([db.collection('clients').doc(u.uid).collection('tx').get(),db.collection('invoices').where('clientId','==',u.uid).get()]).then(function(r){
     var M=[];r[0].docs.forEach(function(d){var t=d.data();M.push({date:ts(t.date||t.createdAt),type:t.type,amount:+t.amount||0,cur:t.currency||'EGP',note:t.note||'',kind:t.kind})});
     r[1].docs.forEach(function(d){var i=d.data();if((i.state||'active')!=='active')return;var k=i.currency||'EGP',dt=ts(i.issuedAt||i.createdAt);
-      M.push({date:dt,type:'charge',amount:+i.total||0,cur:k,note:'رقم '+(i.number||'')});if((+i.collected||0)>0)M.push({date:new Date(dt.getTime()+1000),type:'payment',amount:+i.collected||0,cur:k,note:'رقم '+(i.number||''),kind:i.status==='paid'?'pay':'dep'})});
+      M.push({date:dt,type:'charge',amount:+i.total||0,cur:k,note:'رقم '+(i.number||'')});var ic=i.status==='paid'?(+i.total||0):Math.max(+i.collected||0,+i.deposit||0);if(ic>0)M.push({date:new Date(dt.getTime()+1000),type:'payment',amount:ic,cur:k,note:'رقم '+(i.number||''),kind:i.status==='paid'?'pay':'dep'})});
     last=Date.now();lastM=M.slice();render(host,M)
   }).catch(function(){last=Date.now();var b=document.createElement('div');b.className='fin-box';b.id='finBox';b.innerHTML='<h4>حسابي المالي</h4><p style="opacity:.7;margin:0">تعذر تحميل حسابك المالي الآن.</p>';var o=document.getElementById('finBox');if(o)o.remove();host.appendChild(b)}).then(function(){busy=false});
 }
