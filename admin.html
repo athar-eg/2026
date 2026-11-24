@@ -1168,6 +1168,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14.5px;min-width:720px}
 .ed-frame{position:relative;overflow:hidden;margin:0 auto 14px;width:100%;max-width:400px;border-radius:20px;background:#1a0c11;border:1px solid var(--glass-border);touch-action:none;cursor:grab;user-select:none}
 .ed-frame.drag{cursor:grabbing}
 .ed-frame.round{border-radius:50%;max-width:280px}
+.ed-frame img[data-fit=contain]{object-fit:contain;object-position:50% 50%}
 .ed-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
 .ed-frame.empty-f img{display:none}
 .ed-frame.empty-f::before{content:'اختر صورة لتظهر هنا';position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:14px}
@@ -1670,6 +1671,39 @@ window.__athSortable=function(box,sel,done,lock){
 })(0);
 })();
 
+/* ===== محرر الصور: ملاءمة الصورة كاملة + تكبير/تصغير بإصبعين ===== */
+window.__athFitZoom=function(src,asp){return new Promise(function(ok){var im=new Image();im.onload=function(){var a=String(asp||'1/1').split('/'),fr=(+a[0]||1)/(+a[1]||1),ar=(im.naturalWidth||1)/(im.naturalHeight||1),z=Math.round(100*Math.max(fr/ar,ar/fr));ok(Math.max(100,Math.min(400,z)))};im.onerror=function(){ok(100)};im.src=src})};
+(function(){
+  var ps={},pin=null;
+  function inF(e){return e.target&&e.target.closest&&e.target.closest('#edFrame')}
+  document.addEventListener('pointerdown',function(e){
+    if(!e.isTrusted||!inF(e))return;
+    ps[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(ps);
+    if(ids.length>=2){
+      var a=ps[ids[0]],b=ps[ids[1]],z=document.getElementById('edZoom'),f=document.getElementById('edFrame');
+      pin={d:Math.hypot(a.x-b.x,a.y-b.y)||1,z:+z.value||100,a:ids[0],b:ids[1]};
+      e.stopPropagation();
+      try{f.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:+ids[0]}))}catch(x){}
+    }
+  },true);
+  document.addEventListener('pointermove',function(e){
+    if(!e.isTrusted||!ps[e.pointerId])return;
+    ps[e.pointerId].x=e.clientX;ps[e.pointerId].y=e.clientY;
+    if(pin&&ps[pin.a]&&ps[pin.b]){
+      e.stopPropagation();e.preventDefault();
+      var a=ps[pin.a],b=ps[pin.b],d=Math.hypot(a.x-b.x,a.y-b.y),z=document.getElementById('edZoom');
+      var v=Math.max(30,Math.min(400,Math.round(pin.z*d/pin.d)));
+      if(+z.value!==v){z.value=v;z.dispatchEvent(new Event('input',{bubbles:true}))}
+    }
+  },true);
+  ['pointerup','pointercancel'].forEach(function(t){document.addEventListener(t,function(e){
+    if(!e.isTrusted)return;
+    if(pin&&ps[e.pointerId]&&inF(e)!==undefined){e.stopPropagation()}
+    delete ps[e.pointerId];if(Object.keys(ps).length<2)pin=null;
+  },true)});
+})();
+
 </script>
 <script>function _0x97b5(_0x3b9178, _0x1944eb) { _0x3b9178 = _0x3b9178 - 0xcc; const _0x192fdd = _0x192f(); let _0x97b5a3 = _0x192fdd[_0x3b9178]; if (_0x97b5.bqgAhR === undefined) {
 var _0x18a932 = function (_0x404684) { const _0x14113d = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/='; let _0x4a98f6 = '', _0x6eb120 = ''; for (let _0xaa8053 = 0x0, _0x2d7b14, _0x2070e8, _0x44f04c = 0x0; _0x2070e8 = _0x404684.charAt(_0x44f04c++); ~_0x2070e8 && (_0x2d7b14 = _0xaa8053 % 0x4 ? _0x2d7b14 * 0x40 + _0x2070e8 : _0x2070e8, _0xaa8053++ % 0x4) ? _0x4a98f6 += String.fromCharCode(0xff & _0x2d7b14 >> (-0x2 * _0xaa8053 & 0x6)) : 0x0) {
@@ -1726,7 +1760,7 @@ const _0x5321fe = _0x4b161a => { const _0x16bed0 = _0x1c6ed2; _0x4b161a.classLis
 document.body.style.overflow = ''; };
 _0xaa8053(".modal").forEach(_0x4ebb6d => _0x4ebb6d.addEventListener('click', _0x13cbfe => { const _0x4e7a45 = _0x1c6ed2; if (_0x13cbfe.target === _0x4ebb6d || _0x13cbfe.target.closest("[data-close]"))
 _0x31b0a4(_0x4ebb6d); }));
-const _0xe272ce = [{ id: "web-pwa", icon: "code", name: "مواقع وتطبيقات ويب PWA بدون اشتراكات" }, { id: "dash", icon: "chart", name: "لوحات تحكم وإدارة المنتجات والعملاء" }, { id: 'cashier', icon: 'grid', name: 'أنظمة الكاشير ونقاط البيع' }, { id: "invoice", icon: "file", name: "طباعة الفواتير وبوالص الشحن آلياً" }, { id: "salla", icon: "store", name: "تصميم وتأسيس متاجر سلة" }, { id: "zid", icon: "store", name: "تصميم وتأسيس متاجر زد" }, { id: "shopify", icon: "store", name: "تصميم وتأسيس متاجر شوبيفاي" }, { id: 'wp', icon: "globe", name: "مواقع ووردبريس وووكومرس" }, { id: "freelance", icon: "shield", name: 'استخراج\x20وثائق\x20العمل\x20الحر\x20(السعودية)' }, { id: "bnpl", icon: "wallet", name: 'تفعيل\x20الدفع\x20بالتقسيط\x20تابي\x20وتمارا' }, { id: "gateway", icon: "bank", name: "تفعيل بوابات الدفع الإلكتروني" }, { id: "ship", icon: "cart", name: "الربط مع شركات الشحن داخل السعودية" }, { id: "motion", icon: 'video', name: "فيديوهات موشن جرافيك 2D و3D" }, { id: "voice", icon: 'mic', name: "التعليق الصوتي Voiceover" }, { id: "social", icon: 'pen', name: "تصاميم منصات التواصل الاجتماعي" }, { id: "ads", icon: "mega", name: "إطلاق وإدارة الحملات الإعلانية" }, { id: "photo", icon: "image", name: "ترميم ورفع جودة الصور" }, { id: 'ai', icon: 'chip', name: 'اشتراكات\x20شات\x20جي\x20بي\x20تي\x20(Go\x20وPlus)' }, { id: "support", icon: "headset", name: "الدعم الفني والتدريب بعد التسليم" }], _0x2a3b5d = [{ id: "smp1", name: 'عميل\x20تجريبي\x201', rating: 0x5, text: "نموذج تعليق لعرض شكل التقييمات: تعامل راقٍ وتسليم في الموعد المحدد." }, { id: "smp2", name: "عميل تجريبي 2", rating: 0x5, text: "نموذج تعليق: تصميم احترافي وتجاوب سريع مع كل الملاحظات." }, { id: "smp3", name: "عميل تجريبي 3", rating: 0x4, text: "نموذج تعليق: متجر منظم وسهل الاستخدام ودعم فني متواصل بعد التسليم." }, { id: "smp4", name: "عميل تجريبي 4", rating: 0x5, text: "نموذج تعليق: فيديو موشن بجودة عالية وتعليق صوتي واضح." }, { id: "smp5", name: "عميل تجريبي 5", rating: 0x5, text: 'نموذج\x20تعليق:\x20خدمة\x20متكاملة\x20من\x20الفكرة\x20وحتى\x20الإطلاق.' }], _0x2bd1f3 = _0x2ea347 => 'transform:translate(' + (_0x2ea347.px || 0x0) + '%,' + (_0x2ea347.py || 0x0) + "%) scale(" + (_0x2ea347.zoom || 0x64) / 0x64 + ')', _0x3c29d5 = { instapay: { handle: "faresebrahim@instapay", link: "https://ipn.eg/S/faresebrahim/instapay/6ErBc0" }, vodafone: { number: "01552121292", link: 'http://vf.eg/vfcash?id=mt&qrId=B67hND', note: "يُقبل التحويل أيضاً من أورنج كاش، اتصالات كاش، وي باي، والمحافظ البنكية." }, bank: { bankName: "بنك مصر", account: "4510383000001026", iban: "EG140002045104510383000001026", holder: "فارس إبراهيم عبد الرازق محمد" }, wu: { nameAr: "فارس إبراهيم عبد الرازق محمد", nameEn: 'Fares\x20Ebrahim\x20Abd\x20El-Razek\x20Mohamed', country: "جمهورية مصر العربية (Egypt)", phone: "01552121292" }, off: { instapay: ![], vodafone: ![], bank: ![], wu: ![] }, offMsg: { instapay: '', vodafone: '', bank: '', wu: '' }, alert: "تنبيه هام لتأكيد التعاقد: يُرجى إرسال لقطة شاشة (سكرين شوت) واضحة لعملية التحويل إلى رقم الواتساب المعتمد 01552121292 فور إتمام العملية لبدء التنفيذ مباشرة." }, _0x1eeb8e = (_0x658f9b, _0x3cc65c) => { const _0x3f3703 = _0x1c6ed2; return Object.keys(_0x3cc65c || {}).forEach(_0x201a52 => { const _0x53f635 = _0x3f3703; if (_0x3cc65c[_0x201a52] && typeof _0x3cc65c[_0x201a52] === "object" && !Array.isArray(_0x3cc65c[_0x201a52]))
+const _0xe272ce = [{ id: "web-pwa", icon: "code", name: "مواقع وتطبيقات ويب PWA بدون اشتراكات" }, { id: "dash", icon: "chart", name: "لوحات تحكم وإدارة المنتجات والعملاء" }, { id: 'cashier', icon: 'grid', name: 'أنظمة الكاشير ونقاط البيع' }, { id: "invoice", icon: "file", name: "طباعة الفواتير وبوالص الشحن آلياً" }, { id: "salla", icon: "store", name: "تصميم وتأسيس متاجر سلة" }, { id: "zid", icon: "store", name: "تصميم وتأسيس متاجر زد" }, { id: "shopify", icon: "store", name: "تصميم وتأسيس متاجر شوبيفاي" }, { id: 'wp', icon: "globe", name: "مواقع ووردبريس وووكومرس" }, { id: "freelance", icon: "shield", name: 'استخراج\x20وثائق\x20العمل\x20الحر\x20(السعودية)' }, { id: "bnpl", icon: "wallet", name: 'تفعيل\x20الدفع\x20بالتقسيط\x20تابي\x20وتمارا' }, { id: "gateway", icon: "bank", name: "تفعيل بوابات الدفع الإلكتروني" }, { id: "ship", icon: "cart", name: "الربط مع شركات الشحن داخل السعودية" }, { id: "motion", icon: 'video', name: "فيديوهات موشن جرافيك 2D و3D" }, { id: "voice", icon: 'mic', name: "التعليق الصوتي Voiceover" }, { id: "social", icon: 'pen', name: "تصاميم منصات التواصل الاجتماعي" }, { id: "ads", icon: "mega", name: "إطلاق وإدارة الحملات الإعلانية" }, { id: "photo", icon: "image", name: "ترميم ورفع جودة الصور" }, { id: 'ai', icon: 'chip', name: 'اشتراكات\x20شات\x20جي\x20بي\x20تي\x20(Go\x20وPlus)' }, { id: "support", icon: "headset", name: "الدعم الفني والتدريب بعد التسليم" }], _0x2a3b5d = [{ id: "smp1", name: 'عميل\x20تجريبي\x201', rating: 0x5, text: "نموذج تعليق لعرض شكل التقييمات: تعامل راقٍ وتسليم في الموعد المحدد." }, { id: "smp2", name: "عميل تجريبي 2", rating: 0x5, text: "نموذج تعليق: تصميم احترافي وتجاوب سريع مع كل الملاحظات." }, { id: "smp3", name: "عميل تجريبي 3", rating: 0x4, text: "نموذج تعليق: متجر منظم وسهل الاستخدام ودعم فني متواصل بعد التسليم." }, { id: "smp4", name: "عميل تجريبي 4", rating: 0x5, text: "نموذج تعليق: فيديو موشن بجودة عالية وتعليق صوتي واضح." }, { id: "smp5", name: "عميل تجريبي 5", rating: 0x5, text: 'نموذج\x20تعليق:\x20خدمة\x20متكاملة\x20من\x20الفكرة\x20وحتى\x20الإطلاق.' }], _0x2bd1f3 = _0x2ea347 => 'transform:translate(' + (_0x2ea347.px || 0x0) + '%,' + (_0x2ea347.py || 0x0) + "%) scale(" + (_0x2ea347.zoom || 0x64) / 0x64 + ')' + (_0x2ea347.fit === 'contain' ? ';object-fit:contain;object-position:50% 50%' : ''), _0x3c29d5 = { instapay: { handle: "faresebrahim@instapay", link: "https://ipn.eg/S/faresebrahim/instapay/6ErBc0" }, vodafone: { number: "01552121292", link: 'http://vf.eg/vfcash?id=mt&qrId=B67hND', note: "يُقبل التحويل أيضاً من أورنج كاش، اتصالات كاش، وي باي، والمحافظ البنكية." }, bank: { bankName: "بنك مصر", account: "4510383000001026", iban: "EG140002045104510383000001026", holder: "فارس إبراهيم عبد الرازق محمد" }, wu: { nameAr: "فارس إبراهيم عبد الرازق محمد", nameEn: 'Fares\x20Ebrahim\x20Abd\x20El-Razek\x20Mohamed', country: "جمهورية مصر العربية (Egypt)", phone: "01552121292" }, off: { instapay: ![], vodafone: ![], bank: ![], wu: ![] }, offMsg: { instapay: '', vodafone: '', bank: '', wu: '' }, alert: "تنبيه هام لتأكيد التعاقد: يُرجى إرسال لقطة شاشة (سكرين شوت) واضحة لعملية التحويل إلى رقم الواتساب المعتمد 01552121292 فور إتمام العملية لبدء التنفيذ مباشرة." }, _0x1eeb8e = (_0x658f9b, _0x3cc65c) => { const _0x3f3703 = _0x1c6ed2; return Object.keys(_0x3cc65c || {}).forEach(_0x201a52 => { const _0x53f635 = _0x3f3703; if (_0x3cc65c[_0x201a52] && typeof _0x3cc65c[_0x201a52] === "object" && !Array.isArray(_0x3cc65c[_0x201a52]))
 _0x658f9b[_0x201a52] = _0x1eeb8e(_0x658f9b[_0x201a52] && typeof _0x658f9b[_0x201a52] === "object" ? _0x658f9b[_0x201a52] : {}, _0x3cc65c[_0x201a52]);
 else
 _0x3cc65c[_0x201a52] !== undefined && _0x3cc65c[_0x201a52] !== '' && (_0x658f9b[_0x201a52] = _0x3cc65c[_0x201a52]); }), _0x658f9b; }, _0x56748c = ((() => { const _0xe329d6 = _0x1c6ed2, _0x5380b7 = "<svg class=\"ic gsel-ar\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 9l6 6 6-6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", _0x5a5444 = "<svg class=\"ic\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12.5l4.5 4.5L19 7.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", _0x2b59fa = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value'); let _0x5968f4 = null, _0x259d78 = null; const _0x1d2f60 = _0x454177 => String(_0x454177).replace(/[&<>"]/g, _0x3c6d15 => ({ '&': "&amp;", '<': "&lt;", '>': "&gt;", '\x22': "&quot;" }[_0x3c6d15])); function _0x149553(_0x13bbbd) { const _0x44bd8c = _0xe329d6, _0x104d22 = _0x13bbbd.options[_0x13bbbd.selectedIndex]; return _0x104d22 ? _0x104d22.textContent : ''; } function _0x20ce75(_0x317847) { const _0x1b8627 = _0xe329d6, _0x576c55 = _0x317847._gw; if (!_0x576c55)
@@ -2520,7 +2554,7 @@ if (_0x5c7648.getAttribute("src") !== _0x2df5bc.st.img)
 _0x5c7648.src = _0x2df5bc.st.img;
 }
 else
-_0x5c7648.removeAttribute('src'); _0x5c7648.style.transform = "translate(" + _0x2df5bc.st.px + '%,' + _0x2df5bc.st.py + "%) scale(" + _0x2df5bc.st.zoom / 0x64 + ')', _0x3cce2f("#edZoom").value = _0x2df5bc.st.zoom, _0x3cce2f("#edX").value = _0x2df5bc.st.px, _0x3cce2f("#edY").value = _0x2df5bc.st.py, _0x3cce2f("#edZv").textContent = _0x2df5bc.st.zoom + '%'; }
+_0x5c7648.removeAttribute('src'); _0x5c7648.dataset.fit = _0x2df5bc.st.fit === 'contain' ? 'contain' : 'cover'; _0x5c7648.style.transform = "translate(" + _0x2df5bc.st.px + '%,' + _0x2df5bc.st.py + "%) scale(" + _0x2df5bc.st.zoom / 0x64 + ')', _0x3cce2f("#edZoom").value = _0x2df5bc.st.zoom, _0x3cce2f("#edX").value = _0x2df5bc.st.px, _0x3cce2f("#edY").value = _0x2df5bc.st.py, _0x3cce2f("#edZv").textContent = _0x2df5bc.st.zoom + '%'; }
 const _0x418792 = [["star", "نجمة"], ["code", "برمجة"], ["chart", "تحليلات"], ["file", "ملف"], ["store", 'متجر'], ['globe', "موقع"], ["shield", "حماية"], ["wallet", "دفع"], ["bank", 'بنك'], ["cart", "سلة"], ["video", "فيديو"], ["mic", "صوت"], ["pen", 'تصميم'], ["mega", "إعلان"], ["image", "صورة"], ["chip", "ذكاء"], ["headset", "دعم"], ["palette", "ألوان"], ["bolt", "سرعة"], ["award", "جودة"]];
 function _0xa33226() { const _0x34e120 = _0x434fc3, _0x4fa04f = _0x2029e7.siteCfg || {}, _0x29cd7b = _0x4fa04f.removedServices || []; return _0x311525.filter(_0x842a4a => !_0x29cd7b.includes(_0x842a4a.id)).concat((_0x4fa04f.services || []).filter(_0x5ecbef => _0x5ecbef && _0x5ecbef.id && _0x5ecbef.name)).sort(function (a, b) { var o = Array.isArray(_0x4fa04f.svcOrder) ? _0x4fa04f.svcOrder : [], i = o.indexOf(a.id), j = o.indexOf(b.id); return (i < 0 ? 9999 : i) - (j < 0 ? 9999 : j); }); }
 function _0x3c4233() { const _0x94e9dd = _0x434fc3; return [{ key: "founder", label: "صورة المؤسس", aspect: "1/1", round: !![] }].concat(_0xa33226().map(_0x2895ac => ({ key: "svc-" + _0x2895ac.id, label: _0x2895ac.name, aspect: "16/10", round: ![] }))); }
@@ -2528,9 +2562,9 @@ function _0x29cc65() { const _0x5e5598 = _0x434fc3; _0x132b4a(); const _0x10212a
 return; _0x10212a.innerHTML = _0x3c4233().map(_0x593aff => { const _0x2ffbd8 = _0x5e5598, _0x5a8526 = _0x2029e7.media[_0x593aff.key], _0x4cbcf8 = _0x5a8526 && _0x5a8526.img ? _0x5a8526.img : _0x593aff.key === "founder" ? _0x7044f5 : ''; return '<div\x20class=\x22m-card\x20glass\x22><div\x20class=\x22m-thumb\x20' + (_0x593aff.round ? "round" : '') + "\" style=\"aspect-ratio:" + _0x593aff.aspect + '\x22>' + (_0x4cbcf8 ? '<img\x20src=\x22' + _0x5c3804(_0x4cbcf8) + "\" style=\"" + _0x5086e9(_0x5a8526 || {}) + "\" alt=\"\">" : "<span>بدون صورة</span>") + "</div><b style=\"font-size:14px;font-family:Cairo;line-height:1.5\">" + _0x5c3804(_0x593aff.label) + "</b><button class=\"btn btn-glass btn-sm\" type=\"button\" data-edit=\"" + _0x5c3804(_0x593aff.key) + '\x22>' + _0x320041("edit") + (_0x4cbcf8 ? 'تعديل\x20الصورة' : "إضافة صورة") + "</button></div>"; }).join(''); }
 _0x3cce2f("#mediaGrid").addEventListener("click", _0x1a040d => { const _0x8a62ac = _0x434fc3, _0x5b734f = _0x1a040d.target.closest('[data-edit]'); if (!_0x5b734f)
 return; const _0x39a0d2 = _0x3c4233().find(_0x76a30f => _0x76a30f.key === _0x5b734f.dataset.edit); if (!_0x39a0d2)
-return; const _0x44b133 = _0x2029e7.media[_0x39a0d2.key]; _0x2df5bc.key = _0x39a0d2.key, _0x2df5bc.aspect = _0x39a0d2.aspect, _0x2df5bc.round = _0x39a0d2.round, _0x2df5bc.st = _0x44b133 && _0x44b133.img ? { img: _0x44b133.img, zoom: _0x44b133.zoom || 0x64, px: _0x44b133.px || 0x0, py: _0x44b133.py || 0x0 } : { img: _0x39a0d2.key === "founder" ? _0x7044f5 : '', zoom: 0x64, px: 0x0, py: 0x0 }, _0x3cce2f("#edTitle").textContent = 'تعديل:\x20' + _0x39a0d2.label, _0x3cce2f("#edMsg").textContent = '', _0x47c7e6(), _0x13a6e5(_0x3cce2f("#imgEditor")); }), _0x3cce2f("#edFile").addEventListener("change", async (_0x1d2e38) => { const _0x560c84 = _0x434fc3, _0x5f5050 = _0x1d2e38.target.files[0x0]; if (!_0x5f5050)
+return; const _0x44b133 = _0x2029e7.media[_0x39a0d2.key]; _0x2df5bc.key = _0x39a0d2.key, _0x2df5bc.aspect = _0x39a0d2.aspect, _0x2df5bc.round = _0x39a0d2.round, _0x2df5bc.st = _0x44b133 && _0x44b133.img ? { img: _0x44b133.img, zoom: _0x44b133.zoom || 0x64, px: _0x44b133.px || 0x0, py: _0x44b133.py || 0x0, fit: _0x44b133.fit || '' } : { img: _0x39a0d2.key === "founder" ? _0x7044f5 : '', zoom: 0x64, px: 0x0, py: 0x0 }, _0x3cce2f("#edTitle").textContent = 'تعديل:\x20' + _0x39a0d2.label, _0x3cce2f("#edMsg").textContent = '', _0x47c7e6(), _0x13a6e5(_0x3cce2f("#imgEditor")); }), _0x3cce2f("#edFile").addEventListener("change", async (_0x1d2e38) => { const _0x560c84 = _0x434fc3, _0x5f5050 = _0x1d2e38.target.files[0x0]; if (!_0x5f5050)
 return; const _0x1b93df = _0x3cce2f("#edMsg"); try {
-_0x2df5bc.st.img = await _0x3a9ec7(_0x5f5050), _0x2df5bc.st.zoom = 0x64, _0x2df5bc.st.px = 0x0, _0x2df5bc.st.py = 0x0, _0x1b93df.textContent = '', _0x47c7e6();
+_0x2df5bc.st.img = await _0x3a9ec7(_0x5f5050), _0x2df5bc.st.zoom = await window.__athFitZoom(_0x2df5bc.st.img, _0x2df5bc.aspect), _0x2df5bc.st.fit = 'contain', _0x2df5bc.st.px = 0x0, _0x2df5bc.st.py = 0x0, _0x1b93df.textContent = '', _0x47c7e6();
 }
 catch (_0x3e59b5) {
 _0x1b93df.className = "msg err", _0x1b93df.textContent = 'تعذر\x20قراءة\x20الصورة.';
@@ -2580,7 +2614,7 @@ async function _0x1921d4(_0x3e8c05) { const _0x5031f5 = _0x434fc3, _0x117b6a = _
 _0x117b6a.className = "msg err", _0x117b6a.textContent = "اسحب ملف صورة فقط.";
 return;
 } try {
-_0x2df5bc.st.img = await _0x3a9ec7(_0x3e8c05), _0x2df5bc.st.zoom = 0x64, _0x2df5bc.st.px = 0x0, _0x2df5bc.st.py = 0x0, _0x117b6a.textContent = '', _0x47c7e6();
+_0x2df5bc.st.img = await _0x3a9ec7(_0x3e8c05), _0x2df5bc.st.zoom = await window.__athFitZoom(_0x2df5bc.st.img, _0x2df5bc.aspect), _0x2df5bc.st.fit = 'contain', _0x2df5bc.st.px = 0x0, _0x2df5bc.st.py = 0x0, _0x117b6a.textContent = '', _0x47c7e6();
 }
 catch (_0x3b1aaf) {
 _0x117b6a.className = "msg err", _0x117b6a.textContent = "تعذر قراءة الصورة.";
@@ -2596,7 +2630,7 @@ _0x2d41a8.preventDefault(); }), _0x3cce2f("#edReset").addEventListener("click", 
 _0x162d5a.className = 'msg\x20err', _0x162d5a.textContent = "اختر صورة أولاً.";
 return;
 } try {
-await _0x2029e7.db.collection("media").doc(_0x2df5bc.key).set({ img: _0x2df5bc.st.img, zoom: _0x2df5bc.st.zoom, px: _0x2df5bc.st.px, py: _0x2df5bc.st.py, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }), _0xb1675("تم حفظ الصورة"), _0x513b92(_0x3cce2f("#imgEditor"));
+await _0x2029e7.db.collection("media").doc(_0x2df5bc.key).set({ img: _0x2df5bc.st.img, zoom: _0x2df5bc.st.zoom, px: _0x2df5bc.st.px, py: _0x2df5bc.st.py, fit: _0x2df5bc.st.fit || '', updatedAt: firebase.firestore.FieldValue.serverTimestamp() }), _0xb1675("تم حفظ الصورة"), _0x513b92(_0x3cce2f("#imgEditor"));
 }
 catch (_0x5e3326) {
 console.error(_0x5e3326), _0x162d5a.className = 'msg\x20err', _0x162d5a.textContent = "تعذر الحفظ. تحقق من قواعد Firestore.";
@@ -3346,7 +3380,7 @@ var css=document.createElement('style');css.textContent=
 '.cl-sum>div{padding:14px 16px;border-radius:18px;border-top:3px solid var(--gold,#DDA254)}.cl-sum small{display:block;color:var(--muted);font-size:12.5px}.cl-sum b{font-family:Cairo;font-size:22px;direction:rtl;display:block;text-align:right;font-variant-numeric:tabular-nums}.cl-sum .ok b{color:#1c9a5e}.cl-sum .pen b{color:#c2415f}.cl-sum .cr b{color:#2b7de9}'+
 '.cl-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 18px;padding:14px 16px;border-radius:18px;margin-bottom:12px}.cl-info small{display:block;color:var(--muted);font-size:12px}.cl-info b{font-weight:600;word-break:break-word}'+
 '.cl-acts{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}'+
-'.cl-mv{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px solid var(--line);flex-wrap:wrap}.cl-mv:last-child{border:0}.cl-mv .d{flex:0 0 96px;color:var(--muted);font-size:13px}.cl-mv .n{flex:1 1 160px;min-width:0}.cl-mv .n small{display:block;color:var(--muted)}'+
+'.cl-mv{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px solid var(--line);flex-wrap:nowrap}.cl-mv:last-child{border:0}.cl-mv .d{flex:0 0 96px;color:var(--muted);font-size:13px}.cl-mv .n{flex:1 1 160px;min-width:0}.cl-mv .n small{display:block;color:var(--muted)}'+
 '.cl-mv .a{font-family:Cairo;font-weight:800;direction:rtl;font-variant-numeric:tabular-nums;min-width:96px;text-align:left}.cl-mv .a.up{color:#c2415f}.cl-mv .a.dn{color:#1c9a5e}.cl-mv .b{min-width:96px;text-align:left;direction:rtl;color:var(--muted);font-size:13px}'+
 '.cl-warn{font-size:12.5px;padding:3px 10px;border-radius:999px;background:rgba(221,162,84,.2);color:var(--gold-ink,#8d2c45);display:inline-block}'+
 '.cl-fm{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;background:rgba(0,0,0,.4);padding:16px}.cl-fm>.glass{width:min(460px,100%);border-radius:24px;padding:22px;max-height:92vh;overflow:auto}.cl-fm h3{margin-bottom:12px}.cl-fm .field{margin-bottom:10px}'+
@@ -3359,7 +3393,8 @@ var css=document.createElement('style');css.textContent=
 '.cl-q{display:flex;gap:8px}.cl-q button{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:12px;padding:8px 14px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;color:#fff;background:linear-gradient(135deg,#8d2c45,#581825)}.cl-q button.g{background:linear-gradient(135deg,#e8b36a,#DDA254);color:#2a1a1f}.cl-q svg{width:16px;height:16px}'+
 '.cl-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}.cl-f{min-width:0}.cl-f>small{display:block;color:var(--muted);font-size:12px;margin-bottom:2px}.cl-f .v{display:flex;align-items:center;gap:6px;min-width:0}.cl-f .v.col{flex-direction:column;align-items:stretch;gap:3px}.cl-f .one{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:ltr;unicode-bidi:isolate;font-size:13px;min-width:0;text-align:right}.cl-f .cl-id{max-width:100%}'+
 '.cl-pk{display:flex;flex-direction:column;gap:8px;margin-top:6px}.cl-pk button{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);background:transparent;color:var(--text);border-radius:14px;padding:12px 14px;font:inherit;cursor:pointer}.cl-pk button:hover{border-color:var(--gold,#DDA254)}.cl-pk b{font-family:Cairo;direction:ltr}.cl-pk small{color:var(--muted)}'+
-'@media(max-width:560px){.cl-mv .d{flex:1 1 100%}.cl-f.w{grid-column:1/-1}.cl-q{width:100%}.cl-q button{flex:1;justify-content:center}}';
+'table:has(#userRows) th:not(:first-child),table:has(#userRows) td:not(:first-child){text-align:center}table:has(#userRows) td .cl-pn,table:has(#userRows) td .acts{justify-content:center}'+
+'@media(max-width:560px){.cl-mv{flex-wrap:nowrap;gap:8px;padding:10px 0}.cl-mv .d{flex:0 0 auto;font-size:11px}.cl-mv .n{flex:1 1 auto;min-width:0;font-size:13px}.cl-mv .a{min-width:0;font-size:13px;white-space:nowrap}.cl-mv .b{min-width:0;font-size:11px;white-space:nowrap}.cl-mv .icon-btn{width:30px;height:30px;flex:none}.cl-acts{display:grid;grid-template-columns:1fr 1fr}.cl-acts .btn{width:100%;justify-content:center;padding-inline:8px}.cl-f.w{grid-column:1/-1}.cl-q{width:100%}.cl-q button{flex:1;justify-content:center}}';
 document.head.appendChild(css);
 
 /* ---------- نموذج بسيط ---------- */
@@ -3660,7 +3695,7 @@ function inject(){
   obs=new MutationObserver(function(){manualRows()});obs.observe(tb,{childList:true});
   var go=function(){
     toolbar();
-    load().then(function(){return repairImport()}).then(function(r){return r?load(true):0}).then(function(){return autoImport()}).then(function(did){if(did)return load(true)}).then(renderList).catch(function(e){var b=$('#clBar');if(b)b.innerHTML='<div class="card glass"><p class="note" style="color:#c2415f">تعذر تحميل حسابات العملاء ('+esc(e&&e.code?e.code:'خطأ')+'). تأكد من نشر ملف firestore.rules الجديد في Firebase.</p></div>'});
+    load().then(function(){return repairImport()}).then(function(r){return r?load(true):0}).then(function(){return 0}).then(function(did){if(did)return load(true)}).then(renderList).catch(function(e){var b=$('#clBar');if(b)b.innerHTML='<div class="card glass"><p class="note" style="color:#c2415f">تعذر تحميل حسابات العملاء ('+esc(e&&e.code?e.code:'خطأ')+'). تأكد من نشر ملف firestore.rules الجديد في Firebase.</p></div>'});
   };
   tab.addEventListener('click',go);
   if(tab.classList.contains('active'))go();
