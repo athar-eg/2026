@@ -3321,7 +3321,7 @@ function sync(){
     ensure();inject();
   }else if(!isOpen()){
     if(modal.classList.contains('me-full'))modal.classList.remove('me-full');
-    if(location.hash==='#account'){if(history.state&&history.state.me)history.back();else{try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}}
+    if(location.hash==='#account'){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}
   }
 }
 if(modal){
