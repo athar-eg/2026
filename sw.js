@@ -1,9 +1,9 @@
 /* أثر ATHAR — Service Worker */
-const VERSION='athar-v2.1.6';
+const VERSION='athar-v2.2.0';
 const SHELL = [
   './', './index.html', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png', './icons/favicon-48.png',
-  './assets/athar-logo.png'
+  './assets/athar-logo.png', './assets/athar-og.png'
 ];
 /* خدمات Firebase والمصادقة لا تُخزَّن أبداً */
 const BYPASS_HOSTS = ['firestore.googleapis.com', 'identitytoolkit.googleapis.com', 'securetoken.googleapis.com', 'firebaseinstallations.googleapis.com', 'www.googleapis.com', 'apis.google.com', 'accounts.google.com', 'firebase.googleapis.com'];
