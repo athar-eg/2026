@@ -2694,7 +2694,7 @@ return; const _0x451f02 = _0x172b05.filter(_0x52769e => !_0x52769e.used), _0x265
 function _0x25e6c2() { const _0x23c15a = _0x44037b, _0x5d7ab7 = _0x549713("#accBody"); if (!_0x553275) {
 _0x5d7ab7.innerHTML = "<div class=\"acc-empty\"><svg class=\"ic\"><use href=\"#i-user\"/></svg><h3 style=\"margin-bottom:8px\">مرحباً بك في أثر</h3><p style=\"color:var(--text-2);margin-bottom:20px;font-size:15px;line-height:1.9\">سجّل دخولك لتتابع طلباتك وتقييماتك، وتحصل على أكواد الخصم.</p><button class=\"btn btn-gold\" type=\"button\" data-act=\"login\" style=\"width:100%;justify-content:center\">تسجيل الدخول</button></div>";
 return;
-} const _0x56ebb7 = _0x471650(), _0x48b037 = _0x553275.providerData.some(_0x314bc1 => _0x314bc1.providerId === "password"), _0x3638d7 = _0x553275.providerData.some(_0x2e908d => _0x2e908d.providerId === "google.com"), _0x2f1eb6 = _0x1794b6 || {}; _0x5d7ab7.innerHTML = "<div class=\"acc-hero\">\n    <div class=\"acc-av-wrap\"><span class=\"orb-dot\" aria-hidden=\"true\"></span><div class=\"acc-av-lg\" id=\"accAvBig\">" + _0x1df94c() + "</div>\n      <button class=\"av-cam\" type=\"button\" data-act=\"pickphoto\" aria-label=\"تغيير الصورة\">" + _0x3d4c17('camera') + "</button>" + (_0x3d0b0a() ? '<button\x20class=\x22av-del\x22\x20type=\x22button\x22\x20data-act=\x22rmphoto\x22\x20aria-label=\x22إزالة\x20الصورة\x22>' + _0x3d4c17("trash") + "</button>" : '') + "<input type=\"file\" id=\"accFile\" accept=\"image/*\" hidden></div>\n    <h3>" + _0x447f33(_0x56ebb7) + "</h3><p>" + _0x447f33(_0x553275.email || '') + "</p>\n    <div class=\"acc-badges\">\n      <span class=\"acc-badge\">" + _0x3d4c17(_0x553275.emailVerified ? "check" : "clock") + (_0x553275.emailVerified ? "بريد موثّق" : 'بريد\x20غير\x20موثّق') + "</span>\n      " + (_0x3638d7 ? "<span class=\"acc-badge\">حساب جوجل</span>" : '') + (_0x48b037 ? "<span class=\"acc-badge\">بريد وكلمة مرور</span>" : '') + '\x0a\x20\x20\x20\x20\x20\x20' + (_0x232473 ? "<span class=\"acc-badge\">" + _0x3d4c17("shield") + "مشرف</span>" : '') + '\x0a\x20\x20\x20\x20</div>\x0a\x20\x20</div>\x0a\x20\x20<div\x20class=\x22acc-body\x22>\x0a\x20\x20\x20\x20<div\x20class=\x22acc-h\x22>' + _0x3d4c17('user') + 'بياناتي</div>\x0a\x20\x20\x20\x20<div\x20class=\x22gf-grid\x22>\x0a\x20\x20\x20\x20\x20\x20<label\x20class=\x22gf\x22><span\x20class=\x22gf-l\x22>' + _0x3d4c17("user") + 'الاسم\x20الكامل</span><input\x20id=\x22pfName\x22\x20maxlength=\x2260\x22\x20autocomplete=\x22name\x22\x20value=\x22' + _0x447f33(_0x2f1eb6.name || _0x553275.displayName || '') + "\" placeholder=\"اكتب اسمك\"></label>\n      <label class=\"gf\"><span class=\"gf-l\">" + _0x3d4c17("clock") + "تاريخ الميلاد</span><input id=\"pfBirth\" type=\"date\" max=\"" + new Date().toISOString().slice(0x0, 0xa) + '\x22\x20min=\x221930-01-01\x22\x20value=\x22' + _0x447f33(_0x2f1eb6.birth || '') + "\"></label>\n      <label class=\"gf\"><span class=\"gf-l\">" + _0x3d4c17("globe") + "الدولة</span><select id=\"pfCountry\">" + _0x90235b(_0x2f1eb6.country || '') + "</select></label>\n      <div class=\"gf\"><span class=\"gf-l\">" + _0x3d4c17("whatsapp") + "رقم الواتساب الأساسي</span><input id=\"pfPhone\" type=\"tel\" inputmode=\"tel\" dir=\"ltr\" autocomplete=\"tel\" value=\"" + _0x447f33(_0x2f1eb6.phone || '') + "\" placeholder=\"01xxxxxxxxx\"><small class=\"gf-h\">هذا رقمك الأساسي، ويجب أن يكون عليه واتساب.</small></div>\n      <div class=\"gf\"><span class=\"gf-l\">" + _0x3d4c17("phone") + "رقم آخر <em>(اختياري)</em></span><input id=\"pfPhone2\" type=\"tel\" inputmode=\"tel\" dir=\"ltr\" value=\"" + _0x447f33(_0x2f1eb6.phone2 || '') + '\x22\x20placeholder=\x22اختياري\x22></div>\x0a\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20<button\x20class=\x22btn\x20btn-gold\x22\x20type=\x22button\x22\x20data-act=\x22saveprofile\x22\x20style=\x22width:100%;justify-content:center;margin-top:12px\x22>' + _0x3d4c17("check") + "حفظ بياناتي</button>\n    <div class=\"msg\" id=\"accMsg\" role=\"status\"></div>\n    " + (_0x232473 ? '' : "<div class=\"acc-h\">" + _0x3d4c17("award") + "كوبونات الخصم</div>\n    <div id=\"accCodes\"></div>") + "\n    <div class=\"acc-stats\">\n      " + (_0x232473 ? '' : "<div class=\"acc-stat\"><b id=\"accRevN\">...</b><span>تقييماتي</span></div>") + '\x0a\x20\x20\x20\x20\x20\x20<div\x20class=\x22acc-stat\x22><b\x20class=\x22dt\x22>' + _0x447f33(_0x3a7c30(_0x553275.metadata && _0x553275.metadata.creationTime) || '-') + "</b><span>تاريخ الانضمام</span></div>\n      <div class=\"acc-stat\"><b class=\"dt\">" + _0x447f33(_0x3a7c30(_0x553275.metadata && _0x553275.metadata.lastSignInTime) || '-') + '</b><span>آخر\x20دخول</span></div>\x0a\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20' + (_0x232473 ? '' : "<div class=\"acc-h\">" + _0x3d4c17("star") + "تقييماتي</div>\n    <div id=\"accRevs\"><div class=\"skeleton\" style=\"height:64px\"></div></div>") + '\x0a\x20\x20\x20\x20<div\x20class=\x22acc-h\x22>' + _0x3d4c17("user") + 'إدارة\x20الحساب</div>\x0a\x20\x20\x20\x20<div\x20class=\x22acc-actions\x22>\x0a\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn\x20btn-gold\x22\x20type=\x22button\x22\x20data-act=\x22review\x22>' + _0x3d4c17('star') + "أضف تقييماً</button>\n      " + (_0x1b1170 ? "<a class=\"btn btn-glass\" href=\"https://wa.me/" + _0x1b1170 + "\" target=\"_blank\" rel=\"noopener\">" + _0x3d4c17("whatsapp") + "تواصل معنا</a>" : '') + "\n      " + (_0x48b037 ? "<button class=\"btn btn-glass\" type=\"button\" data-act=\"reset\">" + _0x3d4c17("lock") + "تغيير كلمة المرور</button>" : '') + "\n      " + (!_0x553275.emailVerified && _0x48b037 ? "<button class=\"btn btn-glass\" type=\"button\" data-act=\"resend\">" + _0x3d4c17("check") + "إرسال رابط التوثيق</button>" : '') + "\n    </div>\n    " + (_0x232473 ? "<a class=\"btn btn-gold\" href=\"admin.html\" style=\"width:100%;justify-content:center;margin-top:12px\">" + _0x3d4c17("shield") + 'لوحة\x20الإدارة</a>' : '') + "\n    <button class=\"btn btn-glass\" type=\"button\" data-act=\"logout\" style=\"width:100%;justify-content:center;margin-top:12px\">" + _0x3d4c17("logout") + "تسجيل الخروج</button>\n    <div class=\"acc-danger\"><p>حذف الحساب إجراء نهائي، وسيُحذف معه كل تقييماتك وبياناتك، ولن تتمكن من استعادة أي كود خصم.</p>\n      <button class=\"btn btn-burg\" type=\"button\" data-act=\"delete\" style=\"width:100%;justify-content:center\">" + _0x3d4c17("trash") + "حذف حسابي</button></div>\n  </div>"; {
+} const _0x56ebb7 = _0x471650(), _0x48b037 = _0x553275.providerData.some(_0x314bc1 => _0x314bc1.providerId === "password"), _0x3638d7 = _0x553275.providerData.some(_0x2e908d => _0x2e908d.providerId === "google.com"), _0x2f1eb6 = _0x1794b6 || {}; _0x5d7ab7.innerHTML = "<div class=\"acc-hero\">\n    <div class=\"acc-av-wrap\"><span class=\"orb-dot\" aria-hidden=\"true\"></span><div class=\"acc-av-lg\" id=\"accAvBig\">" + _0x1df94c() + "</div>\n      <button class=\"av-cam\" type=\"button\" data-act=\"pickphoto\" aria-label=\"تغيير الصورة\">" + _0x3d4c17('camera') + "</button>" + (_0x3d0b0a() ? '<button\x20class=\x22av-del\x22\x20type=\x22button\x22\x20data-act=\x22rmphoto\x22\x20aria-label=\x22إزالة\x20الصورة\x22>' + _0x3d4c17("trash") + "</button>" : '') + "<input type=\"file\" id=\"accFile\" accept=\"image/*\" hidden></div>\n    <h3>" + _0x447f33(_0x56ebb7) + "</h3><p>" + _0x447f33(_0x553275.email || '') + "</p>\n    <div class=\"acc-badges\">\n      <span class=\"acc-badge\">" + _0x3d4c17(_0x553275.emailVerified ? "check" : "clock") + (_0x553275.emailVerified ? "بريد موثّق" : 'بريد\x20غير\x20موثّق') + "</span>\n      " + (_0x3638d7 ? "<span class=\"acc-badge\"><svg class=\"gg\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z\"/></svg>حساب جوجل</span>" : '') + (_0x48b037 ? "<span class=\"acc-badge\">بريد وكلمة مرور</span>" : '') + '\x0a\x20\x20\x20\x20\x20\x20' + (_0x232473 ? "<span class=\"acc-badge\">" + _0x3d4c17("shield") + "مشرف</span>" : '') + '\x0a\x20\x20\x20\x20</div>\x0a\x20\x20</div>\x0a\x20\x20<div\x20class=\x22acc-body\x22>\x0a\x20\x20\x20\x20<div\x20class=\x22acc-h\x22>' + _0x3d4c17('user') + 'بياناتي</div>\x0a\x20\x20\x20\x20<div\x20class=\x22gf-grid\x22>\x0a\x20\x20\x20\x20\x20\x20<label\x20class=\x22gf\x22><span\x20class=\x22gf-l\x22>' + _0x3d4c17("user") + 'الاسم\x20الكامل</span><input\x20id=\x22pfName\x22\x20maxlength=\x2260\x22\x20autocomplete=\x22name\x22\x20value=\x22' + _0x447f33(_0x2f1eb6.name || _0x553275.displayName || '') + "\" placeholder=\"اكتب اسمك\"></label>\n      <label class=\"gf\"><span class=\"gf-l\">" + _0x3d4c17("clock") + "تاريخ الميلاد</span><input id=\"pfBirth\" type=\"date\" max=\"" + new Date().toISOString().slice(0x0, 0xa) + '\x22\x20min=\x221930-01-01\x22\x20value=\x22' + _0x447f33(_0x2f1eb6.birth || '') + "\"></label>\n      <label class=\"gf\"><span class=\"gf-l\">" + _0x3d4c17("globe") + "الدولة</span><select id=\"pfCountry\">" + _0x90235b(_0x2f1eb6.country || '') + "</select></label>\n      <div class=\"gf\"><span class=\"gf-l\">" + _0x3d4c17("whatsapp") + "رقم الواتساب الأساسي</span><input id=\"pfPhone\" type=\"tel\" inputmode=\"tel\" dir=\"ltr\" autocomplete=\"tel\" value=\"" + _0x447f33(_0x2f1eb6.phone || '') + "\" placeholder=\"01xxxxxxxxx\"><small class=\"gf-h\">هذا رقمك الأساسي، ويجب أن يكون عليه واتساب.</small></div>\n      <div class=\"gf\"><span class=\"gf-l\">" + _0x3d4c17("phone") + "رقم آخر <em>(اختياري)</em></span><input id=\"pfPhone2\" type=\"tel\" inputmode=\"tel\" dir=\"ltr\" value=\"" + _0x447f33(_0x2f1eb6.phone2 || '') + '\x22\x20placeholder=\x22اختياري\x22></div>\x0a\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20<button\x20class=\x22btn\x20btn-gold\x22\x20type=\x22button\x22\x20data-act=\x22saveprofile\x22\x20style=\x22width:100%;justify-content:center;margin-top:12px\x22>' + _0x3d4c17("check") + "حفظ بياناتي</button>\n    <div class=\"msg\" id=\"accMsg\" role=\"status\"></div>\n    " + (_0x232473 ? '' : "<div class=\"acc-h\">" + _0x3d4c17("award") + "كوبونات الخصم</div>\n    <div id=\"accCodes\"></div>") + "\n    <div class=\"acc-stats\">\n      " + (_0x232473 ? '' : "<div class=\"acc-stat\"><b id=\"accRevN\">...</b><span>تقييماتي</span></div>") + '\x0a\x20\x20\x20\x20\x20\x20<div\x20class=\x22acc-stat\x22><b\x20class=\x22dt\x22>' + _0x447f33(_0x3a7c30(_0x553275.metadata && _0x553275.metadata.creationTime) || '-') + "</b><span>تاريخ الانضمام</span></div>\n      <div class=\"acc-stat\"><b class=\"dt\">" + _0x447f33(_0x3a7c30(_0x553275.metadata && _0x553275.metadata.lastSignInTime) || '-') + '</b><span>آخر\x20دخول</span></div>\x0a\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20' + (_0x232473 ? '' : "<div class=\"acc-h\">" + _0x3d4c17("star") + "تقييماتي</div>\n    <div id=\"accRevs\"><div class=\"skeleton\" style=\"height:64px\"></div></div>") + '\x0a\x20\x20\x20\x20<div\x20class=\x22acc-h\x22>' + _0x3d4c17("user") + 'إدارة\x20الحساب</div>\x0a\x20\x20\x20\x20<div\x20class=\x22acc-actions\x22>\x0a\x20\x20\x20\x20\x20\x20<button\x20class=\x22btn\x20btn-gold\x22\x20type=\x22button\x22\x20data-act=\x22review\x22>' + _0x3d4c17('star') + "أضف تقييماً</button>\n      " + (_0x1b1170 ? "<a class=\"btn btn-glass\" href=\"https://wa.me/" + _0x1b1170 + "\" target=\"_blank\" rel=\"noopener\">" + _0x3d4c17("whatsapp") + "تواصل معنا</a>" : '') + "\n      " + (_0x48b037 ? "<button class=\"btn btn-glass\" type=\"button\" data-act=\"reset\">" + _0x3d4c17("lock") + "تغيير كلمة المرور</button>" : '') + "\n      " + (!_0x553275.emailVerified && _0x48b037 ? "<button class=\"btn btn-glass\" type=\"button\" data-act=\"resend\">" + _0x3d4c17("check") + "إرسال رابط التوثيق</button>" : '') + "\n    </div>\n    " + (_0x232473 ? "<a class=\"btn btn-gold\" href=\"admin.html\" style=\"width:100%;justify-content:center;margin-top:12px\">" + _0x3d4c17("shield") + 'لوحة\x20الإدارة</a>' : '') + "\n    <button class=\"btn btn-glass\" type=\"button\" data-act=\"logout\" style=\"width:100%;justify-content:center;margin-top:12px\">" + _0x3d4c17("logout") + "تسجيل الخروج</button>\n    <div class=\"acc-danger\"><p>حذف الحساب إجراء نهائي، وسيُحذف معه كل تقييماتك وبياناتك، ولن تتمكن من استعادة أي كود خصم.</p>\n      <button class=\"btn btn-burg\" type=\"button\" data-act=\"delete\" style=\"width:100%;justify-content:center\">" + _0x3d4c17("trash") + "حذف حسابي</button></div>\n  </div>"; {
 const _0x115292 = _0x1794b6 && _0x1794b6.country || 'EG', _0x3bc661 = _0x549713("#pfPhone"), _0x258593 = _0x549713("#pfPhone2");
 _0xa13308(_0x3bc661, _0x115292), _0xa13308(_0x258593, _0x115292), _0xa63f14(_0x3bc661, _0x1794b6 && _0x1794b6.phone || ''), _0xa63f14(_0x258593, _0x1794b6 && _0x1794b6.phone2 || '');
 const _0x3454ab = _0x549713("#pfCountry");
@@ -3230,26 +3230,18 @@ if(new URLSearchParams(location.search).get('f'))route();
 var CUR={EGP:'ج.م',SAR:'ر.س'},CNT={EG:'مصر',SA:'السعودية',AE:'الإمارات',KW:'الكويت',QA:'قطر',BH:'البحرين',OM:'عُمان',JO:'الأردن',LB:'لبنان',IQ:'العراق',LY:'ليبيا',SD:'السودان',DZ:'الجزائر',MA:'المغرب',TN:'تونس',PS:'فلسطين',YE:'اليمن',SY:'سوريا'};
 var css=document.createElement('style');
 css.textContent=[
-'.fin-box{margin:14px 0 4px;padding:14px 16px;border-radius:20px;border:1px solid var(--line,rgba(127,127,127,.25));background:rgba(var(--gold-rgb,221,162,84),.08);text-align:right}.fin-box h4{font-family:Cairo;margin:0 0 10px}',
-'.fin-r{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-radius:14px;background:rgba(127,127,127,.1)}.fin-r small{opacity:.75;font-size:12.5px}.fin-r b{font-family:Cairo;font-size:17px}.fin-r.pen b{color:#c2415f}.fin-r.ok b{color:#1c9a5e}.fin-r.cr b{color:#2b7de9}',
-'.fin-go{margin-top:10px;width:100%;border:0;border-radius:14px;padding:11px;font:inherit;font-weight:700;cursor:pointer;color:#fff;background:linear-gradient(135deg,#8d2c45,#581825)}',
-'.me-page{position:fixed;inset:0;z-index:9500;background:var(--bg,#fff);color:var(--text,#222);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;opacity:0;transform:translate3d(0,14px,0);visibility:hidden;transition:opacity .22s ease,transform .26s cubic-bezier(.2,.8,.2,1),visibility 0s .26s;direction:rtl;font-family:inherit}',
-'.me-page.on{opacity:1;transform:none;visibility:visible;transition:opacity .22s ease,transform .26s cubic-bezier(.2,.8,.2,1)}',
-'.me-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg,#fff);border-bottom:1px solid var(--line,rgba(127,127,127,.2))}.me-bar b{flex:1;font-family:Cairo;font-size:17px}',
-'.me-x{width:38px;height:38px;border-radius:50%;border:1px solid var(--line,rgba(127,127,127,.3));background:transparent;color:inherit;cursor:pointer;display:grid;place-items:center;font-size:18px;padding:0}',
-'.me-in{max-width:760px;margin:0 auto;padding:14px 14px 40px}',
-'.me-card{border:1px solid var(--line,rgba(127,127,127,.22));border-radius:20px;background:var(--glass,rgba(127,127,127,.06));padding:14px 16px;margin-bottom:12px}',
-'.me-top{display:flex;gap:14px;align-items:center}.me-av{width:64px;height:64px;border-radius:50%;overflow:hidden;flex:none;display:grid;place-items:center;background:linear-gradient(135deg,#8d2c45,#581825);color:#fff;font-family:Cairo;font-size:26px;font-weight:800}.me-av img{width:100%;height:100%;object-fit:cover}',
-'.me-top h2{margin:0 0 4px;font-family:Cairo;font-size:20px;line-height:1.3}.me-id{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted,#888)}.me-id b{font-family:Cairo;direction:ltr;color:var(--text,#222);font-size:13px}',
-'.me-rem{display:flex;align-items:center;justify-content:space-between;gap:10px}.me-rem small{display:block;color:var(--muted,#888);font-size:13px}.me-rem b{font-family:Cairo;font-size:24px}.me-rem.pen b{color:#c2415f}.me-rem.ok b{color:#1c9a5e}.me-rem.cr b{color:#2b7de9}.me-rem .tag{font-size:12.5px;padding:3px 12px;border-radius:999px;background:rgba(127,127,127,.14)}',
-'.me-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px}.me-f{min-width:0}.me-f small{display:block;color:var(--muted,#888);font-size:12px;margin-bottom:2px}.me-f .v{display:flex;align-items:center;gap:6px;font-size:14.5px;min-width:0}.me-f .v span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.me-f .ltr{direction:ltr;unicode-bidi:isolate;font-family:Cairo;font-weight:700}.me-f.w{grid-column:1/-1}',
-'.me-cp{width:24px;height:24px;border-radius:8px;border:1px solid var(--line,rgba(127,127,127,.3));background:transparent;color:var(--muted,#888);cursor:pointer;display:inline-grid;place-items:center;padding:0;flex:none}.me-cp svg{width:13px;height:13px}',
-'.me-h{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 8px}.me-h h3{margin:0;font-family:Cairo;font-size:17px}',
-'.me-mv{display:flex;align-items:center;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line,rgba(127,127,127,.18));font-size:14px}.me-mv:last-child{border-bottom:0}.me-mv .d{flex:0 0 auto;color:var(--muted,#888);font-size:12px;min-width:74px}.me-mv .n{flex:1;min-width:0}.me-mv .n b{display:block;font-weight:700}.me-mv .n small{color:var(--muted,#888);font-size:12px}.me-mv .a{font-family:Cairo;font-weight:800;white-space:nowrap}.me-mv .a.u{color:#c2415f}.me-mv .a.dn{color:#1c9a5e}.me-mv .b{flex:0 0 auto;font-size:11.5px;color:var(--muted,#888);white-space:nowrap}',
-'.me-act{display:flex;gap:8px;flex-wrap:wrap}.me-act button{flex:1 1 140px;border:0;border-radius:14px;padding:12px;font:inherit;font-weight:700;cursor:pointer;color:#fff;background:linear-gradient(135deg,#8d2c45,#581825)}.me-act button.g{background:transparent;color:inherit;border:1px solid var(--line,rgba(127,127,127,.35))}',
-'.me-empty{padding:18px 6px;text-align:center;color:var(--muted,#888)}',
-'@media(max-width:520px){.me-mv .d{min-width:0;flex:0 0 52px}.me-mv .b{display:none}.me-in{padding:10px 10px 36px}}',
-'@media(prefers-reduced-motion:reduce){.me-page,.me-page.on{transition:none}}',
+'.fin-box{margin:4px 0 16px;padding:16px;border-radius:22px;border:1px solid var(--glass-border,rgba(127,127,127,.25));background:linear-gradient(160deg,rgba(141,44,69,.10),rgba(var(--gold-rgb,221,162,84),.10));text-align:right}',
+'.fin-h{display:flex;align-items:center;gap:8px;font-family:Cairo;font-weight:800;font-size:16px;margin:0 0 12px}.fin-h svg{width:1.1em;height:1.1em;color:var(--gold-ink,#8d2c45)}',
+'.fin-r{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-radius:18px;background:linear-gradient(135deg,#8d2c45,#581825);color:#fff;box-shadow:0 10px 26px rgba(88,24,37,.28)}.fin-r small{opacity:.85;font-size:13px}.fin-r b{font-family:Cairo;font-size:24px;line-height:1.2}.fin-r.ok{background:linear-gradient(135deg,#1c9a5e,#136f43)}.fin-r.cr{background:linear-gradient(135deg,#DDA254,#b97d2e);color:#2a1a1f}',
+'.fin-sub{margin:14px 2px 6px;font-family:Cairo;font-weight:700;font-size:14.5px;color:var(--text-2,inherit)}',
+'.fin-l{max-height:340px;overflow:auto;overscroll-behavior:contain;border-radius:14px;background:rgba(127,127,127,.07);padding:2px 12px}',
+'.fin-m{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line,rgba(127,127,127,.18));font-size:14px}.fin-m:last-child{border-bottom:0}.fin-m .d{flex:0 0 auto;min-width:70px;font-size:12px;opacity:.7}.fin-m .n{flex:1;min-width:0}.fin-m .n b{display:block;font-weight:700}.fin-m .n small{opacity:.7;font-size:12px}.fin-m .a{font-family:Cairo;font-weight:800;white-space:nowrap}.fin-m .a.u{color:#c2415f}.fin-m .a.dn{color:#1c9a5e}.fin-m .b{flex:0 0 auto;font-size:11.5px;opacity:.65;white-space:nowrap}',
+'.fin-e{opacity:.7;margin:0;padding:6px 2px}',
+'@media(max-width:520px){.fin-m .d{min-width:0;flex:0 0 52px}.fin-m .b{display:none}}',
+'#accModal.me-full{padding:0!important;align-items:stretch!important;justify-items:stretch!important}',
+'#accModal.me-full .acc-card{width:100%!important;max-width:none!important;height:100%!important;max-height:none!important;border-radius:0!important;overflow-y:auto;overscroll-behavior:contain}',
+'#accModal.me-full .acc-body{max-width:720px;margin-inline:auto}#accModal.me-full .acc-hero{padding-top:46px}',
+'.acc-badge svg.gg{width:1.2em;height:1.2em;margin-inline-end:5px;vertical-align:-.15em;fill:var(--gold,#DDA254)}',
 '@media(max-width:820px){:root{--gblur:12px;--gsat:140%}}'
 ].join('\n');
 document.head.appendChild(css);
@@ -3291,88 +3283,61 @@ function totals(M){var tot={};(M||[]).forEach(function(m){var t=tot[m.cur]||(tot
   var ow=[],cr=[],any=false;Object.keys(tot).forEach(function(k){var t=tot[k];any=true;var r=t.c-t.p;if(r>0.0001)ow.push(fmt(r)+' '+(CUR[k]||k));else if(r<-0.0001)cr.push(fmt(-r)+' '+(CUR[k]||k))});
   return{ow:ow.join(' + '),cr:cr.join(' + '),any:any}}
 
-/* ---------- الصفحة ---------- */
-var pg=null;
-function build(){
-  if(pg)return pg;
-  pg=document.createElement('div');pg.className='me-page';pg.id='mePage';pg.setAttribute('role','dialog');pg.setAttribute('aria-label','حسابي');
-  pg.innerHTML='<div class="me-bar"><button class="me-x" data-x aria-label="رجوع">&#10140;</button><b>حسابي</b></div><div class="me-in" id="meIn"></div>';
-  pg.addEventListener('click',function(e){
-    var c=e.target.closest('[data-cp]');if(c){copy(c.dataset.cp);return}
-    if(e.target.closest('[data-x]')){close();return}
-    if(e.target.closest('[data-edit]')){close(true);window.__athBypass=1;var b=document.getElementById('accBtn');b&&b.click();window.__athBypass=0}
-  });
-  document.body.appendChild(pg);return pg;
-}
-function paint(){
-  var u=user();if(!u||!pg)return;var p=S.prof||{},M=S.M,T=totals(M);
-  var name=p.name||u.displayName||'عميل أثر',photo=p.photo==='none'?'':(p.photo||p.googlePhoto||u.photoURL||'');
-  var f=function(l,v,cls,cp,w){return'<div class="me-f'+(w?' w':'')+'"><small>'+l+'</small><div class="v">'+(v?'<span class="'+(cls||'')+'">'+esc(v)+'</span>'+(cp?'<button class="me-cp" data-cp="'+esc(cp)+'" aria-label="نسخ">'+CP+'</button>':''):'<span style="color:var(--muted,#888)">—</span>')+'</div></div>'};
-  var rem;
-  if(M===null)rem='<div class="me-card"><div class="me-empty">جارٍ تحميل حسابك…</div></div>';
-  else if(!M.length)rem='<div class="me-card"><div class="me-empty">لا توجد حسابات أو فواتير على حسابك حتى الآن.</div></div>';
-  else rem='<div class="me-card"><div class="me-rem '+(T.cr?'cr':T.ow?'pen':'ok')+'"><div><small>'+(T.cr?'رصيد لك لدى أثر':'المتبقي عليك')+'</small><b>'+(T.cr||T.ow||'0')+'</b></div>'+(!T.cr&&!T.ow?'<span class="tag">تم السداد بالكامل ✓</span>':'')+'</div></div>';
-  var mv='';
-  if(M&&M.length)mv='<div class="me-card"><div class="me-h"><h3>الحركات المالية</h3></div>'+M.slice().reverse().map(function(m){
-    return'<div class="me-mv"><span class="d">'+esc(dstr(m.date))+'</span><div class="n"><b>'+lab(m)+'</b>'+(m.note&&m.note!==lab(m)?'<small>'+esc(m.note)+'</small>':'')+'</div><span class="a '+(m.type==='charge'?'u':'dn')+'">'+(m.type==='charge'?'+':'−')+fmt(m.amount)+' '+(CUR[m.cur]||m.cur)+'</span><span class="b">'+(m.bal<-0.0001?'رصيد: '+fmt(-m.bal):'المتبقي: '+fmt(m.bal))+'</span></div>'}).join('')+'</div>';
-  else if(M&&S.err)mv='<div class="me-card"><div class="me-empty">تعذر تحميل الحركات المالية الآن.</div></div>';
-  var ph1=p.phone||'',ph2=p.phone2||'';
-  document.getElementById('meIn').innerHTML=
-   '<div class="me-card"><div class="me-top"><div class="me-av">'+(photo?'<img src="'+esc(photo)+'" alt="" referrerpolicy="no-referrer">':esc((Array.from(name)[0]||'؟').toUpperCase()))+'</div><div style="min-width:0"><h2>'+esc(name)+'</h2><span class="me-id">ID <b>'+no(u.uid)+'</b><button class="me-cp" data-cp="'+no(u.uid)+'" aria-label="نسخ">'+CP+'</button></span></div></div></div>'+
-   rem+mv+
-   '<div class="me-card"><div class="me-h"><h3>بياناتي</h3></div><div class="me-grid">'+f('البريد الإلكتروني',u.email||p.email,'ltr',u.email||p.email,1)+f('رقم الهاتف',ph1,'ltr',ph1)+f('هاتف إضافي',ph2,'ltr',ph2)+f('الدولة',CNT[p.country]||p.country||'')+f('تاريخ الميلاد',p.birth||'','ltr')+f('عدد الطلبات',p.reqCount!=null?String(p.reqCount):'')+'</div></div>'+
-   '<div class="me-act"><button data-edit>تعديل بياناتي</button><button class="g" data-x>رجوع للموقع</button></div>';
-}
-var prevOv='';
-function show(){
-  var u=user();if(!u){window.__athBypass=1;var b=document.getElementById('accBtn');b&&b.click();window.__athBypass=0;return false}
-  build();
-  if(S.uid!==u.uid){S.uid=u.uid;S.prof=null;S.M=null;var c=readCache(u.uid);if(c){S.prof=c.prof;S.M=c.M}}
-  paint();
-  prevOv=document.documentElement.style.overflow;document.documentElement.style.overflow='hidden';
-  requestAnimationFrame(function(){pg.classList.add('on')});
-  if(Date.now()-S.last>15000)fetchAll(u.uid).then(function(){if(pg.classList.contains('on'))paint()});
-  return true;
-}
-function hide(){if(!pg)return;pg.classList.remove('on');document.documentElement.style.overflow=prevOv}
-function open(){
-  if(location.hash==='#account'){show();return}
-  if(!user()){show();return}
-  try{history.pushState({me:1},'','#account')}catch(e){location.hash='#account'}
-  show();
-}
-function close(quiet){
-  if(history.state&&history.state.me&&!quiet){history.back();return}
-  hide();if(location.hash==='#account'){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){location.hash=''}}
-}
-window.addEventListener('popstate',function(){if(location.hash==='#account')show();else hide()});
-document.addEventListener('click',function(e){
-  var b=e.target.closest&&e.target.closest('#accBtn');
-  if(b&&!window.__athBypass&&user()){e.preventDefault();e.stopImmediatePropagation();open();return}
-  var g=e.target.closest&&e.target.closest('[data-mepage]');if(g){e.preventDefault();var m=document.getElementById('accModal');if(m)m.classList.remove('open');document.body.style.overflow='';open()}
-},true);
-
-/* ---------- صندوق المتبقي داخل نافذة الحساب ---------- */
-function renderBox(host){
-  var old=document.getElementById('finBox');if(old)old.remove();
+/* ---------- صندوق الحساب المالي داخل صفحة الحساب ---------- */
+var ICO='<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M16 15h2"/></svg>';
+function box(){
   var T=totals(S.M),b=document.createElement('div');b.className='fin-box';b.id='finBox';
-  if(S.M===null)b.innerHTML='<h4>حسابي المالي</h4><p style="opacity:.7;margin:0">جارٍ التحميل…</p>';
-  else if(!S.M.length)b.innerHTML='<h4>حسابي المالي</h4><p style="opacity:.7;margin:0">لا توجد حسابات أو فواتير على حسابك حتى الآن.</p>';
-  else b.innerHTML='<h4>حسابي المالي</h4><div class="fin-r '+(T.cr?'cr':T.ow?'pen':'ok')+'"><small>'+(T.cr?'رصيد لك لدى أثر':'المتبقي عليك')+'</small><b>'+(T.cr||T.ow||'0')+'</b></div><button class="fin-go" type="button" data-mepage>الحركات المالية وصفحة حسابي</button>';
-  host.appendChild(b);
+  var h='<div class="fin-h">'+ICO+'حسابي المالي</div>';
+  if(S.M===null)h+='<p class="fin-e">جارٍ التحميل…</p>';
+  else if(!S.M.length)h+='<p class="fin-e">'+(S.err?'تعذر تحميل حسابك المالي الآن.':'لا توجد حسابات أو فواتير على حسابك حتى الآن.')+'</p>';
+  else{
+    h+='<div class="fin-r '+(T.cr?'cr':T.ow?'':'ok')+'"><div><small>'+(T.cr?'رصيد لك لدى أثر':T.ow?'المتبقي عليك':'تم سداد الحساب بالكامل')+'</small><b>'+(T.cr||T.ow||'0')+'</b></div></div>';
+    h+='<div class="fin-sub">الحركات المالية</div><div class="fin-l">'+S.M.slice().reverse().map(function(m){
+      return'<div class="fin-m"><span class="d">'+esc(dstr(m.date))+'</span><div class="n"><b>'+lab(m)+'</b>'+(m.note&&m.note!==lab(m)?'<small>'+esc(m.note)+'</small>':'')+'</div><span class="a '+(m.type==='charge'?'u':'dn')+'">'+(m.type==='charge'?'+':'−')+fmt(m.amount)+' '+(CUR[m.cur]||m.cur)+'</span><span class="b">'+(m.bal<-0.0001?'رصيد: '+fmt(-m.bal):'المتبقي: '+fmt(m.bal))+'</span></div>'}).join('')+'</div>';
+  }
+  b.innerHTML=h;return b;
 }
-function warm(){var u=user();if(!u)return Promise.resolve();if(S.uid!==u.uid){S.uid=u.uid;S.prof=null;S.M=null;var c=readCache(u.uid);if(c){S.prof=c.prof;S.M=c.M}}
-  if(Date.now()-S.last>15000)return fetchAll(u.uid);return Promise.resolve()}
-setInterval(function(){
-  var h=document.getElementById('accBody'),m=document.getElementById('accModal');
-  if(!h||!m||!h.children.length||!m.classList.contains('open'))return;
-  if(!document.getElementById('finBox')){var u=user();if(!u)return;if(S.uid!==u.uid||S.M===null){warm().then(function(){if(m.classList.contains('open')&&!document.getElementById('finBox'))renderBox(h)});renderBox(h)}else{renderBox(h);if(Date.now()-S.last>15000)warm().then(function(){var o=document.getElementById('finBox');if(o&&m.classList.contains('open'))renderBox(h)})}}
-},700);
-/* تسخين الكاش بعد تسجيل الدخول + فتح #account مباشرة */
+function sig(){return S.uid+'|'+(S.M===null?'n':S.M.length+':'+S.last)+'|'+(S.err?1:0)}
+function inject(){
+  var host=document.getElementById('accBody');if(!host||!user())return;
+  var body=host.querySelector('.acc-body');if(!body)return;
+  var old=document.getElementById('finBox');
+  if(old&&old.parentNode===body&&old.dataset.sig===sig())return;
+  var nb=box();nb.dataset.sig=sig();if(old)old.remove();body.insertBefore(nb,body.firstChild);
+}
+function ensure(){var u=user();if(!u)return Promise.resolve();
+  if(S.uid!==u.uid){S.uid=u.uid;S.prof=null;S.M=null;var c=readCache(u.uid);if(c){S.prof=c.prof;S.M=c.M}}
+  if(Date.now()-S.last>15000)return fetchAll(u.uid).then(inject);return Promise.resolve()}
+
+/* ---------- نافذة الحساب كصفحة كاملة برابط #account ---------- */
+var modal=document.getElementById('accModal'),host0=document.getElementById('accBody');
+try{if(history.state&&history.state.me)history.replaceState(null,'',location.href)}catch(e){}
+function isOpen(){return modal&&modal.classList.contains('open')}
+function sync(){
+  if(!modal)return;
+  if(isOpen()&&user()){
+    if(!modal.classList.contains('me-full'))modal.classList.add('me-full');
+    if(location.hash!=='#account'){try{history.pushState({me:1},'','#account')}catch(e){location.hash='#account'}}
+    ensure();inject();
+  }else if(!isOpen()){
+    if(modal.classList.contains('me-full'))modal.classList.remove('me-full');
+    if(location.hash==='#account'){if(history.state&&history.state.me)history.back();else{try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}}
+  }
+}
+if(modal){
+  new MutationObserver(sync).observe(modal,{attributes:true,attributeFilter:['class']});
+  if(host0)new MutationObserver(function(){if(isOpen())inject()}).observe(host0,{childList:true});
+  window.addEventListener('popstate',function(){
+    if(location.hash!=='#account'&&isOpen()){var x=modal.querySelector('[data-close]');x&&x.click()}
+    else if(location.hash==='#account'&&!isOpen()&&user()){var b=document.getElementById('accBtn');b&&b.click()}
+  });
+}
 var tries=0,t0=setInterval(function(){tries++;var u=user();
-  if(u){clearInterval(t0);var go=function(){warm().then(function(){if(pg&&pg.classList.contains('on'))paint()})};if(window.requestIdleCallback)requestIdleCallback(go,{timeout:3000});else setTimeout(go,1500);if(location.hash==='#account')show()}
+  if(u){clearInterval(t0);var go=function(){ensure()};if(window.requestIdleCallback)requestIdleCallback(go,{timeout:3000});else setTimeout(go,1500);
+    if(location.hash==='#account'&&!isOpen()){var b=document.getElementById('accBtn');b&&b.click()}}
   else if(tries>40){clearInterval(t0);if(location.hash==='#account'){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}}
 },400);
+setInterval(function(){if(isOpen()){sync();if(Date.now()-S.last>15000)ensure()}},1500);
 })();
 
 </script>
