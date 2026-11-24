@@ -2899,29 +2899,56 @@ return window.__athBn ? window.__athBn(_l, _0x1487ab) : _l;
 catch (e) {
 return _l;
 } }
-/* ===== كاش ذكي للزوار: 30 دقيقة في localStorage (0 قراءات Firestore خلال المدة) ===== */
-function _csn(key, ref, ok, err) {
-var K = 'athc:' + key, TTL = 30 * 60 * 1000, c = null;
-try { c = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) { c = null; }
-var ser = function (v) {
+/* ===== كاش ذكي: يُعرض فوراً من المتصفح، ويُحدَّث لحظياً عند أي تعديل من الأدمن (مستند settings/ver) ===== */
+var _CSREG = [], _csVerStarted = false, _csServed = false;
+window.__athVer = new Promise(function (r) { window.__athVerRes = r; });
+function _csClear() { try { for (var i = localStorage.length - 1; i >= 0; i--) { var k = localStorage.key(i); if (k && k.indexOf('athc:') === 0 && k !== 'athc:v') localStorage.removeItem(k); } } catch (e) { } }
+function _csSer(v) {
 if (v && typeof v.toMillis === 'function') return v.toMillis();
-if (Array.isArray(v)) return v.map(ser);
-if (v && typeof v === 'object') { var o = {}; Object.keys(v).forEach(function (k) { o[k] = ser(v[k]); }); return o; }
+if (Array.isArray(v)) return v.map(_csSer);
+if (v && typeof v === 'object') { var o = {}; Object.keys(v).forEach(function (k) { o[k] = _csSer(v[k]); }); return o; }
 return v;
-};
-var fake = function (x) {
+}
+function _csFake(x, key) {
 return x.q ? { docs: x.d.map(function (r) { return { id: r.id, data: function () { return r.v; } }; }), forEach: function (f) { this.docs.forEach(f); }, empty: !x.d.length, size: x.d.length }
 : { exists: x.e, id: key, data: function () { return x.v; } };
-};
-var fresh = c && c.t && (Date.now() - c.t) < TTL;
-if (c) { try { ok(fake(c)); } catch (e) { console.warn(e); } }
-if (fresh) return;
-ref.get().then(function (s) {
-var x = s.docs ? { q: 1, d: s.docs.map(function (d) { return { id: d.id, v: ser(d.data()) }; }) } : { e: s.exists, v: s.exists ? ser(s.data()) : null };
+}
+function _csFetch(it) {
+it.ref.get().then(function (s) {
+var x = s.docs ? { q: 1, d: s.docs.map(function (d) { return { id: d.id, v: _csSer(d.data()) }; }) } : { e: s.exists, v: s.exists ? _csSer(s.data()) : null };
 x.t = Date.now();
-try { localStorage.setItem(K, JSON.stringify(x)); } catch (e) { try { localStorage.removeItem(K); } catch (_) { } }
-ok(s);
-}, function (e) { if (!c && err) err(e); });
+try { localStorage.setItem('athc:' + it.key, JSON.stringify(x)); } catch (e) { try { localStorage.removeItem('athc:' + it.key); } catch (_) { } }
+it.ok(s);
+}, function (e) { if (!it.served && it.err) it.err(e); });
+}
+function _csStartVer(fs) {
+if (_csVerStarted) return; _csVerStarted = true;
+var first = true, stored = null;
+try { stored = localStorage.getItem('athc:v'); } catch (e) { }
+fs.doc('settings/ver').onSnapshot(function (s) {
+var v = String(s.exists ? (s.data().v || 0) : 0);
+if (first) {
+first = false;
+if (v !== stored && (stored !== null || _csServed)) { _csClear(); _CSREG.forEach(_csFetch); if (window.__athBust) window.__athBust(); }
+try { localStorage.setItem('athc:v', v); } catch (e) { }
+stored = v; window.__athVerRes();
+return;
+}
+if (v !== stored) {
+stored = v; try { localStorage.setItem('athc:v', v); } catch (e) { }
+_csClear(); _CSREG.forEach(_csFetch); if (window.__athBust) window.__athBust();
+}
+}, function () { first = false; window.__athVerRes(); });
+}
+function _csn(key, ref, ok, err) {
+var K = 'athc:' + key, c = null, it = { key: key, ref: ref, ok: ok, err: err, served: false };
+try { c = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) { c = null; }
+var hasVer = false; try { hasVer = localStorage.getItem('athc:v') !== null; } catch (e) { }
+var max = hasVer ? 24 * 3600 * 1000 : 30 * 60 * 1000;
+_CSREG.push(it);
+if (c && c.t && (Date.now() - c.t) < max) { it.served = true; _csServed = true; try { ok(_csFake(c, key)); } catch (e) { console.warn(e); } }
+else _csFetch(it);
+_csStartVer(ref.firestore);
 }
 function _0x1de5b0_o() { const _0x492d9a = _0x44037b; if (_0x1c1e41.bannersOn === ![])
 return []; const _0x545b9c = _0x1c1e41.removedBanners || [], _0xae2cc7 = _0x1c1e41.hiddenBanners || []; return _0x4601f1.filter(_0x8ca1d5 => !_0x545b9c.includes(_0x8ca1d5.id) && !_0xae2cc7.includes(_0x8ca1d5.id)).concat(_0x1487ab.filter(_0x29f291 => _0x29f291.img && _0x29f291.visible !== ![] && !_0xae2cc7.includes(_0x29f291.id)).map(_0x4cad5a => ({ id: _0x4cad5a.id, src: _0x4cad5a.img, alt: _0x4cad5a.alt || "بنر أثر" }))); }
@@ -2954,11 +2981,13 @@ function dbp(){return rp||(rp=new Promise(function(ok,no){var n=0,t=setInterval(
   else if(n>200){clearInterval(t);no(new Error('fb'))}},150)}))}
 function docs(s){return s.docs.map(function(d){var o=d.data();o.id=d.id;return o})}
 var byOrd=function(a,b){return(a.order||0)-(b.order||0)};
-var TTL=1800000;
+var TTL=864000000;
 function lc(k){try{var c=JSON.parse(localStorage.getItem('athc:'+k)||'null');if(c&&c.t&&Date.now()-c.t<TTL)return c.d}catch(e){}return null}
 function ls(k,d){try{localStorage.setItem('athc:'+k,JSON.stringify({t:Date.now(),d:d}))}catch(e){try{localStorage.removeItem('athc:'+k)}catch(_){}}}
 function plain(a){return a.map(function(o){var r={};Object.keys(o).forEach(function(k){var v=o[k];r[k]=(v&&typeof v.toMillis==='function')?v.toMillis():v});return r})}
-function folders(){if(F)return Promise.resolve(F);var c=lc('folders');if(c)return Promise.resolve(F=c);return dbp().then(function(d){return d.collection('folders').get()}).then(function(s){F=docs(s).sort(byOrd);ls('folders',plain(F));return F})}
+function folders(){if(F)return Promise.resolve(F);return (window.__athVer?Promise.race([window.__athVer,new Promise(function(r){setTimeout(r,2500)})]):Promise.resolve()).then(function(){var c=lc('folders');if(c)return F=c;return folders2()})}
+window.__athBust=function(){F=null;PC={}};
+function folders2(){return dbp().then(function(d){return d.collection('folders').get()}).then(function(s){F=docs(s).sort(byOrd);ls('folders',plain(F));return F})}
 function projects(fid){if(PC[fid])return Promise.resolve(PC[fid]);var c=lc('proj-'+fid);if(c)return Promise.resolve(PC[fid]=c);return dbp().then(function(d){return d.collection('projects').where('folderId','==',fid).get()}).then(function(s){PC[fid]=docs(s).sort(byOrd);ls('proj-'+fid,plain(PC[fid]));return PC[fid]})}
 function imgs(pid){var c=lc('imgs-'+pid);if(c)return Promise.resolve(c);return dbp().then(function(d){return d.collection('projects').doc(pid).collection('imgs').get()}).then(function(s){var r=docs(s).sort(byOrd);ls('imgs-'+pid,plain(r));return r})}
 
