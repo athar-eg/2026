@@ -3450,7 +3450,7 @@ function loadTx(){
   }).catch(function(e){console.error(e)});
 }
 window.__athCTrows=function(){return S.ctRows||[]};
-window.__athMig=function(id){return!!(S.mig&&S.mig[id])};
+window.__athMig=function(id){return!!S.ctSig};
 window.__athCT=function(cur){return(S.ct||[]).filter(function(r){return r.currency===cur})};
 window.__athCTload=function(){if(!S.loaded){var p=load();if(p&&p.catch)p.catch(function(){})}};
 function buildList(){
