@@ -1492,6 +1492,7 @@ html.mg-lock{overflow:hidden}
 .bn-dev-up{max-width:210px}
 .bn-hint{color:var(--text-2);font-size:13.5px;line-height:1.8;margin:0 0 12px}
 </style>
+<style>#p-users .tbl th:nth-child(6),#p-users .tbl td:nth-child(6){display:none}</style>
 </head>
 <body class="admin-page">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -2350,8 +2351,8 @@ function _0x3b9a1d(_0x42a6d5) { const _0x4ffa66 = _0x434fc3, _0x501163 = { sales
 _0x501163.paid += +_0x3f0924.collected || +_0x3f0924.total || 0x0;
 else
 _0x501163.deposit += +_0x3f0924.collected || 0x0; _0x501163.pending += +_0x3f0924.remaining || 0x0; }), _0x501163; }
-function _0x20f7b3() { const _0x26dce3 = _0x434fc3; if (!_0x3cce2f("#stHero"))
-return; const _0x1a7acc = _0x1bca8c[_0x150707.cur] || '', _0x59b6f9 = (_0x3e058d.manual || []).filter(_0x16805d => (_0x16805d.currency || "EGP") === _0x150707.cur).map(_0x109522 => (window.__athM && window.__athM(_0x109522) || { total: +_0x109522.amount || 0x0, collected: +_0x109522.amount || 0x0, remaining: 0x0, status: "paid", issuedAt: _0x109522.date || _0x109522.createdAt, _m: 0x1 })), _0x1cff73 = _0x3e058d.invoices.filter(_0x3ea48e => _0x3c925d(_0x3ea48e) === "active" && (_0x3ea48e.currency || "EGP") === _0x150707.cur).concat(_0x59b6f9), [_0x652d75, _0x4538a2] = _0x25ed11(), _0x574365 = _0x1cff73.filter(_0x5d815c => { const _0x162337 = _0x26dce3, _0x2d7d34 = _0x5a22b4(_0x5d815c.issuedAt || _0x5d815c.createdAt); return _0x2d7d34 >= _0x652d75 && _0x2d7d34 < _0x4538a2; }), _0x55fa8e = _0x3b9a1d(_0x1cff73), _0xbb326b = _0x3b9a1d(_0x574365), _0xf24077 = _0x3e058d.invoices.filter(_0x3cdea4 => _0x3c925d(_0x3cdea4) === "refunded").length, _0x26a6ce = _0x3e058d.invoices.filter(_0x35d3cc => _0x3c925d(_0x35d3cc) === "deleted").length, _0x23c2e6 = _0x1cff73.map(_0x507ae6 => _0x5a22b4(_0x507ae6.issuedAt || _0x507ae6.createdAt)).sort((_0x2a64f4, _0x318a30) => _0x2a64f4 - _0x318a30)[0x0]; _0x3cce2f('#stHero').innerHTML = '<div\x20class=\x22hero-orb\x22></div><small>إجمالي\x20المبيعات\x20منذ\x20البداية' + (_0x23c2e6 ? " — منذ " + _0x54ac35(_0x23c2e6).split('،')[0x0] : '') + "</small><b>" + _0x2cd6e8(_0x55fa8e.sales) + '\x20<em>' + _0x1a7acc + "</em></b><div class=\"hero-sub\"><span>المحصّل <i>" + _0x2cd6e8(_0x55fa8e.paid + _0x55fa8e.deposit) + '</i></span><span>المعلّق\x20<i>' + _0x2cd6e8(_0x55fa8e.pending) + "</i></span><span>" + _0x55fa8e.count + " فاتورة</span>" + (_0x59b6f9.length ? '<span>' + _0x59b6f9.length + " يدوية</span>" : '') + "</div>", _0x3cce2f("#stKpis").innerHTML = [["مبيعات الفترة", _0xbb326b.sales, "k-main"], ["مسدّد بالكامل", _0xbb326b.paid, "k-ok"], ["عربون مدفوع", _0xbb326b.deposit, "k-dep"], ["مبالغ معلّقة", _0xbb326b.pending, "k-pen"]].map(([_0x510669, _0x236cbe, _0x4d25a6]) => "<div class=\"kpi glass " + _0x4d25a6 + '\x22><small>' + _0x510669 + "</small><b>" + _0x2cd6e8(_0x236cbe) + '\x20<em>' + _0x1a7acc + '</em></b></div>').join('') + ("<div class=\"kpi glass\"><small>عدد فواتير الفترة</small><b>" + _0xbb326b.count + "</b></div><div class=\"kpi glass kpi-mute\"><small>مرتجعة / محذوفة (غير محسوبة)</small><b>" + _0xf24077 + " / " + _0x26a6ce + "</b></div>"); const _0x2bb559 = Math.min(_0x4538a2, new Date()) - Math.max(_0x652d75, _0x23c2e6 || _0x652d75), _0x4e5752 = _0x2bb559 / 0x5265c00, _0x11448f = _0x150707.range === 'today' || _0x150707.range === "month" || _0x150707.range === "custom" && _0x4e5752 <= 0x3e, _0x421d5c = new Map(); _0x574365.forEach(_0x2fce33 => { const _0x3baea5 = _0x26dce3, _0x5bec25 = _0x5a22b4(_0x2fce33.issuedAt || _0x2fce33.createdAt), _0x40f7ad = _0x11448f ? _0x256ae7(_0x5bec25) : _0x5bec25.getFullYear() + '-' + String(_0x5bec25.getMonth() + 0x1).padStart(0x2, '0'); _0x421d5c.set(_0x40f7ad, (_0x421d5c.get(_0x40f7ad) || 0x0) + (+_0x2fce33.total || 0x0)); }); let _0xdc89a6 = []; if (_0x150707.range === "month") {
+function _0x20f7b3() { window.__athSt = _0x20f7b3; if (window.__athCTload) window.__athCTload(); const _0x26dce3 = _0x434fc3; if (!_0x3cce2f("#stHero"))
+return; const _0x1a7acc = _0x1bca8c[_0x150707.cur] || '', _0x59b6f9 = (_0x3e058d.manual || []).filter(_0x16805d => (_0x16805d.currency || "EGP") === _0x150707.cur).map(_0x109522 => (window.__athM && window.__athM(_0x109522) || { total: +_0x109522.amount || 0x0, collected: +_0x109522.amount || 0x0, remaining: 0x0, status: "paid", issuedAt: _0x109522.date || _0x109522.createdAt, _m: 0x1 })), _0x1cff73 = _0x3e058d.invoices.filter(_0x3ea48e => _0x3c925d(_0x3ea48e) === "active" && (_0x3ea48e.currency || "EGP") === _0x150707.cur).concat(_0x59b6f9, window.__athCT ? window.__athCT(_0x150707.cur) : []), [_0x652d75, _0x4538a2] = _0x25ed11(), _0x574365 = _0x1cff73.filter(_0x5d815c => { const _0x162337 = _0x26dce3, _0x2d7d34 = _0x5a22b4(_0x5d815c.issuedAt || _0x5d815c.createdAt); return _0x2d7d34 >= _0x652d75 && _0x2d7d34 < _0x4538a2; }), _0x55fa8e = _0x3b9a1d(_0x1cff73), _0xbb326b = _0x3b9a1d(_0x574365), _0xf24077 = _0x3e058d.invoices.filter(_0x3cdea4 => _0x3c925d(_0x3cdea4) === "refunded").length, _0x26a6ce = _0x3e058d.invoices.filter(_0x35d3cc => _0x3c925d(_0x35d3cc) === "deleted").length, _0x23c2e6 = _0x1cff73.map(_0x507ae6 => _0x5a22b4(_0x507ae6.issuedAt || _0x507ae6.createdAt)).sort((_0x2a64f4, _0x318a30) => _0x2a64f4 - _0x318a30)[0x0]; _0x3cce2f('#stHero').innerHTML = '<div\x20class=\x22hero-orb\x22></div><small>إجمالي\x20المبيعات\x20منذ\x20البداية' + (_0x23c2e6 ? " — منذ " + _0x54ac35(_0x23c2e6).split('،')[0x0] : '') + "</small><b>" + _0x2cd6e8(_0x55fa8e.sales) + '\x20<em>' + _0x1a7acc + "</em></b><div class=\"hero-sub\"><span>المحصّل <i>" + _0x2cd6e8(_0x55fa8e.paid + _0x55fa8e.deposit) + '</i></span><span>المعلّق\x20<i>' + _0x2cd6e8(_0x55fa8e.pending) + "</i></span><span>" + _0x55fa8e.count + " فاتورة</span>" + (_0x59b6f9.length ? '<span>' + _0x59b6f9.length + " يدوية</span>" : '') + "</div>", _0x3cce2f("#stKpis").innerHTML = [["مبيعات الفترة", _0xbb326b.sales, "k-main"], ["مسدّد بالكامل", _0xbb326b.paid, "k-ok"], ["عربون مدفوع", _0xbb326b.deposit, "k-dep"], ["مبالغ معلّقة", _0xbb326b.pending, "k-pen"]].map(([_0x510669, _0x236cbe, _0x4d25a6]) => "<div class=\"kpi glass " + _0x4d25a6 + '\x22><small>' + _0x510669 + "</small><b>" + _0x2cd6e8(_0x236cbe) + '\x20<em>' + _0x1a7acc + '</em></b></div>').join('') + ("<div class=\"kpi glass\"><small>عدد فواتير الفترة</small><b>" + _0xbb326b.count + "</b></div><div class=\"kpi glass kpi-mute\"><small>مرتجعة / محذوفة (غير محسوبة)</small><b>" + _0xf24077 + " / " + _0x26a6ce + "</b></div>"); const _0x2bb559 = Math.min(_0x4538a2, new Date()) - Math.max(_0x652d75, _0x23c2e6 || _0x652d75), _0x4e5752 = _0x2bb559 / 0x5265c00, _0x11448f = _0x150707.range === 'today' || _0x150707.range === "month" || _0x150707.range === "custom" && _0x4e5752 <= 0x3e, _0x421d5c = new Map(); _0x574365.forEach(_0x2fce33 => { const _0x3baea5 = _0x26dce3, _0x5bec25 = _0x5a22b4(_0x2fce33.issuedAt || _0x2fce33.createdAt), _0x40f7ad = _0x11448f ? _0x256ae7(_0x5bec25) : _0x5bec25.getFullYear() + '-' + String(_0x5bec25.getMonth() + 0x1).padStart(0x2, '0'); _0x421d5c.set(_0x40f7ad, (_0x421d5c.get(_0x40f7ad) || 0x0) + (+_0x2fce33.total || 0x0)); }); let _0xdc89a6 = []; if (_0x150707.range === "month") {
 const _0x393db0 = new Date(_0x652d75.getFullYear(), _0x652d75.getMonth() + 0x1, 0x0).getDate();
 for (let _0xad9e56 = 0x1; _0xad9e56 <= _0x393db0; _0xad9e56++)
 _0xdc89a6.push(_0x652d75.getFullYear() + '-' + String(_0x652d75.getMonth() + 0x1).padStart(0x2, '0') + '-' + String(_0xad9e56).padStart(0x2, '0'));
@@ -3424,10 +3425,29 @@ function load(force){
     function A(id){return S.agg[id]||(S.agg[id]={EGP:{c:0,p:0,g:0,d:0},SAR:{c:0,p:0,g:0,d:0}})}
     S.clients.forEach(function(c){var a=A(c.id);CK.forEach(function(k){var g=+c['ch_'+k]||0,d=+c['ds_'+k]||0;a[k].g+=g;a[k].d+=d;a[k].c+=g-d;a[k].p+=+c['pd_'+k]||0})});
     S.inv.forEach(function(i){if((i.state||'active')!=='active')return;var a=A(i.clientId),k=i.currency||'EGP';a[k]=a[k]||{c:0,p:0,g:0,d:0};a[k].c+=+i.total||0;a[k].g+=+i.total||0;a[k].p+=i.status==='paid'?(+i.total||0):Math.max(+i.collected||0,+i.deposit||0)});
-    S.loaded=true;S.busy=null;buildList();
+    S.loaded=true;S.busy=null;buildList();loadTx();
   },function(e){S.busy=null;console.error(e);throw e});
   return S.busy;
 }
+/* ---------- حركات حسابات العملاء → الإحصائيات ---------- */
+function loadTx(){
+  return Promise.all(S.clients.map(function(c){return D().collection('clients').doc(c.id).collection('tx').get().then(function(sn){return sn.docs.map(function(d){return d.data()})},function(){return[]})})).then(function(arr){
+    var R=[];
+    arr.forEach(function(list){list.forEach(function(t){
+      if(t.srcId)return;
+      var a=+t.amount||0;if(!(a>0))return;
+      var cur=t.currency||'EGP',dt=t.date||t.createdAt;
+      if(t.type==='charge')R.push({total:a,collected:0,remaining:a,status:'pending',currency:cur,issuedAt:dt,_m:1});
+      else if(t.type==='discount')R.push({total:-a,collected:0,remaining:-a,status:'pending',currency:cur,issuedAt:dt,_m:1});
+      else if(t.type==='payment')R.push({total:0,collected:a,remaining:-a,status:t.kind==='dep'?'part':'paid',currency:cur,issuedAt:dt,_m:1});
+    })});
+    var sig=JSON.stringify(R.map(function(r){return[r.total,r.collected,r.remaining,r.currency]}));
+    var ch=sig!==S.ctSig;S.ct=R;S.ctSig=sig;
+    if(ch&&window.__athSt)window.__athSt();
+  }).catch(function(e){console.error(e)});
+}
+window.__athCT=function(cur){return(S.ct||[]).filter(function(r){return r.currency===cur})};
+window.__athCTload=function(){if(!S.loaded){var p=load();if(p&&p.catch)p.catch(function(){})}};
 function buildList(){
   var L=[];
   S.users.forEach(function(u){L.push({id:u.id,kind:'real',name:u.name||u.email||'عميل',phone:u.phone||'',email:u.email||'',disp:String(window.__athNo?window.__athNo(u.id):u.id.slice(0,6)),u:u})});
