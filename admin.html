@@ -3222,7 +3222,8 @@ window.__athStmt=function(r){try{r.html=paged(qrH(stmtBlock(r.html.replace(/<div
 /* ---------- حركات الدخل والمصروفات ---------- */
 function mv(cur){var a=A(),S=a.S,o=[];
   (S.invoices||[]).forEach(function(i){if(a.state(i)!=='active'||(i.currency||'EGP')!==cur)return;var c=a.calc(a.norm(i));o.push({d:a.toD(i.issuedAt||i.createdAt),c:c.collected})});
-  (S.manual||[]).forEach(function(m){if((m.currency||'EGP')!==cur)return;o.push({d:a.toD(m.date||m.createdAt),c:mc(m).c})});
+  if(window.__athMig&&window.__athMig()){(window.__athCTrows?window.__athCTrows():[]).forEach(function(r){if(r.cur===cur&&r.collected>0)o.push({d:new Date(r.t),c:r.collected})})}
+  else(S.manual||[]).forEach(function(m){if((m.currency||'EGP')!==cur)return;o.push({d:a.toD(m.date||m.createdAt),c:mc(m).c})});
   return o}
 function ex(cur){var a=A();return EXP.filter(function(e){return(e.currency||'EGP')===cur}).map(function(e){return{d:a.toD(e.date||e.createdAt),a:+e.amount||0}})}
 function per(p){var n=new Date();return[p==='all'?new Date(2000,0,1):p==='year'?new Date(n.getFullYear(),0,1):new Date(n.getFullYear(),n.getMonth(),1),new Date(n.getFullYear()+1,0,1)]}
